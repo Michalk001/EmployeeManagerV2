@@ -1,11 +1,12 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, FC, ReactDOM, ReactNode, useEffect, useState} from "react";
 import './style.scss'
 import {BoxWide} from "../../../utiles/box/Wide";
 import {Input, TypeInput} from "../../InputField";
 import {IUserNew} from "./duck/types";
 import {Button, typeButton, typeButtonAction} from "../../button";
 import {Fetch, Method} from "../../../utiles/Fetch";
-import config from '../../../utiles/config.json'
+
+
 
 const defaultUser:IUserNew ={
     firstName:"",
@@ -20,7 +21,7 @@ const defaultUser:IUserNew ={
 export const Create = () =>{
 
     const [user, setUser] = useState(defaultUser);
-
+    const [openSnackbar, setOpenSnackbar] = useState(false)
     const updateUserValue = (e:ChangeEvent<HTMLInputElement>) =>{
         setUser({...user,[e.target.name]:e.target.value})
     }
@@ -33,7 +34,8 @@ export const Create = () =>{
 
     const saveUser = async (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
-        await Fetch(`${config.API_URL}/auth/register`,Method.POST, {user:user});
+      //  await Fetch(`${config.API_URL}/auth/register`,Method.POST, {user:user});
+        setOpenSnackbar(true);
     }
 
     useEffect(() =>{
@@ -127,6 +129,7 @@ export const Create = () =>{
                 <Button label={`Zapisz`} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`admin-user__row--save-button-wrap`}/>
             </div>
             </form>
+
         </BoxWide>
     )
 }

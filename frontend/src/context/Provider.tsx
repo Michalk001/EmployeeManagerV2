@@ -3,7 +3,6 @@ import {InitAccountState } from "../components/account/duck/reducers";
 
 import {AppState, IStateContext} from "./types";
 import {rootReducer} from "./RootReducer";
-import { SnackbarProvider } from 'material-ui-snackbar-provider'
 
 
 
@@ -24,15 +23,14 @@ export const GlobalProvider:FC<props> = ({children}) =>{
     const [state,dispatch] = useReducer(rootReducer,InitialState )
 
     return(
-        <SnackbarProvider SnackbarProps={{ autoHideDuration: 4000 }}>
-            <GlobalContext.Provider
+        <GlobalContext.Provider
                 value={{
                     state,
                     dispatch
                 }}
             >
                 {children}
-            </GlobalContext.Provider>
-        </SnackbarProvider>
+        </GlobalContext.Provider>
+
     )
 }
