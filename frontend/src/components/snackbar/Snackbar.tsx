@@ -17,15 +17,15 @@ const Alert:FC<props> = (props) =>{
 interface  ISnackbar {
     text:string,
     isOpen:boolean,
-    onClose: (choose:boolean) => void,
+    onClose: () => void,
     hideDuration:number
     typeAlert:TypeAlert
 }
 export const Snackbar:FC<ISnackbar> = ({text,isOpen,onClose,hideDuration,typeAlert}) =>{
 
     return(
-        <MaterialSnack open={isOpen} onClose={() =>onClose(false)}  autoHideDuration={hideDuration}>
-            <Alert onClose={() =>onClose(false)} severity={typeAlert}>{text}</Alert>
+        <MaterialSnack open={isOpen} onClose={onClose}  autoHideDuration={hideDuration}>
+            <Alert onClose={onClose} severity={typeAlert}>{text}</Alert>
         </MaterialSnack>
     )
 

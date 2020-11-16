@@ -12,3 +12,10 @@ export interface IUser {
     lastName:string,
     username:string,
 }
+
+export interface IProjectList {
+    name:string,
+    employee:number,
+    status:string
+    id:string
+}

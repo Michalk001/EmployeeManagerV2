@@ -11,6 +11,7 @@ import {optionType} from "../../InputField/InputSelect";
 import {ValueType} from "react-select";
 import {Fetch, FetchGet, Method} from "../../../utiles/Fetch";
 import config from '../../../utiles/config.json'
+import {Snackbar, TypeAlert} from "../../snackbar";
 
 
 const defaultProjectValue: IProjectNew = {
@@ -24,7 +25,11 @@ export const Create = () =>{
     const [userOptionsSelect, setUserOptionsSelect] = useState<optionType[]>([])
     const [projectValue, setProjectValue] = useState<IProjectNew>(defaultProjectValue);
     const [selectUserValue, setSelectUserValue] = useState<optionType[]>([])
-
+    const [snackbarValue, setSnackbarValue] = useState({
+        text:"",
+        isOpen:false,
+        type:TypeAlert.info
+    })
 
     const getUser = async () =>{
         const res = await FetchGet(`${config.API_URL}/user/`);
@@ -57,12 +62,36 @@ export const Create = () =>{
 
     const saveProject = async (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
-        const res = await Fetch(`${config.API_URL}/project`,Method.POST, {project:projectValue})
-        console.log(res.status)
+        try{
+            const res = await Fetch(`${config.API_URL}/project`,Method.POST, {project:projectValue})
+            if (res.status === 201) {
+                setSnackbarValue({
+                    type: TypeAlert.success,
+                    isOpen: true,
+                    text: "Utworzono Projekt"
+                });
+                setProjectValue(defaultProjectValue);
+                return
+            }
+
+        }
+        catch (e) {
+            setSnackbarValue({
+                type: TypeAlert.error,
+                isOpen: true,
+                text: `${e.toString()}`
+            });
+            return
+        }
+        setSnackbarValue({
+            type: TypeAlert.error,
+            isOpen: true,
+            text: `Wystąpił nieznany błąd`
+        });
     }
 
      useEffect(() =>{
-            console.log(userOptionsSelect)
+
      },[userOptionsSelect,selectUserValue])
 
     useEffect(() =>{
@@ -108,6 +137,13 @@ export const Create = () =>{
                     classWrap={`admin-project__button-save-position`}
                 />
             </form>
+            <Snackbar
+                text={snackbarValue.text}
+                isOpen={snackbarValue.isOpen}
+                onClose={() => setSnackbarValue({...snackbarValue,isOpen: false})}
+                hideDuration={3000}
+                typeAlert={snackbarValue.type}
+            />
         </BoxWide>
     )
 }

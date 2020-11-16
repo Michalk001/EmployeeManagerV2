@@ -50,7 +50,6 @@ export const Register = async (req: Request, res: Response) =>{
     user.password = hashPassword(password);
     user.email = email;
     user.isAdmin = isAdmin
-    console.log(user)
     const userRepository = getRepository(User);
     try {
         await userRepository.save(user);

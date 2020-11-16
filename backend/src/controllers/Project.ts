@@ -42,3 +42,24 @@ export const saveProject = async (req:Request, res:Response) =>{
     }
     res.status(201).send();
 }
+
+export const getProjects = async (req:Request, res:Response) => {
+    const projectRepository = getRepository(Project)
+    try{
+        const projects = (await projectRepository.find({relations: ["users"]}))
+            .map(project =>{
+                return{
+                    name:project.name,
+                    id:project.id,
+                    employee: project.users.length,
+                    status: project.isRemove? "remove" : "active",
+                }
+            });
+        res.send(projects)
+    }
+    catch (e) {
+        res.status(401).send();
+        return
+    }
+
+}

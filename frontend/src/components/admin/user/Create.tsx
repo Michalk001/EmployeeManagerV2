@@ -1,11 +1,12 @@
-import React, {ChangeEvent, FC, ReactDOM, ReactNode, useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import './style.scss'
 import {BoxWide} from "../../../utiles/box/Wide";
 import {Input, TypeInput} from "../../InputField";
 import {IUserNew} from "./duck/types";
 import {Button, typeButton, typeButtonAction} from "../../button";
 import {Fetch, Method} from "../../../utiles/Fetch";
-
+import {Snackbar, TypeAlert} from "../../snackbar";
+import config from '../../../utiles/config.json'
 
 
 const defaultUser:IUserNew ={
@@ -21,7 +22,11 @@ const defaultUser:IUserNew ={
 export const Create = () =>{
 
     const [user, setUser] = useState(defaultUser);
-    const [openSnackbar, setOpenSnackbar] = useState(false)
+    const [snackbarValue, setSnackbarValue] = useState({
+        text:"",
+        isOpen:false,
+        type:TypeAlert.info
+    })
     const updateUserValue = (e:ChangeEvent<HTMLInputElement>) =>{
         setUser({...user,[e.target.name]:e.target.value})
     }
@@ -34,8 +39,39 @@ export const Create = () =>{
 
     const saveUser = async (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
-      //  await Fetch(`${config.API_URL}/auth/register`,Method.POST, {user:user});
-        setOpenSnackbar(true);
+        try {
+            const res = await Fetch(`${config.API_URL}/auth/register`, Method.POST, {user: user});
+            if (res.status === 201) {
+                setSnackbarValue({
+                    type: TypeAlert.success,
+                    isOpen: true,
+                    text: "Utworzono użytkownika"
+                });
+                setUser(defaultUser);
+                return
+            }
+            if (res.status === 409) {
+                setSnackbarValue({
+                    type: TypeAlert.warning,
+                    isOpen: true,
+                    text: "Nazwa zajęta"
+                });
+                return
+            }
+        }
+        catch (e) {
+            setSnackbarValue({
+                type: TypeAlert.error,
+                isOpen: true,
+                text: `${e.toString()}`
+            });
+            return
+        }
+        setSnackbarValue({
+            type: TypeAlert.error,
+            isOpen: true,
+            text: `Wystąpił nieznany błąd`
+        });
     }
 
     useEffect(() =>{
@@ -129,7 +165,13 @@ export const Create = () =>{
                 <Button label={`Zapisz`} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`admin-user__row--save-button-wrap`}/>
             </div>
             </form>
-
+            <Snackbar
+                text={snackbarValue.text}
+                isOpen={snackbarValue.isOpen}
+                onClose={() => setSnackbarValue({...snackbarValue,isOpen: false})}
+                hideDuration={3000}
+                typeAlert={snackbarValue.type}
+            />
         </BoxWide>
     )
 }
