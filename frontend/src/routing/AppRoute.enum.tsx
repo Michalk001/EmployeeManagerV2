@@ -4,5 +4,6 @@ export enum AppRoute {
     adminProjectNew = "/admin/project/new",
     adminProjectList = "/admin/project/list",
     adminUserNew = "/admin/user/new",
+    adminUserList = "/admin/user/list"
 
 }

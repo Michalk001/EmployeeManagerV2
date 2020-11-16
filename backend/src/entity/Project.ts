@@ -17,7 +17,7 @@ export class Project {
     @Column({default: false})
     isRemove:boolean;
 
-    @ManyToMany(() => User)
+    @ManyToMany(() => User, user => user.projects)
     @JoinTable()
     users:User[];
 

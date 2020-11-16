@@ -1,0 +1,25 @@
+{
+   "type": "mysql",
+   "host": "YOUT_HOST",
+   "port": 3306,
+   "username": "****",
+   "password": "****",
+   "database": "****",
+   "synchronize": true,
+   "logging": false,
+   "extra": { "insecureAuth": true },
+   "entities": [
+      "src/entity/**/*.ts"
+   ],
+   "migrations": [
+      "src/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "src/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+   }
+}

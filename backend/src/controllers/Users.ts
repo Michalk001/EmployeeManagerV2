@@ -10,12 +10,14 @@ export const getUsers = async (req:Request, res:Response) =>{
 
     let usersToSend:any [];
     try {
-        const users = await userRepository.find({ where: { isRemove:false } });
+        const users = await userRepository.find({relations: ["projects"]});
         usersToSend = users.map(user =>{
             return {
                 firstName: user.firstName,
                 lastName: user.lastName,
-                username: user.username
+                username: user.username,
+                projects: user.projects.length,
+                status: user.isRemove ? "inactive" : "active",
             }
         })
 

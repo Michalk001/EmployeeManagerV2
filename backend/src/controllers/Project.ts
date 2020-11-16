@@ -52,7 +52,7 @@ export const getProjects = async (req:Request, res:Response) => {
                     name:project.name,
                     id:project.id,
                     employee: project.users.length,
-                    status: project.isRemove? "remove" : "active",
+                    status: project.isRemove? "inactive" : "active",
                 }
             });
         res.send(projects)

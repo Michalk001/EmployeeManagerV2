@@ -7,3 +7,12 @@ export interface IUserNew {
     email:string
     isAdmin:boolean
 }
+
+export interface IUser {
+    firstName:string,
+    lastName:string,
+    username:string,
+    status:string
+    projects:number
+}
+
