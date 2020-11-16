@@ -1,0 +1,73 @@
+
+.account{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  &--login{
+    align-items: center;
+    height: 100%;;
+  }
+
+  &__container{
+    width: 400px;
+    padding: 25px;
+    background-color: #fff;
+  }
+  &__input-section{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 10px;
+    &::after{
+      content: '';
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      display: block;
+      background: #444444;
+      height: 1px;
+      left: 0;
+      right: 0;
+    }
+    &--require{
+      &::before{
+        content: '';
+        width: 100%;
+        height: 46px;
+        position: absolute;
+        background: rgba(247,139,139,0.50);
+        left: 0;
+        top: 0;
+      }
+    }
+
+  }
+  &__input{
+    font-size: 21px;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    z-index: 5;
+  }
+  &__ico-eye{
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    cursor: pointer;
+    z-index: 6;
+  }
+  &__button{
+    font-size: 19px;
+    padding: 3px 25px;
+    &--position{
+      display: flex;
+      justify-content: center;
+      padding: 15px 15px 0 15px;
+    }
+  }
+  &__label{
+
+  }
+}

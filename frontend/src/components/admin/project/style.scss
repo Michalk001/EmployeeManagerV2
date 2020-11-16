@@ -1,0 +1,15 @@
+.admin-project{
+  &__button-save-position{
+    display: flex;
+    justify-content: center;
+    padding: 15px 0 0 0;
+  }
+
+  &__field{
+    margin: 10px 10px;
+    &--description{
+      margin-top: 25px;
+    }
+  }
+
+}

@@ -1,0 +1,66 @@
+.admin-user{
+  &__field-wrap{
+    width: 300px;
+    margin: 0 10px;
+    position: relative;
+    &--select-admin{
+      width: 150px;
+    }
+  }
+
+  &__row{
+    display: flex;
+    margin: 20px 0;
+    flex-wrap: wrap;
+
+    &--save-button-wrap{
+      width: 100%;
+      justify-content: center;
+      display: flex;
+      margin-top: 30px;
+    }
+  }
+
+  &__radio-button{
+    cursor: pointer;
+    font-size: 19px;
+    &--title{
+      position: absolute;
+      top: -13px;
+      left: 20px;
+      background-color: #fff;
+      padding: 0 5px;
+      font-size: 16px;
+    }
+    &--wrap {
+      display: inline-flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+      padding: 13px 20px;
+      transition-duration: 0.5s;
+      outline: none;
+    }
+
+    &:hover {
+      color: #3a3838
+    }
+    &--active {
+      color: #31a8ff;
+      cursor: default;
+
+      &:hover {
+        color: #31a8ff
+      }
+    }
+    &--input{
+      position: absolute;
+      visibility: hidden;
+    }
+  }
+
+
+}

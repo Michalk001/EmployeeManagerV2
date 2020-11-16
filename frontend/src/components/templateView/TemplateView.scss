@@ -1,0 +1,13 @@
+
+.user{
+  background-color: #f1f1f1;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  &--container{
+    width: 1260px;
+    padding-top: 60px;
+    position: relative;
+  }
+}

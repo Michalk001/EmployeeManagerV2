@@ -1,0 +1,43 @@
+.input{
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 22px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding: 13px 10px;
+  transition-duration: 0.5s;
+  outline: none;
+
+  &--password{
+    padding-right: 30px;
+  }
+  &--textarea{
+    resize: none;
+    height: 300px;
+  }
+  &__label{
+    position: absolute;
+    top: -13px;
+    left: 20px;
+    background-color: #fff;
+    padding: 0 5px;
+    font-size: 16px;
+    &--normal{
+      position: relative;
+      left: 0;
+      top: 0;
+      line-height: 2;
+    }
+  }
+  &__wrap{
+    position: relative;
+  }
+  &__ico-eye{
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    cursor: pointer;
+    z-index: 6;
+  }
+
+}

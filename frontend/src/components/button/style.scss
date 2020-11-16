@@ -1,0 +1,62 @@
+$normal-color:#00bffd;
+$normal-hover-color:#008bfd;
+$normal-remove-color:#c82814;
+$normal-remove-hover-color:#9c1907;
+$normal-save-color:#00b314;
+$normal-save-hover-color:#007e0f;
+$normal-disable-color:#7d7d7d;
+
+
+.button {
+  background-color: $normal-color;
+  position: relative;
+  padding: 10px 10px;
+  text-align: center;
+  box-shadow: -3px 0px 9px 0px rgba(0, 0, 0, 0.36);
+  transition: background-color 0.3s ease;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  cursor: pointer;
+  display: inline-block;
+
+  &:focus{
+    outline: none;
+  }
+
+  &:hover {
+
+    background-color: $normal-hover-color;
+  }
+
+  &--remove {
+    background-color: $normal-remove-color;
+
+    &:hover {
+
+      background-color: $normal-remove-hover-color;
+    }
+  }
+
+  &--save {
+    background-color: $normal-save-color;
+
+    &:hover {
+
+      background-color: $normal-save-hover-color;
+    }
+  }
+
+  &--disabled {
+    background-color: $normal-disable-color;
+    cursor: not-allowed;
+
+    &:hover {
+
+      background-color: $normal-disable-color;
+    }
+  }
+
+
+}

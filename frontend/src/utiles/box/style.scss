@@ -1,0 +1,31 @@
+
+.box {
+  background-color: #fff;
+  width: 400px;
+  min-height: 60px;
+  padding: 20px 30px;
+  margin: 10px;
+  -webkit-box-shadow: -2px 4px 53px -7px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: -2px 4px 53px -7px rgba(0, 0, 0, 0.56);
+  box-shadow: -2px 4px 53px -7px rgba(0, 0, 0, 0.56);
+  position: relative;
+
+  &--wide {
+    width: 100%;
+
+    @media (max-width:768px) {
+      width: 100%;
+
+    }
+  }
+
+  &--medium {
+    width: 600px;
+
+    @media (max-width:768px) {
+      width: 100%;
+
+    }
+  }
+
+}
