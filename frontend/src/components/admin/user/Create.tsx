@@ -4,9 +4,11 @@ import {BoxWide} from "../../../utiles/box/Wide";
 import {Input, TypeInput} from "../../InputField";
 import {IUserNew} from "./duck/types";
 import {Button, typeButton, typeButtonAction} from "../../button";
+import {ISnackbarMultiAlert, Snackbar, SnackbarMultiAlert, TypeAlert,IAlertList} from "../../snackbar";
+import {ValidPassword} from "../../../utiles/valid";
 import {Fetch, Method} from "../../../utiles/Fetch";
-import {Snackbar, TypeAlert} from "../../snackbar";
-import config from '../../../utiles/config.json'
+import config from "../../../utiles/config.json"
+
 
 
 const defaultUser:IUserNew ={
@@ -27,6 +29,15 @@ export const Create = () =>{
         isOpen:false,
         type:TypeAlert.info
     })
+    const [alertList,setAlertList] = useState<ISnackbarMultiAlert>({
+        hideDuration:3000,
+        alertList:[],
+        isOpen:false,
+        typeAlert:TypeAlert.error,
+        onClose: () =>{ setAlertList({...alertList,isOpen:false})}
+    })
+
+
     const updateUserValue = (e:ChangeEvent<HTMLInputElement>) =>{
         setUser({...user,[e.target.name]:e.target.value})
     }
@@ -39,7 +50,17 @@ export const Create = () =>{
 
     const saveUser = async (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
-        try {
+        const resValid = ValidPassword(user.password,user.username)
+        if(resValid){
+            const alert:IAlertList[] = resValid.map(item => {
+                return {
+                    text: item.toString()
+                }
+            })
+            setAlertList({...alertList,isOpen:true,alertList:alert})
+        }
+
+       try {
             const res = await Fetch(`${config.API_URL}/auth/register`, Method.POST, {user: user});
             if (res.status === 201) {
                 setSnackbarValue({
@@ -171,6 +192,9 @@ export const Create = () =>{
                 onClose={() => setSnackbarValue({...snackbarValue,isOpen: false})}
                 hideDuration={3000}
                 typeAlert={snackbarValue.type}
+            />
+            <SnackbarMultiAlert
+                {...alertList}
             />
         </BoxWide>
     )

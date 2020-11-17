@@ -14,11 +14,12 @@ interface Iprops {
     name:string,
     labelName?:string
     type:TypeInput
+    showRequired?:false
 }
 
  const Input:FC<Iprops> = (props) =>{
 
-    const {classInput,id,name,value,onChange,placeholder,labelName,classWrap,type} = props
+    const {classInput,id,name,value,onChange,placeholder,labelName,classWrap,type,showRequired} = props
     const [showPassword, setShowPassword] = useState(false);
 
     const setType = (type: TypeInput):TypeInput =>{
@@ -33,7 +34,7 @@ interface Iprops {
         {labelName &&
             <label
                 htmlFor={id}
-                className={`input__label`}
+                className={`input__label ${showRequired ? `input__label--required` :``}`}
             >
                 {labelName}
             </label>
@@ -45,7 +46,7 @@ interface Iprops {
             value={value}
             onChange={onChange}
             placeholder={placeholder}
-            className={` ${classInput ? classInput : `input`} ${ type === TypeInput.password ? 'input--password' : ``}`}
+            className={` ${classInput ? classInput : `input`} ${showRequired ? `input--required` :``} ${ type === TypeInput.password ? 'input--password' : ``}`}
         />
         {
             type === TypeInput.password &&
