@@ -25,8 +25,8 @@ export const TitleRow:FC<{children:ReactNode}> = ({children}) =>{
     </Row>
 }
 
-export const LinkRow:FC<{children:ReactNode,path:string, keyID:string|number}> = ({children,path,keyID}) =>{
-    return <Link  to={path}  key={keyID} className={`list__row list__row--link`} >
+export const LinkRow:FC<{children:ReactNode,path:string}> = ({children,path}) =>{
+    return <Link  to={path}  className={`list__row list__row--link`} >
         {children}
     </Link>
 }

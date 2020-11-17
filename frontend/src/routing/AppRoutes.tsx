@@ -9,6 +9,7 @@ import {Login} from "../components/account/Login";
 import {CreateProject, ListProject} from "../components/admin/project";
 import {CreateUser,ListUser} from "../components/admin/user"
 import {UserProfile} from "../components/user/employee";
+import {ProjectProfile} from "../components/user/project";
 
 export const AppRoutes = () => {
     return (
@@ -19,7 +20,9 @@ export const AppRoutes = () => {
             <UserRoute Component={CreateUser} path={AppRoute.adminUserNew}  />
             <UserRoute Component={ListUser} path={AppRoute.adminUserList}  />
             <UserRoute Component={UserProfile} path={AppRoute.userProfileID} />
+            <UserRoute Component={ProjectProfile} path={AppRoute.projectProfileID} />
             <UserRoute Component={()=>{return <div>Hello World</div>}} path={AppRoute.homePage}  />
+
         </Switch>
     );
 };

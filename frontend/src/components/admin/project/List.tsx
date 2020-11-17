@@ -14,6 +14,7 @@ import {
     ListFilter, ListMessage
 } from "../../List";
 import {LinkRow} from "../../List/Row";
+import {AppRoute} from "../../../routing/AppRoute.enum";
 
 export const List = () =>{
 
@@ -53,7 +54,7 @@ export const List = () =>{
                 </ListTitleRow>
                 <ListBox>
                     {projectsFiltered.map(project =>(
-                        <LinkRow path={'/'} keyID={project.id} key={project.id}>
+                        <LinkRow path={`${AppRoute.projectProfile}/${project.id}`}  key={project.id}>
                              <ListCellWide value={project.name}/>
                              <ListCellNormal value={project.employee} />
                              <ListCellSmall value={getStatus(project.status)} />

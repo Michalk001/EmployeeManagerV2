@@ -2,14 +2,15 @@ import React, {useContext, useEffect, useState} from "react"
 import { useParams } from "react-router";
 import {BoxWide} from "../../../utiles/box/Wide";
 import "./style.scss"
-import { IUserProfile} from "../../admin/user/duck/types";
+import { IUserProfile} from "./types";
 import {FetchGet} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json"
 import {ProfileRedirect} from "../../common";
 import {GlobalContext} from "../../../context/Provider";
+import {AppRoute} from "../../../routing/AppRoute.enum";
 
 export const Profile = () =>{
-
+    let isMounted = React.useRef(false);
     const {id} = useParams<{id:string}>()
     const { state } = useContext(GlobalContext)
     const [user,setUser] = useState<IUserProfile|null>(null)
@@ -21,8 +22,12 @@ export const Profile = () =>{
     }
 
     useEffect(()=>{
-        getUser();
-    })
+        isMounted.current = true
+        if(isMounted.current) {
+            getUser();
+        }
+        return () =>{isMounted.current = false}
+    },[])
 
     return(
         <BoxWide>
@@ -50,7 +55,7 @@ export const Profile = () =>{
                     {user.projects.filter(project => !project.isRemove).map(project =>(
                         <ProfileRedirect
                             key={project.id}
-                            path={`/${project.id}`}
+                            path={`${AppRoute.projectProfile}/${project.id}`}
                             value={project.name}
                             isAdmin={state.accountState.userData ? state.accountState.userData.isAdmin : false }
                         />
@@ -67,7 +72,7 @@ export const Profile = () =>{
                     {user.projects.filter(project => project.isRemove).map(project =>(
                         <ProfileRedirect
                             key={project.id}
-                            path={`/${project.id}`}
+                            path={`${AppRoute.projectProfile}/${project.id}`}
                             value={project.name}
                             isAdmin={state.accountState.userData ? state.accountState.userData.isAdmin : false }
                         />

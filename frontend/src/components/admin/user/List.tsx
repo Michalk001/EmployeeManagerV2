@@ -60,7 +60,7 @@ export const List = () =>{
                 </ListTitleRow>
                 <ListBox>
                     {usersFiltered.map(user =>(
-                        <LinkRow key={user.username} path={`${AppRoute.userProfile}/${user.username}`} keyID={user.username}>
+                        <LinkRow key={user.username} path={`${AppRoute.userProfile}/${user.username}`}>
                             <ListCellWide value={user.name}/>
                             <ListCellNormal value={user.projects} />
                             <ListCellSmall value={getStatus(user.status)} />

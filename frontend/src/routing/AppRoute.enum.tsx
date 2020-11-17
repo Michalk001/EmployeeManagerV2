@@ -7,5 +7,7 @@ export enum AppRoute {
     adminUserList = "/admin/user/list",
     userProfile="/user",
     userProfileID="/user/:id",
+    projectProfile="/project",
+    projectProfileID="/project/:id",
 
 }

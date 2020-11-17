@@ -29,11 +29,12 @@ export const getUsers = async (req:Request, res:Response) =>{
 
 }
 
-export const GetUser = async (req:Request, res:Response) =>{
+export const getUser = async (req:Request, res:Response) =>{
     const id = req.params.id
     const userRepository = getRepository(User);
-    const user = await  userRepository.findOne({relations:["projects"],where:{username:id}});
+
     try{
+        const user = await  userRepository.findOne({relations:["projects"],where:{username:id}});
         if(!user){
             res.status(404).send();
             return

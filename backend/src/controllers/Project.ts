@@ -63,3 +63,38 @@ export const getProjects = async (req:Request, res:Response) => {
     }
 
 }
+
+export const getProject = async (req:Request, res:Response) =>{
+    const id = req.params.id
+    const projectRepository = getRepository(Project);
+    try{
+        const project = await  projectRepository.findOne({where:{id:id}, relations:["users"]})
+        if(!project){
+            res.status(404).send();
+            return
+        }
+        const users = project.users.map(user =>{
+            return{
+                firstName: user.firstName,
+                lastName: user.lastName,
+                username: user.username,
+                isRemove: user.isRemove,
+            }
+        })
+        const projectToSend ={
+            users,
+            name: project.name,
+            description: project.description,
+            isRemove: project.isRemove
+
+        }
+        res.send(projectToSend)
+        return
+    } catch (e) {
+        res.status(401).send();
+        return
+    }
+
+
+
+}
