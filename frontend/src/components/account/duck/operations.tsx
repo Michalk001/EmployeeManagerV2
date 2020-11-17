@@ -19,7 +19,8 @@ export const decodeUserToken = (token:string):userData =>{
         firstName:decodedToken.firstName,
         username:decodedToken.username,
         id: decodedToken.userId,
-        token: token
+        token: token,
+        isAdmin:decodedToken.isAdmin,
     }
 
     return user

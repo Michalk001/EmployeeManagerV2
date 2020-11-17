@@ -37,9 +37,7 @@ export const List = () =>{
             return "nieaktynwy"
         return "Nieznany"
     }
-    useEffect(()=>{
-        console.log(projects)
-    },[projects])
+
     useEffect(() =>{
         getProjectList();
     },[])
@@ -55,7 +53,7 @@ export const List = () =>{
                 </ListTitleRow>
                 <ListBox>
                     {projectsFiltered.map(project =>(
-                        <LinkRow path={'/'} keyID={project.id}>
+                        <LinkRow path={'/'} keyID={project.id} key={project.id}>
                              <ListCellWide value={project.name}/>
                              <ListCellNormal value={project.employee} />
                              <ListCellSmall value={getStatus(project.status)} />

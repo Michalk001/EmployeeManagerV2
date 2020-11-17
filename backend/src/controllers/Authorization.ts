@@ -29,7 +29,12 @@ export const Login = async  (req:Request, res:Response) =>{
 
     if (bcrypt.compareSync(password, user.password)) {
         const token = jwt.sign(
-            {userId: user.id, username: user.username, firstName: user.firstName, lastName: user.lastName},
+            {
+                userId: user.id,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                isAdmin: user.isAdmin},
             AppConfig.jwtSecret,
             {expiresIn: "1h"}
         );

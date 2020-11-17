@@ -26,7 +26,6 @@ export const TitleRow:FC<{children:ReactNode}> = ({children}) =>{
 }
 
 export const LinkRow:FC<{children:ReactNode,path:string, keyID:string|number}> = ({children,path,keyID}) =>{
-    console.log(keyID)
     return <Link  to={path}  key={keyID} className={`list__row list__row--link`} >
         {children}
     </Link>

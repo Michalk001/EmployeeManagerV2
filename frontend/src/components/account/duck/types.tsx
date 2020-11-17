@@ -8,6 +8,7 @@ export interface userData{
     username:string
     firstName:string
     lastName:string
+    isAdmin:boolean
     id:string
     token: string
 }
@@ -17,6 +18,7 @@ export interface jwtTokenData{
     firstName: string
     lastName: string
     username: string
+    isAdmin:boolean
     iat: number
     exp: number
 }

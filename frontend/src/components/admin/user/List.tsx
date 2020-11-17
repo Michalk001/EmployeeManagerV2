@@ -5,6 +5,7 @@ import {IUser} from "./duck/types";
 import {BoxWide} from "../../../utiles/box/Wide";
 import {ListBox, ListCellNormal, ListCellSmall, ListCellWide, ListFilter, ListMessage, ListTitleRow} from "../../List";
 import {LinkRow} from "../../List/Row";
+import {AppRoute} from "../../../routing/AppRoute.enum";
 
  interface IUserList {
      name:string,
@@ -59,7 +60,7 @@ export const List = () =>{
                 </ListTitleRow>
                 <ListBox>
                     {usersFiltered.map(user =>(
-                        <LinkRow path={'/'} keyID={user.username}>
+                        <LinkRow key={user.username} path={`${AppRoute.userProfile}/${user.username}`} keyID={user.username}>
                             <ListCellWide value={user.name}/>
                             <ListCellNormal value={user.projects} />
                             <ListCellSmall value={getStatus(user.status)} />

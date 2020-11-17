@@ -23,9 +23,39 @@ export const getUsers = async (req:Request, res:Response) =>{
 
     } catch (error) {
         res.status(401).send();
-        res.end()
         return
     }
     res.send(usersToSend)
 
+}
+
+export const GetUser = async (req:Request, res:Response) =>{
+    const id = req.params.id
+    const userRepository = getRepository(User);
+    const user = await  userRepository.findOne({relations:["projects"],where:{username:id}});
+    try{
+        if(!user){
+            res.status(404).send();
+            return
+        }
+        const projects = user.projects.map(item =>{
+            return{
+                name: item.name,
+                id: item.id,
+                isRemove:item.isRemove
+            }
+        })
+        const userToSend ={
+            firstName: user.firstName,
+            lastName: user.lastName,
+            projects: projects,
+            status: user.isRemove ? "inactive" : "active",
+            email: user.email
+        }
+        res.send(userToSend)
+        return
+    } catch (e) {
+        res.status(401).send();
+        return
+    }
 }
