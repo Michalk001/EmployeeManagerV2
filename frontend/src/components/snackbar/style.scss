@@ -1,0 +1,19 @@
+.snackbar{
+  &__alert{
+    margin: 5px 0;
+    position: relative;
+    padding-left: 15px;
+    &::before{
+      content: ' ';
+      position: absolute;
+      background-color: white;
+      height: 6px;
+      width: 6px;
+      /* margin-right: 5px; */
+      left: 2px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 100%;
+    }
+  }
+}

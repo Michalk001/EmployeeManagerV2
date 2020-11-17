@@ -4,8 +4,8 @@ import {BoxWide} from "../../../utiles/box/Wide";
 import {Input, TypeInput} from "../../InputField";
 import {IUserNew} from "./duck/types";
 import {Button, typeButton, typeButtonAction} from "../../button";
-import {ISnackbarMultiAlert, Snackbar, SnackbarMultiAlert, TypeAlert,IAlertList} from "../../snackbar";
-import {ValidPassword} from "../../../utiles/valid";
+import {ISnackbarMultiAlert, Snackbar, SnackbarMultiAlert, TypeAlert, IAlertList, ISnackbar} from "../../snackbar";
+import {ValidEmail, ValidIsEmpty, ValidPassword} from "../../../utiles/valid";
 import {Fetch, Method} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json"
 
@@ -19,18 +19,30 @@ const defaultUser:IUserNew ={
     password:"",
     isAdmin:false
 }
+const defaultInvalidField = {
+    password:false,
+    firstName:false,
+    lastName:false,
+    email:false,
+    username:false,
+
+}
 
 
 export const Create = () =>{
 
+    const [invalidField, setInvalidField] = useState(defaultInvalidField)
+    const [isInvalid, setIsInvalid] = useState(false)
     const [user, setUser] = useState(defaultUser);
-    const [snackbarValue, setSnackbarValue] = useState({
+    const [snackbarValue, setSnackbarValue] = useState<ISnackbar>({
         text:"",
         isOpen:false,
-        type:TypeAlert.info
+        typeAlert:TypeAlert.info,
+        onClose:() => setSnackbarValue(prev => ({...prev,isOpen: false})),
+        hideDuration:5000
     })
     const [alertList,setAlertList] = useState<ISnackbarMultiAlert>({
-        hideDuration:3000,
+        hideDuration:5000,
         alertList:[],
         isOpen:false,
         typeAlert:TypeAlert.error,
@@ -50,49 +62,81 @@ export const Create = () =>{
 
     const saveUser = async (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
-        const resValid = ValidPassword(user.password,user.username)
+        setInvalidField(defaultInvalidField)
+        setIsInvalid(false)
+        const alert:IAlertList[] = [];
+        const resValid = ValidPassword(user.password.trim(),user.username.trim())
         if(resValid){
-            const alert:IAlertList[] = resValid.map(item => {
-                return {
-                    text: item.toString()
-                }
+            setIsInvalid(true)
+            resValid.forEach(item =>{
+                alert.push({text:item.toString()})
             })
-            setAlertList({...alertList,isOpen:true,alertList:alert})
+            setInvalidField(prev =>( {...prev,password:true}))
         }
+        if(ValidIsEmpty(user.username) ){
+            setIsInvalid(true)
+            setInvalidField(prev =>( {...prev,username:true}))
 
-       try {
+        }
+        const validEmail = ValidEmail(user.email.trim())
+        if(validEmail || ValidIsEmpty(user.email)){
+            setIsInvalid(true)
+            setInvalidField(prev =>( {...prev,email:true}))
+            if(validEmail){
+                validEmail.forEach(item =>{
+                    alert.push({text:item.toString()});
+                })
+            }
+        }
+        if(ValidIsEmpty(user.firstName)){
+            setIsInvalid(true)
+            setInvalidField(prev =>( {...prev,firstName:true}))
+        }
+        if(ValidIsEmpty(user.lastName)){
+            setIsInvalid(true)
+            setInvalidField(prev =>( {...prev,lastName:true}))
+        }
+        if(alert.length > 0) {
+            setAlertList({...alertList, isOpen: true, alertList: alert})
+            return
+        }
+        if(isInvalid)
+            return
+        try {
             const res = await Fetch(`${config.API_URL}/auth/register`, Method.POST, {user: user});
             if (res.status === 201) {
-                setSnackbarValue({
-                    type: TypeAlert.success,
+                setSnackbarValue(prevState => ({...prevState,
+                    typeAlert: TypeAlert.success,
                     isOpen: true,
                     text: "Utworzono użytkownika"
-                });
+                }));
                 setUser(defaultUser);
                 return
             }
             if (res.status === 409) {
-                setSnackbarValue({
-                    type: TypeAlert.warning,
+                setSnackbarValue(prevState => ({...prevState,
+                    typeAlert: TypeAlert.warning,
                     isOpen: true,
                     text: "Nazwa zajęta"
-                });
+                }));
+                setInvalidField(prev =>( {...prev,username:true}))
                 return
             }
         }
         catch (e) {
-            setSnackbarValue({
-                type: TypeAlert.error,
+            setSnackbarValue(prevState => ({...prevState,
+                typeAlert: TypeAlert.error,
                 isOpen: true,
-                text: `${e.toString()}`
-            });
+                text: `Błąd ${e.toString()}`
+            }));
             return
         }
-        setSnackbarValue({
-            type: TypeAlert.error,
+        setSnackbarValue(prevState => ({...prevState,
+            typeAlert: TypeAlert.error,
             isOpen: true,
             text: `Wystąpił nieznany błąd`
-        });
+        }));
+        return
     }
 
     useEffect(() =>{
@@ -111,6 +155,7 @@ export const Create = () =>{
                     type={TypeInput.text}
                     labelName={`FirstName`}
                     classWrap={`admin-user__field-wrap`}
+                    showRequired={invalidField.firstName}
                 />
                 <Input
                     value={user.lastName}
@@ -120,6 +165,7 @@ export const Create = () =>{
                     type={TypeInput.text}
                     labelName={`LastName`}
                     classWrap={`admin-user__field-wrap`}
+                    showRequired={invalidField.lastName}
                 />
                 <Input
                     value={user.email}
@@ -129,6 +175,7 @@ export const Create = () =>{
                     type={TypeInput.text}
                     labelName={`Email`}
                     classWrap={`admin-user__field-wrap`}
+                    showRequired={invalidField.email}
                 />
 
             </div>
@@ -142,6 +189,7 @@ export const Create = () =>{
                     type={TypeInput.text}
                     labelName={`Username`}
                     classWrap={`admin-user__field-wrap`}
+                    showRequired={invalidField.username}
                 />
                 <Input
                     value={user.password}
@@ -151,6 +199,7 @@ export const Create = () =>{
                     type={TypeInput.password}
                     labelName={`Password`}
                     classWrap={`admin-user__field-wrap`}
+                    showRequired={invalidField.password}
                 />
                 <div className={`admin-user__field-wrap admin-user__field-wrap--select-admin`}>
                     <label  className={`admin-user__radio-button--title`}>Admin</label>
@@ -166,6 +215,7 @@ export const Create = () =>{
                             name="isAdmin" value={"true"}
                             type="radio"
                             onChange={updateIsAdmin}
+
                         />
                         <label className={`admin-user__radio-button  ${!user.isAdmin ? `admin-user__radio-button--active`: ``} `}
                                htmlFor={`isAdminFalse`}
@@ -187,11 +237,7 @@ export const Create = () =>{
             </div>
             </form>
             <Snackbar
-                text={snackbarValue.text}
-                isOpen={snackbarValue.isOpen}
-                onClose={() => setSnackbarValue({...snackbarValue,isOpen: false})}
-                hideDuration={3000}
-                typeAlert={snackbarValue.type}
+                {...snackbarValue}
             />
             <SnackbarMultiAlert
                 {...alertList}

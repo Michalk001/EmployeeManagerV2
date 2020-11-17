@@ -13,6 +13,13 @@ export interface ISnackbarMultiAlert {
     onClose: () => void,
     hideDuration:number
 }
+export interface ISnackbar {
+    text:string,
+    isOpen:boolean,
+    onClose: () => void,
+    hideDuration:number|null
+    typeAlert:TypeAlert
+}
 
 export interface IAlertList {
     text:string

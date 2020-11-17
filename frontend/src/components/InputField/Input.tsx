@@ -14,7 +14,7 @@ interface Iprops {
     name:string,
     labelName?:string
     type:TypeInput
-    showRequired?:false
+    showRequired?:boolean
 }
 
  const Input:FC<Iprops> = (props) =>{
