@@ -4,6 +4,7 @@ export interface IUserProfile {
     username:string,
     status:string,
     email:string,
+    isAdmin:boolean
     projects:IUserProfileProject[],
     phoneNumber?:string|null,
 }

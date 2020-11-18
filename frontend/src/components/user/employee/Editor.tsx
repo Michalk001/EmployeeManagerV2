@@ -14,7 +14,8 @@ import {ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../../snackbar
 
 
 import "./style.scss"
-import {typeValidUserForm, ValidUserForm} from "../../../utiles/valid";
+import {typeValidUserForm, ValidPhone, ValidUserForm} from "../../../utiles/valid";
+import {AdminSelect} from "../../common";
 
 const defaultInvalidField = {
     firstName:false,
@@ -23,7 +24,7 @@ const defaultInvalidField = {
     newPassword:false
 }
 
-const defaultUser:IUserProfile = {
+const defaultUser:IUserProfile= {
     projects:[],
     email:"",
     firstName:"",
@@ -31,6 +32,7 @@ const defaultUser:IUserProfile = {
     status:"",
     username:"",
     phoneNumber:null,
+    isAdmin:false,
 }
 
 export const Editor = () =>{
@@ -151,19 +153,27 @@ export const Editor = () =>{
                         classWrap={`admin-user__field-wrap`}
                         showRequired={invalidField.email}
                     />
+
+
+                </div>
+                <div className={`user-profile__row`}>
                     <Input
                         value={user.phoneNumber ? user.phoneNumber: ""}
-                        onChange={updateUserValue}
+                        onChange={(e) => ValidPhone(e.target.value)? updateUserValue(e) : null}
                         id={`phoneNumber`}
                         name={`phoneNumber`}
                         type={TypeInput.text}
                         labelName={`Phone Number`}
                         classWrap={`admin-user__field-wrap`}
-                        showRequired={invalidField.email}
                     />
-
+                    {state.accountState.userData?.isAdmin && <AdminSelect
+                        selectType={user.isAdmin}
+                        updateAdmin={(isAdmin => {
+                            setUser(prevState => ({...prevState, isAdmin}))
+                        })}
+                    />}
                 </div>
-                <div className={`user-profile__row`}>
+                <div className={`user-profile__row user-profile__item--top-line`}>
                     <Input
                         value={newPassword}
                         onChange={updateUserValue}

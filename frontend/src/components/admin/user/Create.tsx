@@ -7,7 +7,8 @@ import {Button, typeButton, typeButtonAction} from "../../button";
 import {ISnackbarMultiAlert, Snackbar, SnackbarMultiAlert, TypeAlert, IAlertList, ISnackbar} from "../../snackbar";
 import {Fetch, Method} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json"
-import {IInvalidUserForm, typeValidUserForm, ValidUserForm} from "../../../utiles/valid";
+import {IInvalidUserForm, typeValidUserForm, ValidPhone, ValidUserForm} from "../../../utiles/valid";
+import {AdminSelect} from "../../common";
 
 
 
@@ -55,12 +56,7 @@ export const Create = () =>{
     const updateUserValue = (e:ChangeEvent<HTMLInputElement>) =>{
         setUser(prevState => ({...prevState,[e.target.name]:e.target.value}))
     }
-    const updateIsAdmin= (e:ChangeEvent<HTMLInputElement>) =>{
-        if(e.target.value === "true")
-            setUser(prevState => ({...prevState,[e.target.name]:true}))
-        else
-            setUser(prevState => ({...prevState,[e.target.name]:false}))
-    }
+
 
     const handleSaveUser = async (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
@@ -152,13 +148,13 @@ export const Create = () =>{
                 />
                 <Input
                     value={user.phoneNumber}
-                    onChange={updateUserValue}
+                    onChange={(e) => ValidPhone(e.target.value)? updateUserValue(e) : null}
                     id={`phoneNumber`}
                     name={`phoneNumber`}
                     type={TypeInput.text}
                     labelName={`Phone Number`}
                     classWrap={`admin-user__field-wrap`}
-                   // showRequired={invalidField.phoneNumber}
+
                 />
 
             </div>
@@ -184,37 +180,10 @@ export const Create = () =>{
                     classWrap={`admin-user__field-wrap`}
                     showRequired={invalidField.password}
                 />
-                <div className={`admin-user__field-wrap admin-user__field-wrap--select-admin`}>
-                    <label  className={`admin-user__radio-button--title`}>Admin</label>
-                    <div className={`admin-user__radio-button--wrap`}>
-                        <label className={`admin-user__radio-button ${user.isAdmin ? `admin-user__radio-button--active`: ``}  `}
-                               htmlFor={`isAdminTrue`}
-                        >
-                            YES
-                        </label>
-                        <input
-                            className={`admin-user__radio-button--input`}
-                            id="isAdminTrue"
-                            name="isAdmin" value={"true"}
-                            type="radio"
-                            onChange={updateIsAdmin}
-
-                        />
-                        <label className={`admin-user__radio-button  ${!user.isAdmin ? `admin-user__radio-button--active`: ``} `}
-                               htmlFor={`isAdminFalse`}
-                        >
-                            NO
-                        </label>
-                        <input
-                            className={`admin-user__radio-button--input`}
-                            id="isAdminFalse"
-                            name="isAdmin" value={"false"}
-                            type="radio"
-                            onChange={updateIsAdmin}
-                        />
-
-                    </div>
-                </div>
+                <AdminSelect
+                    selectType={user.isAdmin}
+                    updateAdmin={(isAdmin => {setUser(prevState => ({...prevState,isAdmin}))})}
+                />
 
                 <Button label={`Zapisz`} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`admin-user__row--save-button-wrap`}/>
             </div>

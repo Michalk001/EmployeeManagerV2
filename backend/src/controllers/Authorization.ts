@@ -1,7 +1,7 @@
 
 import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
-import { getRepository } from "typeorm";
+import {getRepository, Like} from "typeorm";
 import {User} from "../entity/User";
 import * as bcrypt from "bcryptjs";
 import AppConfig from "../config/AppConfig.json"
@@ -20,7 +20,7 @@ export const Login = async  (req:Request, res:Response) =>{
     const userRepository = getRepository(User);
     let user: User;
     try {
-        user = await userRepository.findOneOrFail({ where: { username } });
+        user = await userRepository.findOneOrFail({ where: { username: Like(username.trim()) } });
     } catch (error) {
         res.status(401).send();
         res.end()

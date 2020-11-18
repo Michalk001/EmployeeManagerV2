@@ -54,7 +54,8 @@ export const getUser = async (req:Request, res:Response) =>{
             status: user.isRemove ? "inactive" : "active",
             email: user.email,
             username: user.username,
-            phoneNumber: user.phoneNumber
+            phoneNumber: user.phoneNumber,
+            isAdmin: user.isAdmin
         }
         res.send(userToSend)
         return
