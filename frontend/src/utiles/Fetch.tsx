@@ -3,7 +3,8 @@ import Cookies from "js-cookie";
 
 export enum Method{
     POST="post",
-    GET="get"
+    GET="get",
+    PUT="put"
 }
 
 

@@ -94,8 +94,16 @@ export const updateUser = async (req:Request, res:Response) =>{
         user.password = password
     }
     if(decodeToken) {
-        if (isAdmin && decodeToken.isAdmin) {
+        if (isAdmin != undefined && decodeToken.isAdmin) {
             user.isAdmin = isAdmin
         }
+    }
+    try{
+        await userRepository.save(user)
+        res.status(204).send();
+        return
+    }catch (e) {
+        res.status(500).send({error: e});
+        return
     }
 }

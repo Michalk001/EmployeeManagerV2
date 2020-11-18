@@ -16,6 +16,8 @@ import {ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../../snackbar
 import "./style.scss"
 import {typeValidUserForm, ValidPhone, ValidUserForm} from "../../../utiles/valid";
 import {AdminSelect} from "../../common";
+import {Fetch, Method} from "../../../utiles/Fetch";
+import config from "../../../utiles/config.json";
 
 const defaultInvalidField = {
     firstName:false,
@@ -37,25 +39,24 @@ const defaultUser:IUserProfile= {
 
 export const Editor = () =>{
 
+    const {id} = useParams<{id:string}>()
     const isMounted = React.useRef(false);
     const [invalidField, setInvalidField] = useState(defaultInvalidField)
     const { state } = useContext(GlobalContext)
     const [user,setUser] = useState<IUserProfile>(defaultUser)
     const [newPassword,setNewPassword] = useState("");
 
-    const handleClose = () =>{
-        setAlertList(prevState =>( {...prevState,isOpen:false}))
-    }
-
     const [alertList,setAlertList] = useState<ISnackbarMultiAlert>({
         hideDuration:1000,
         alertList:[],
         isOpen:false,
         typeAlert:TypeAlert.error,
-        onClose: handleClose
+        onClose: () =>{
+            setAlertList(prevState =>( {...prevState,isOpen:false}))
+        }
     })
 
-    const {id} = useParams<{id:string}>()
+
 
     const getDataUser = async () =>{
         if(state.accountState.userData && user.username === "") {
@@ -97,11 +98,57 @@ export const Editor = () =>{
         setInvalidField(defaultInvalidField);
         setAlertList({...alertList, isOpen: false, alertList: []})
         const {isInvalid,alerts} = ValidUserForm(user,typeValidUserForm.EDIT_USER)
+
         if(isInvalid){
             alerts.push({text:`requireField`})
+            if(alerts.length > 0)
             setAlertList({...alertList, isOpen: true, alertList: alerts})
             return
         }
+        try {
+            const res = await Fetch(`${config.API_URL}/user/${user.username}`, Method.PUT, {user: user});
+            if (res.status === 204) {
+                setAlertList(prevState => ({...prevState,
+                    typeAlert: TypeAlert.success,
+                    isOpen: true,
+                    alertList:[{
+                        text: "Zaktualizowano"
+                       }]
+                }));
+                return
+            }
+            if (res.status === 404) {
+                setAlertList(prevState => ({...prevState,
+                    typeAlert: TypeAlert.warning,
+                    isOpen: true,
+                    alertList:[{
+                        text: "Nie znaleziono"
+                    }]
+
+                }));
+                return
+            }
+        }
+        catch (e) {
+
+            setAlertList(prevState => ({...prevState,
+                typeAlert: TypeAlert.error,
+                isOpen: true,
+                alertList:[{
+                    text: `Błąd: ${e.toString()}`
+                }]
+            }));
+            return
+        }
+
+        setAlertList(prevState => ({...prevState,
+            typeAlert: TypeAlert.error,
+            isOpen: true,
+            alertList:[{
+                text: `Wystąpił nieznany błąd`
+            }]
+
+        }));
     }
 
 
