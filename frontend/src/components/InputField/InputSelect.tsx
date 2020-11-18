@@ -19,7 +19,7 @@ interface Iprops {
 
 const InputSelect:FC<Iprops> = (props) =>{
 
-    const {options,value,isMulti,onChange,classInput,classWrap,labelName,id} = props;
+    const {options,value,isMulti,onChange,classInput,classWrap="",labelName,id} = props;
 
     return (<div className={`input__wrap ${classWrap}`}>
         {labelName &&

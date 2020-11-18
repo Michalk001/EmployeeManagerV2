@@ -15,7 +15,7 @@ interface Iprops {
 }
 const InputTextarea:FC<Iprops> = (props) =>{
 
-    const {value,onChange,name,id,classTextarea,classWrap,labelName,placeholder} = props;
+    const {value,onChange,name,id,classTextarea,classWrap="",labelName,placeholder} = props;
 
     return (
         <div className={`input__wrap ${classWrap}`}>

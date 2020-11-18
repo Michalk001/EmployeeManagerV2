@@ -6,7 +6,7 @@ import {User} from "../entity/User";
 import * as bcrypt from "bcryptjs";
 import AppConfig from "../config/AppConfig.json"
 
-const hashPassword = (password:string) => {
+export const hashPassword = (password:string) => {
     return bcrypt.hashSync(password, 8)
 }
 
@@ -47,7 +47,7 @@ export const Login = async  (req:Request, res:Response) =>{
 
 export const Register = async (req: Request, res: Response) =>{
 
-    const { username, password,firstName, lastName, email, isAdmin } = req.body.user;
+    const { username, password,firstName, lastName, email, isAdmin, phoneNumber } = req.body.user as User;
     const user = new User();
     user.firstName = firstName;
     user.lastName = lastName;
@@ -55,6 +55,7 @@ export const Register = async (req: Request, res: Response) =>{
     user.password = hashPassword(password);
     user.email = email;
     user.isAdmin = isAdmin
+    user.phoneNumber = phoneNumber
     const userRepository = getRepository(User);
     try {
         await userRepository.save(user);

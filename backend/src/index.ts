@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import {routes} from "./routes";
 import { PassportConfigStrategy } from './untils/PassportConfigStrategy';
+import {InitNewDatabase} from "./untils/InitNewDatabase";
 
 
 app.use(cors());
@@ -14,7 +15,7 @@ app.use(bodyParser.json());
 
 createConnection().then(async ()=> {
     console.log(`⚡️[server]: Connected to database`)
-
+    await InitNewDatabase();
     PassportConfigStrategy()
     routes(app);
    /* app.get('/test',passport.authenticate('jwt', { session: false }), (req:Request,res:Response) => {

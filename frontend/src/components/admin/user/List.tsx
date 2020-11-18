@@ -3,8 +3,8 @@ import {FetchGet} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json";
 import {IUser} from "./duck/types";
 import {BoxWide} from "../../../utiles/box/Wide";
-import {ListBox, ListCellNormal, ListCellSmall, ListCellWide, ListFilter, ListMessage, ListTitleRow} from "../../List";
-import {LinkRow} from "../../List/Row";
+import {ListBox, ListCellNormal, ListCellSmall, ListCellWide, ListFilter, ListMessage, ListTitleRow} from "../../list";
+import {LinkRow} from "../../list/Row";
 import {AppRoute} from "../../../routing/AppRoute.enum";
 
  interface IUserList {

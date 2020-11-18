@@ -5,9 +5,10 @@ import {Input, TypeInput} from "../../InputField";
 import {IUserNew} from "./duck/types";
 import {Button, typeButton, typeButtonAction} from "../../button";
 import {ISnackbarMultiAlert, Snackbar, SnackbarMultiAlert, TypeAlert, IAlertList, ISnackbar} from "../../snackbar";
-import {ValidEmail, ValidIsEmpty, ValidPassword} from "../../../utiles/valid";
 import {Fetch, Method} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json"
+import {IInvalidUserForm, typeValidUserForm, ValidUserForm} from "../../../utiles/valid";
+
 
 
 
@@ -17,7 +18,8 @@ const defaultUser:IUserNew ={
     username:"",
     email:"",
     password:"",
-    isAdmin:false
+    isAdmin:false,
+    phoneNumber:""
 }
 const defaultInvalidField = {
     password:false,
@@ -25,20 +27,20 @@ const defaultInvalidField = {
     lastName:false,
     email:false,
     username:false,
+    phoneNumber: false
 
 }
 
 
 export const Create = () =>{
 
-    const [invalidField, setInvalidField] = useState(defaultInvalidField)
-    const [isInvalid, setIsInvalid] = useState(false)
+    const [invalidField, setInvalidField] = useState<IInvalidUserForm>(defaultInvalidField)
     const [user, setUser] = useState(defaultUser);
     const [snackbarValue, setSnackbarValue] = useState<ISnackbar>({
         text:"",
         isOpen:false,
         typeAlert:TypeAlert.info,
-        onClose:() => setSnackbarValue(prev => ({...prev,isOpen: false})),
+        onClose:() => setSnackbarValue(prevState => ({...prevState,isOpen: false})),
         hideDuration:5000
     })
     const [alertList,setAlertList] = useState<ISnackbarMultiAlert>({
@@ -46,62 +48,33 @@ export const Create = () =>{
         alertList:[],
         isOpen:false,
         typeAlert:TypeAlert.error,
-        onClose: () =>{ setAlertList({...alertList,isOpen:false})}
+        onClose: () =>{ setAlertList(prevState =>( {...prevState,isOpen:false}))}
     })
 
 
     const updateUserValue = (e:ChangeEvent<HTMLInputElement>) =>{
-        setUser({...user,[e.target.name]:e.target.value})
+        setUser(prevState => ({...prevState,[e.target.name]:e.target.value}))
     }
     const updateIsAdmin= (e:ChangeEvent<HTMLInputElement>) =>{
         if(e.target.value === "true")
-            setUser({...user,[e.target.name]:true})
+            setUser(prevState => ({...prevState,[e.target.name]:true}))
         else
-            setUser({...user,[e.target.name]:false})
+            setUser(prevState => ({...prevState,[e.target.name]:false}))
     }
 
-    const saveUser = async (e:React.FormEvent<HTMLFormElement>) =>{
+    const handleSaveUser = async (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
+        setAlertList({...alertList, isOpen: false, alertList:[]})
         setInvalidField(defaultInvalidField)
-        setIsInvalid(false)
-        const alert:IAlertList[] = [];
-        const resValid = ValidPassword(user.password.trim(),user.username.trim())
-        if(resValid){
-            setIsInvalid(true)
-            resValid.forEach(item =>{
-                alert.push({text:item.toString()})
-            })
-            setInvalidField(prev =>( {...prev,password:true}))
-        }
-        if(ValidIsEmpty(user.username) ){
-            setIsInvalid(true)
-            setInvalidField(prev =>( {...prev,username:true}))
-
-        }
-        const validEmail = ValidEmail(user.email.trim())
-        if(validEmail || ValidIsEmpty(user.email)){
-            setIsInvalid(true)
-            setInvalidField(prev =>( {...prev,email:true}))
-            if(validEmail){
-                validEmail.forEach(item =>{
-                    alert.push({text:item.toString()});
-                })
-            }
-        }
-        if(ValidIsEmpty(user.firstName)){
-            setIsInvalid(true)
-            setInvalidField(prev =>( {...prev,firstName:true}))
-        }
-        if(ValidIsEmpty(user.lastName)){
-            setIsInvalid(true)
-            setInvalidField(prev =>( {...prev,lastName:true}))
-        }
+        const {isInvalid,alerts,invalidField} = ValidUserForm(user,typeValidUserForm.NEW_USER)
+        setInvalidField(invalidField)
         if(alert.length > 0) {
-            setAlertList({...alertList, isOpen: true, alertList: alert})
+            setAlertList({...alertList, isOpen: true, alertList: {...alerts}})
             return
         }
         if(isInvalid)
             return
+
         try {
             const res = await Fetch(`${config.API_URL}/auth/register`, Method.POST, {user: user});
             if (res.status === 201) {
@@ -145,7 +118,7 @@ export const Create = () =>{
 
     return(
         <BoxWide>
-            <form onSubmit={saveUser}>
+            <form onSubmit={handleSaveUser}>
             <div className={`admin-user__row`}>
                 <Input
                     value={user.firstName}
@@ -153,7 +126,7 @@ export const Create = () =>{
                     id={`firstName`}
                     name={`firstName`}
                     type={TypeInput.text}
-                    labelName={`FirstName`}
+                    labelName={`First Name`}
                     classWrap={`admin-user__field-wrap`}
                     showRequired={invalidField.firstName}
                 />
@@ -163,7 +136,7 @@ export const Create = () =>{
                     id={`lastName`}
                     name={`lastName`}
                     type={TypeInput.text}
-                    labelName={`LastName`}
+                    labelName={`Last Name`}
                     classWrap={`admin-user__field-wrap`}
                     showRequired={invalidField.lastName}
                 />
@@ -176,6 +149,16 @@ export const Create = () =>{
                     labelName={`Email`}
                     classWrap={`admin-user__field-wrap`}
                     showRequired={invalidField.email}
+                />
+                <Input
+                    value={user.phoneNumber}
+                    onChange={updateUserValue}
+                    id={`phoneNumber`}
+                    name={`phoneNumber`}
+                    type={TypeInput.text}
+                    labelName={`Phone Number`}
+                    classWrap={`admin-user__field-wrap`}
+                   // showRequired={invalidField.phoneNumber}
                 />
 
             </div>

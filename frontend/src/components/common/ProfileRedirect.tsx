@@ -1,14 +1,53 @@
-import React, {FC} from "react"
+import React, {FC, ReactNode} from "react"
 
 import "./style.scss"
 import {Link} from "react-router-dom";
+export interface IOptionLabel {
+    onClick: () => void;
+    typeOption:typeOption;
+}
 
-export const  ProfileRedirect:FC<{value:string, path:string,isAdmin:boolean}> = ({value,path}) =>{
+export enum typeOption   {
+    remove,
+    delete,
+    undo
+}
+interface IProps {
+    value:string,
+    path:string,
+    optionLabel?:IOptionLabel[]
+}
+
+const optionLabel:FC<{option:IOptionLabel}> = ({option}) =>{
+
+    const getIco = (type:typeOption) =>{
+
+        if(type === typeOption.remove){
+            return  <i className="fas fa-ban"/>
+        }
+        if(type === typeOption.delete){
+            return <i className="fas fa-trash"/>
+        }
+        if(type === typeOption.undo){
+            return  <i className="fas fa-undo-alt"/>
+        }
+    }
+
+    return(
+        <div onClick={option.onClick}>
+
+        </div>
+    )
+}
+
+export const ProfileRedirect:FC<IProps> = ({value,path,optionLabel}) =>{
 
     return (
-        <Link className={`profile-redirect`} to={path} >
-            {value}
-        </Link>
+        <div className={`profile-redirect`}>
+            <Link className={`profile-redirect--link`} to={path} >
+                {value}
+            </Link>
+        </div>
     )
 
 }

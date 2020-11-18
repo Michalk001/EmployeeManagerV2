@@ -11,7 +11,7 @@ export interface ISnackbarMultiAlert {
     typeAlert:TypeAlert,
     isOpen:boolean,
     onClose: () => void,
-    hideDuration:number
+    hideDuration:number|null
 }
 export interface ISnackbar {
     text:string,

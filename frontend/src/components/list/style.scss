@@ -1,16 +1,15 @@
 .list{
-  // border: 1px solid #4691b0;
+
   padding: 0 5px 10px;
-  &__section{
-    &>a:nth-child(odd){
-      background-color: #f3f3f3;
-    }
-    &>a{
-      &:hover{
-        background-color: #e2e2e2;
-      }
+  &>a:nth-child(odd){
+    background-color: #f3f3f3;
+  }
+  &>a{
+    &:hover{
+      background-color: #e2e2e2;
     }
   }
+
   &__row{
     display: flex;
     justify-content: space-between;
@@ -21,7 +20,7 @@
     }
     &--link{
       text-decoration: none;
-
+      color: black;
       &:active{
         color: black;
       }

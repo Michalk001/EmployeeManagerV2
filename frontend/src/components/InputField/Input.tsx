@@ -19,7 +19,7 @@ interface Iprops {
 
  const Input:FC<Iprops> = (props) =>{
 
-    const {classInput,id,name,value,onChange,placeholder,labelName,classWrap,type,showRequired} = props
+    const {classInput,id,name,value,onChange,placeholder="",labelName,classWrap="",type,showRequired} = props
     const [showPassword, setShowPassword] = useState(false);
 
     const setType = (type: TypeInput):TypeInput =>{

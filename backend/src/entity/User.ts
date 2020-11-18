@@ -2,7 +2,7 @@ import {Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable} from "typ
 import {Project} from "./Project";
 
 @Entity()
-export class User {
+export class    User {
 
     @PrimaryGeneratedColumn("uuid")
     id: string;
@@ -21,6 +21,9 @@ export class User {
 
     @Column({type: "varchar", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", length: 150})
     password:string
+
+    @Column({type: "varchar", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", length: 20, default:null})
+    phoneNumber:string|null
 
     @Column({default: false})
     isAdmin:boolean

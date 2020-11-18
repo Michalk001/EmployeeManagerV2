@@ -38,7 +38,7 @@ export const Snackbar:FC<ISnackbar> = (props) =>{
 export const SnackbarMultiAlert:FC<ISnackbarMultiAlert> = (props) =>{
     const {alertList,isOpen,onClose,hideDuration , typeAlert} = props
     return(
-        <MaterialSnack open={isOpen} onClose={onClose} autoHideDuration={hideDuration}  >
+        <MaterialSnack open={isOpen} autoHideDuration={hideDuration}  >
             <Alert onClose={onClose} severity={typeAlert}>
                 {alertList.map(alert => (
                     <div key={alert.text} className={`snackbar__alert`}>

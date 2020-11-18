@@ -2,9 +2,6 @@ import {AccountActionTypes, AccountState} from './actions'
 import {userTypes} from './types'
 import {logout} from "./operations";
 
-
-
-
 export const InitAccountState:AccountState = {
     userData: null
 

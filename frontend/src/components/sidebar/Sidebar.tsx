@@ -62,9 +62,9 @@ export const Sidebar = () =>{
                     <ListTitleItem text={`Panel Admina`} />
                     <ListLinkItem path={AppRoute.homePage} text={"Home"} />
                     <ListLinkItem path={AppRoute.adminProjectNew} text={"New Project"} />
-                    <ListLinkItem path={AppRoute.adminProjectList} text={"List Project"} />
+                    <ListLinkItem path={AppRoute.adminProjectList} text={"list Project"} />
                     <ListLinkItem path={AppRoute.adminUserNew} text={"New User"} />
-                    <ListLinkItem path={AppRoute.adminUserList} text={"List User"} />
+                    <ListLinkItem path={AppRoute.adminUserList} text={"list User"} />
                 </ul>
             </div>
         </div>

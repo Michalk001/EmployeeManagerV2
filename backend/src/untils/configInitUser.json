@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "firstName": "Jan",
+      "lastName": "Kowalski",
+      "username": "admin",
+      "email": "jan@kowalski.pl",
+      "password": "Test1234",
+      "isAdmin": true
+    },
+    {
+      "firstName": "Anna",
+      "lastName": "Nowak",
+      "username": "anno",
+      "email": "anna@nowak.pl",
+      "password": "Test1234",
+      "isAdmin": false
+    }
+  ]
+}

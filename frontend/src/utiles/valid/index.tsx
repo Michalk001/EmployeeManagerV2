@@ -1,4 +1,7 @@
 export {Password as ValidPassword} from "./Password"
 export {Email as ValidEmail} from "./Email"
 export {IsEmpty as ValidIsEmpty} from "./IsEmpty"
-
+export {Phone as ValidPhone} from "./Phone"
+export {UserForm as ValidUserForm} from "./UserForm"
+export { typeValidUserForm,PasswordErrorType,EmailValidType} from "./types"
+export type {IInvalidUserForm} from "./types"

@@ -15,6 +15,7 @@
   }
   &__row{
     display: flex;
+    flex-wrap: wrap;
     &--user-list{
       margin: 15px 0;
       padding: 0 10px;
@@ -36,6 +37,10 @@
       position: relative;
       padding-top: 5px;
       margin-top: 10px;
+
+    }
+    &--top-line{
+      position: relative;
       &::before{
         content: "";
         background-color: #a7a7a7;

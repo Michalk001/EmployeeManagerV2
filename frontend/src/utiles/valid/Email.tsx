@@ -6,7 +6,6 @@ export const Email = (email:string):EmailValidType[]|null =>{
     if(!re.test(email)){
         error.push(EmailValidType.INVALID_EMAIL)
     }
-    console.log(error)
     if(error.length > 0)
         return error
     return null

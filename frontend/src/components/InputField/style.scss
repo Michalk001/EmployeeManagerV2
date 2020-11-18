@@ -1,3 +1,12 @@
+@mixin webkit-autofill ($color){
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px $color inset !important;
+  }
+}
+
 .input{
   box-sizing: border-box;
   width: 100%;
@@ -7,8 +16,11 @@
   padding: 13px 10px;
   transition-duration: 0.5s;
   outline: none;
+  @include webkit-autofill(#fff);
   &--required{
     background-color: #ff9a9a;
+    @include webkit-autofill(#ff9a9a);
+
   }
   &--password{
     padding-right: 30px;
@@ -24,8 +36,9 @@
     background-color: #fff;
     padding: 0 5px;
     font-size: 16px;
+    transition-duration: 0.5s;
     &--required{
-      background-color: #ff9a9a;
+      background: linear-gradient( transparent 0, #ff9a9a 50%);
     }
     &--normal{
       position: relative;
@@ -36,6 +49,7 @@
   }
   &__wrap{
     position: relative;
+    margin: 10px;
   }
   &__ico-eye{
     position: absolute;

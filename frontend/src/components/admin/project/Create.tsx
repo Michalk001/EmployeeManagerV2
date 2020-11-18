@@ -11,7 +11,8 @@ import {optionType} from "../../InputField/InputSelect";
 import {ValueType} from "react-select";
 import {Fetch, FetchGet, Method} from "../../../utiles/Fetch";
 import config from '../../../utiles/config.json'
-import {Snackbar, TypeAlert} from "../../snackbar";
+import {ISnackbar, Snackbar, TypeAlert} from "../../snackbar";
+import {ValidIsEmpty} from "../../../utiles/valid";
 
 
 const defaultProjectValue: IProjectNew = {
@@ -20,15 +21,24 @@ const defaultProjectValue: IProjectNew = {
     users: []
 }
 
+const defaultInvalidField = {
+    name:false
+
+}
+
 export const Create = () =>{
 
     const [userOptionsSelect, setUserOptionsSelect] = useState<optionType[]>([])
     const [projectValue, setProjectValue] = useState<IProjectNew>(defaultProjectValue);
     const [selectUserValue, setSelectUserValue] = useState<optionType[]>([])
-    const [snackbarValue, setSnackbarValue] = useState({
+    const [invalidField, setInvalidField] = useState(defaultInvalidField)
+
+    const [snackbarValue, setSnackbarValue] = useState<ISnackbar>({
         text:"",
         isOpen:false,
-        type:TypeAlert.info
+        typeAlert:TypeAlert.error,
+        hideDuration:4000,
+        onClose:() => setSnackbarValue(prevState =>( {...prevState,isOpen: false}))
     })
 
     const getUser = async () =>{
@@ -44,13 +54,13 @@ export const Create = () =>{
 
 
     const updateValue = (e:ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) =>{
-        setProjectValue({...projectValue, [e.target.name]: e.target.value})
+        setProjectValue(prevState =>( {...prevState, [e.target.name]: e.target.value}))
     }
 
     const updateSelectValue = (e: ValueType<optionType>) =>{
         if(Array.isArray(e)){
             const valueSelect = e.map(item => item.value)
-            setProjectValue({...projectValue,users:valueSelect})
+            setProjectValue(prevState => ({...prevState,users:valueSelect}))
             setSelectUserValue(e)
         }
         else {
@@ -62,37 +72,46 @@ export const Create = () =>{
 
     const saveProject = async (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
+        let isInvalid = false;
+        if(ValidIsEmpty(projectValue.name)){
+            setInvalidField(prevState => ({...prevState,name: true}))
+            isInvalid = true;
+        }
+        if(isInvalid)
+            return
         try{
             const res = await Fetch(`${config.API_URL}/project`,Method.POST, {project:projectValue})
             if (res.status === 201) {
-                setSnackbarValue({
-                    type: TypeAlert.success,
+                setSnackbarValue(prevState=>({
+                    ...prevState,
+                    typeAlert: TypeAlert.success,
                     isOpen: true,
                     text: "Utworzono Projekt"
-                });
+                }));
                 setProjectValue(defaultProjectValue);
                 return
             }
 
         }
         catch (e) {
-            setSnackbarValue({
-                type: TypeAlert.error,
+            setSnackbarValue(prevState=>({
+                ...prevState,
+                typeAlert: TypeAlert.error,
                 isOpen: true,
                 text: `${e.toString()}`
-            });
+            }));
             return
         }
-        setSnackbarValue({
-            type: TypeAlert.error,
+
+        setSnackbarValue(prevState=>({
+            ...prevState,
+            typeAlert: TypeAlert.error,
             isOpen: true,
             text: `Wystąpił nieznany błąd`
-        });
+        }));
+
     }
 
-     useEffect(() =>{
-
-     },[userOptionsSelect,selectUserValue])
 
     useEffect(() =>{
          getUser();
@@ -107,10 +126,10 @@ export const Create = () =>{
                     onChange={updateValue}
                     id={`name`}
                     name={`name`}
-                    placeholder={`Nazwa`}
                     labelName={"Nazwa"}
                     type={TypeInput.text}
                     classWrap={`admin-project__field`}
+                    showRequired={invalidField.name}
                 />
                 <InputTextarea
                     value={projectValue.description}
@@ -138,11 +157,7 @@ export const Create = () =>{
                 />
             </form>
             <Snackbar
-                text={snackbarValue.text}
-                isOpen={snackbarValue.isOpen}
-                onClose={() => setSnackbarValue({...snackbarValue,isOpen: false})}
-                hideDuration={3000}
-                typeAlert={snackbarValue.type}
+                {...snackbarValue}
             />
         </BoxWide>
     )

@@ -12,9 +12,10 @@ import {
     ListTitleRow,
     ListBox,
     ListFilter, ListMessage
-} from "../../List";
-import {LinkRow} from "../../List/Row";
+} from "../../list";
+
 import {AppRoute} from "../../../routing/AppRoute.enum";
+import {LinkRow} from "../../list/Row";
 
 export const List = () =>{
 

@@ -4,15 +4,17 @@ export interface IUserNew {
     lastName:string,
     username:string,
     password:string,
-    email:string
-    isAdmin:boolean
+    email:string,
+    isAdmin:boolean,
+    phoneNumber:string
 }
 
 export interface IUser {
     firstName:string,
     lastName:string,
     username:string,
-    status:string
-    projects:number
+    status:string,
+    projects:number,
+    phoneNumber:string
 }
 

@@ -3,11 +3,14 @@ export interface IUserProfile {
     lastName:string,
     username:string,
     status:string,
-    email:string
-    projects:IUserProfileProject[]
+    email:string,
+    projects:IUserProfileProject[],
+    phoneNumber?:string|null,
 }
 
-interface IUserProfileProject {
+
+
+export interface IUserProfileProject {
     id:string,
     name:string,
     isRemove:boolean

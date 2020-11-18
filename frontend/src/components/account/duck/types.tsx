@@ -1,6 +1,5 @@
 export enum userTypes {
     SET_USER_DATA = "SET_USER_DATA",
-    REGISTER = "REGISTER",
     LOGOUT_USER = "LOGOUT_USER"
 }
 
