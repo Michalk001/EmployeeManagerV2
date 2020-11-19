@@ -1,6 +1,6 @@
 import {getRepository} from "typeorm";
 import {User} from "../entity/User";
-import configInitUser from "./configInitUser.json"
+import configInitUser from "../../configInitUser.json"
 import {hashPassword} from "../controllers/Authorization";
 export const InitNewDatabase = async () =>{
     const userRepository = getRepository(User);
