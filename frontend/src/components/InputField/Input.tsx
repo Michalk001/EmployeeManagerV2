@@ -10,6 +10,7 @@ interface Iprops {
     placeholder?:string,
     classInput?:string,
     classWrap?:string,
+    classInputError?:string,
     id:string,
     name:string,
     labelName?:string
@@ -19,7 +20,7 @@ interface Iprops {
 
  const Input:FC<Iprops> = (props) =>{
 
-    const {classInput,id,name,value,onChange,placeholder="",labelName,classWrap="",type,showRequired} = props
+    const {classInputError,classInput,id,name,value,onChange,placeholder="",labelName,classWrap="",type,showRequired} = props
     const [showPassword, setShowPassword] = useState(false);
 
     const setType = (type: TypeInput):TypeInput =>{
@@ -34,7 +35,7 @@ interface Iprops {
         {labelName &&
             <label
                 htmlFor={id}
-                className={`input__label ${showRequired ? `input__label--required` :``}`}
+                className={`input__label ${showRequired ? (classInputError ? classInputError : `input__label--required`) : ``}`}
             >
                 {labelName}
             </label>

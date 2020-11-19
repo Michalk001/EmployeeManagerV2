@@ -15,6 +15,16 @@
     width: 1260px;
     display: flex;
     justify-content: space-between;
+    @media (max-width:1400px) {
+      width: 900px;
+    }
+    @media (max-width:1024px) {
+      width: 600px;
+    }
+    @media (max-width:768px) {
+      width: 100%;
+      padding: 0 30px;
+    }
   }
   &__ico{
     &--home{
@@ -22,6 +32,10 @@
       display: flex;
       align-items: center;
       color: white;
+      transition-duration: 0.25s;
+      &:hover{
+        color: #31a8ff;
+      }
     }
   }
   &__menu-list{
@@ -34,8 +48,10 @@
       padding: 0 10px;
       font-size: 18px;
       color: white;
+      transition-duration: 0.25s;
       &:hover{
         cursor: pointer;
+        color: #31a8ff;
       }
 
     }

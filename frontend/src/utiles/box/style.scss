@@ -9,12 +9,11 @@
   -moz-box-shadow: -2px 4px 53px -7px rgba(0, 0, 0, 0.56);
   box-shadow: -2px 4px 53px -7px rgba(0, 0, 0, 0.56);
   position: relative;
-
+  box-sizing: border-box;
   &--wide {
     width: 100%;
-
     @media (max-width:768px) {
-      width: 100%;
+      width: 96%;
 
     }
   }

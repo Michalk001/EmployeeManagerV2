@@ -12,6 +12,12 @@
     width: 400px;
     padding: 25px;
     background-color: #fff;
+    @media (max-width:768px) {
+      width: 80%;
+      padding: 25px;
+      background-color: #fff;
+      box-sizing: border-box;
+    }
   }
   &__input-section{
     display: flex;
@@ -50,6 +56,9 @@
     outline: none;
     background-color: transparent;
     z-index: 5;
+    &--required {
+      background-color: #ff9a9a;
+    }
   }
   &__ico-eye{
     position: absolute;

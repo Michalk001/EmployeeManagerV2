@@ -1,9 +1,17 @@
 import {AccountActionTypes, AccountState} from './actions'
 import {userTypes} from './types'
-import {logout} from "./operations";
+import {decodeUserToken, loadTokenFromCookies, logout} from "./operations";
+
+
+const createUserData = () =>{
+    const token = loadTokenFromCookies();
+    if(token)
+        return decodeUserToken(token)
+    return null
+}
 
 export const InitAccountState:AccountState = {
-    userData: null
+    userData: createUserData()
 
 }
 

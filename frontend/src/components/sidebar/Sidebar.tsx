@@ -1,8 +1,9 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useContext, useEffect, useState} from "react";
 import Cookies from 'js-cookie';
 import "./style.scss"
 import { Link } from "react-router-dom";
 import {AppRoute} from "../../routing/AppRoute.enum";
+import {GlobalContext} from "../../context/Provider";
 
 const ListLinkItem :FC<{text:string, path:string}>= ({text, path}) =>{
     return (
@@ -27,6 +28,7 @@ const ListTitleItem:FC<{text:string}> = ({text}) =>{
 export const Sidebar = () =>{
 
     const [hiddenMenu, setHiddenMenu] = useState(true);
+    const { state } = useContext(GlobalContext)
 
     const changeMenuVisible = () => {
         Cookies.set('hiddenMenu', String(!hiddenMenu), {expires: 365})

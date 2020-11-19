@@ -1,8 +1,9 @@
-import React, {FC} from "react";
-import { Route } from "react-router-dom";
+import React, {FC, useContext, useEffect} from "react";
+import {Redirect, Route } from "react-router-dom";
 import "./TemplateView.scss"
 import {Header} from "../header/Header";
 import {Sidebar} from "../sidebar/Sidebar";
+import {GlobalContext} from "../../context/Provider";
 
 interface IRouteComponent {
     Component: FC,
@@ -11,18 +12,30 @@ interface IRouteComponent {
 }
 
 
-export const UserRoute:FC<IRouteComponent> = ({ path, Component, ...rest }) => (
-
-    <Route path={path} {...rest} render={(props:any) => (
+export const UserRoute:FC<IRouteComponent> = ({ path, Component, ...rest }) => {
+    const {state} = useContext(GlobalContext)
+    return (<Route path={path} {...rest} render={(props: any) => (
         <>
-        <Sidebar />
-        <main className="user">
-
-            <div className="user--container">
-                <Component {...props}  />
-            </div>
-        </main>
-</>
+            {state.accountState.userData &&  <Sidebar/>}
+            <main className="user">
+                <div className="user--container">
+                    <Component {...props}  />
+                </div>
+            </main>
+        </>
     )}
-    />
-)
+    />)
+}
+
+export const  RequireLogin:FC<IRouteComponent>  = (props) => {
+    const { state } = useContext(GlobalContext)
+
+    return (<>
+
+        {( state.accountState.userData ) ?<>
+                <UserRoute {...props} />
+            </>
+             :
+            <Route render={() => (<Redirect to='/login' />)} />}
+    </>)
+}

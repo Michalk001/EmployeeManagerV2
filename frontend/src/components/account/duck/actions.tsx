@@ -2,7 +2,7 @@ import {userData, userTypes} from "./types";
 
 
 export interface AccountState {
-    userData: userData | null,
+    userData: userData | null ,
 }
 
 export interface ISetUser {
