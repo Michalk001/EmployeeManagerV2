@@ -86,7 +86,7 @@ export const Create = () =>{
                     ...prevState,
                     typeAlert: TypeAlert.success,
                     isOpen: true,
-                    text: "Utworzono Projekt"
+                    text: "Create Project"
                 }));
                 setProjectValue(defaultProjectValue);
                 return
@@ -107,7 +107,7 @@ export const Create = () =>{
             ...prevState,
             typeAlert: TypeAlert.error,
             isOpen: true,
-            text: `Wystąpił nieznany błąd`
+            text: `Unknown Error`
         }));
 
     }
@@ -126,7 +126,7 @@ export const Create = () =>{
                     onChange={updateValue}
                     id={`name`}
                     name={`name`}
-                    labelName={"Nazwa"}
+                    labelName={"Name"}
                     type={TypeInput.text}
                     classWrap={`admin-project__field`}
                     showRequired={invalidField.name}
@@ -136,7 +136,7 @@ export const Create = () =>{
                     onChange={updateValue}
                     name={`description`}
                     id={`description`}
-                    labelName={`Opis`}
+                    labelName={`Description`}
                     classWrap={`admin-project__field admin-project__field--description`}
 
                 />
@@ -146,11 +146,12 @@ export const Create = () =>{
                     value={selectUserValue}
                     onChange={updateSelectValue}
                     id={'employees'}
-                    labelName={`Przydzieleni Pracownicy`}
+                    labelName={`Assigned Employees`}
                     classWrap={`admin-project__field`}
+                    placeholder={"No Employees"}
                 />
                 <Button
-                    label={"Zapisz"}
+                    label={"Create"}
                     typeAction={typeButtonAction.submit}
                     typeButton={typeButton.normal}
                     classWrap={`admin-project__button-save-position`}

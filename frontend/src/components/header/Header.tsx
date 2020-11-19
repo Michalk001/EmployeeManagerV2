@@ -34,10 +34,10 @@ export const Header = () =>{
                 <ul  className={`header__menu-list`}>
                     {state.accountState.userData && <>
                         <li  className={`header__menu-list--element`}>{`${state.accountState.userData.firstName} ${state.accountState.userData.lastName}`}</li>
-                        <li  className={`header__menu-list--element`} onClick={logout} >Wyloguj</li>
+                        <li  className={`header__menu-list--element`} onClick={logout} >Log out</li>
                     </>}
                     {!state.accountState.userData && <>
-                        <li  className={`header__menu-list--element`}><Link to={AppRoute.login} className={`header__menu-list--link`}>Zaloguj</Link></li>
+                        <li  className={`header__menu-list--element`}><Link to={AppRoute.login} className={`header__menu-list--link`}>Log in</Link></li>
                     </>}
                 </ul>
 

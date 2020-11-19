@@ -34,10 +34,10 @@ export const List = () =>{
     }
     const getStatus = (status:string) =>{
         if(status === "active" )
-            return "Aktywny"
+            return "Active"
         if(status === "inactive")
-            return "nieaktynwy"
-        return "Nieznany"
+            return "Inactive"
+        return "Unknown"
     }
 
     useEffect(() =>{
@@ -49,8 +49,8 @@ export const List = () =>{
             <ListFilter originValue={projects} setFilterValue={updateFilteredValue}/>
             <ListBox>
                 <ListTitleRow>
-                    <ListCellWide value={`Nazwa`}/>
-                    <ListCellNormal value={`Ilośc Pracowników`} />
+                    <ListCellWide value={`Name`}/>
+                    <ListCellNormal value={`Employees`} />
                     <ListCellSmall value={`Status`} />
                 </ListTitleRow>
                 <ListBox>
@@ -62,7 +62,7 @@ export const List = () =>{
                         </LinkRow>
                    ))}
                     {projectsFiltered.length === 0 &&
-                    <ListMessage value={`Nie znaleziono projektów`} />
+                    <ListMessage value={`Not Found Projects`} />
                     }
                 </ListBox>
 

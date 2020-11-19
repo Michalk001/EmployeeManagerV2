@@ -54,20 +54,19 @@ export const Sidebar = () =>{
             </div>
             <div className={`sidebar sidebar--${hiddenMenu ? `close` : `open`} `}>
                 <ul className={`sidebar__menu `}>
-                    <ListTitleItem text={`Panel Użytkownika`} />
+                    <ListTitleItem text={`User Panel`} />
                     <ListLinkItem path={AppRoute.homePage} text={"Home"} />
-                    <ListLinkItem path={AppRoute.adminProjectNew} text={"New Project"} />
-                    <ListLinkItem path={AppRoute.adminUserNew} text={"New User"} />
+                    <ListLinkItem path={AppRoute.userProfile} text={"Profile"} />
                 </ul>
-
-                <ul className={`sidebar__menu `}>
-                    <ListTitleItem text={`Panel Admina`} />
-                    <ListLinkItem path={AppRoute.homePage} text={"Home"} />
-                    <ListLinkItem path={AppRoute.adminProjectNew} text={"New Project"} />
-                    <ListLinkItem path={AppRoute.adminProjectList} text={"list Project"} />
-                    <ListLinkItem path={AppRoute.adminUserNew} text={"New User"} />
-                    <ListLinkItem path={AppRoute.adminUserList} text={"list User"} />
-                </ul>
+                {state.accountState.userData?.isAdmin &&
+                    <ul className={`sidebar__menu `}>
+                        <ListTitleItem text={`Admin Panel`} />
+                        <ListLinkItem path={AppRoute.adminProjectNew} text={"New Project"} />
+                        <ListLinkItem path={AppRoute.adminProjectList} text={"list Project"} />
+                        <ListLinkItem path={AppRoute.adminUserNew} text={"New User"} />
+                        <ListLinkItem path={AppRoute.adminUserList} text={"List User"} />
+                    </ul>
+                }
             </div>
         </div>
     )

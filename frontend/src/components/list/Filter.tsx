@@ -56,10 +56,10 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
     return(
         <ListBox>
             <ListRow>
-                <div className={"list__label"}>Wyszukaj Po nazwie</div>
+                <div className={"list__label"}>Search by name</div>
                 <div className="list__radio-button--wrap">
                     <label className={`list__radio-button ${filterTypeCheck.all === search.status ? "list__radio-button--active" :""}`}
-                           htmlFor={`filter-all`}>Wszystkie</label>
+                           htmlFor={`filter-all`}>All</label>
                     <input
                         onChange={updateSearchValue}
                         className="list__radio-button--radio"
@@ -69,7 +69,7 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
                         type="radio"
                     />
                     <label className={`list__radio-button ${filterTypeCheck.active === search.status ? "list__radio-button--active" :""}`}
-                           htmlFor={`filter-active`}>Aktywne</label>
+                           htmlFor={`filter-active`}>Active</label>
                     <input
                         onChange={updateSearchValue}
                         className="list__radio-button--radio"
@@ -79,7 +79,7 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
                         type="radio"
                     />
                     <label className={`list__radio-button ${filterTypeCheck.inactive === search.status ? "list__radio-button--active" :""}`}
-                           htmlFor={`filter-inactive`}>Nieaktywne</label>
+                           htmlFor={`filter-inactive`}>Inactive</label>
                     <input onChange={updateSearchValue}
                         className="list__radio-button--radio"
                         id="filter-inactive"
@@ -96,7 +96,7 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
                 id={"searchByName"}
                 name={"searchByName"}
                 type={TypeInput.text}
-                placeholder={`Wyszukaj...`}
+                placeholder={`Search...`}
             />
         </ListBox>
     )

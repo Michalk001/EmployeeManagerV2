@@ -60,13 +60,13 @@ export const Login = () =>{
                 return
             }
             if(response.status === 401){
-                setAlertList({...alertList, isOpen: true, alertList: [{text: `Błędny login lub hasło`}]})
+                setAlertList({...alertList, isOpen: true, alertList: [{text: `Wrong login or password`}]})
                 return
             }
         }catch (e) {
-            setAlertList({...alertList, isOpen: true, alertList: [{text: `Błąd ${e}`}]})
+            setAlertList({...alertList, isOpen: true, alertList: [{text: `Error ${e}`}]})
         }
-        setAlertList({...alertList, isOpen: true, alertList: [{text: `Nieznany błąd`}]})
+        setAlertList({...alertList, isOpen: true, alertList: [{text: `Unknown Error`}]})
 
 
 
@@ -98,7 +98,7 @@ export const Login = () =>{
                 classInput={`account__input`}
 
             />
-            <Button label={"Zaloguj"} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`account__button--position`} />
+            <Button label={"Login"} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`account__button--position`} />
 
         </form>
         <SnackbarMultiAlert

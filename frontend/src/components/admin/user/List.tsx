@@ -42,10 +42,10 @@ export const List = () =>{
     }
     const getStatus = (status:string) =>{
         if(status === "active" )
-            return "Aktywny"
+            return "Active"
         if(status === "inactive")
-            return "nieaktynwy"
-        return "Nieznany"
+            return "Inactive"
+        return "Unknown"
     }
 
     return(
@@ -54,8 +54,8 @@ export const List = () =>{
             <ListFilter originValue={users} setFilterValue={updateFilteredValue}/>
             <ListBox>
                 <ListTitleRow>
-                    <ListCellWide value={`Nazwa`}/>
-                    <ListCellNormal value={`Ilośc Projeków`} />
+                    <ListCellWide value={`Name`}/>
+                    <ListCellNormal value={`Projects`} />
                     <ListCellSmall value={`Status`} />
                 </ListTitleRow>
                 <ListBox>
@@ -67,7 +67,7 @@ export const List = () =>{
                         </LinkRow>
                     ))}
                     {usersFiltered.length === 0 &&
-                    <ListMessage value={`Nie znaleziono pracowników`} />
+                    <ListMessage value={`No Found Employees`} />
                     }
                 </ListBox>
 

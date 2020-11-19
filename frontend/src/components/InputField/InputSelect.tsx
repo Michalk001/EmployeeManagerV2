@@ -14,12 +14,13 @@ interface Iprops {
     classInput?:string,
     classWrap?:string,
     labelName?:string,
-    id:string
+    id:string,
+    placeholder?:string
 }
 
 const InputSelect:FC<Iprops> = (props) =>{
 
-    const {options,value,isMulti,onChange,classInput,classWrap="",labelName,id} = props;
+    const {options,value,isMulti,onChange,classInput,classWrap="",labelName,id,placeholder} = props;
 
     return (<div className={`input__wrap ${classWrap}`}>
         {labelName &&
@@ -35,7 +36,7 @@ const InputSelect:FC<Iprops> = (props) =>{
             value={value}
             isMulti={isMulti}
             onChange={onChange}
-            placeholder={"Lista Pracowników"}
+            placeholder={placeholder}
             isSearchable={true}
             noOptionsMessage={() => "Brak"}
             className={` ${classInput}`}

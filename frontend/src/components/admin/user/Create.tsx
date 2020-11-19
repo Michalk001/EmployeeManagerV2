@@ -77,7 +77,7 @@ export const Create = () =>{
                 setSnackbarValue(prevState => ({...prevState,
                     typeAlert: TypeAlert.success,
                     isOpen: true,
-                    text: "Utworzono użytkownika"
+                    text: "Create User"
                 }));
                 setUser(defaultUser);
                 return
@@ -86,7 +86,7 @@ export const Create = () =>{
                 setSnackbarValue(prevState => ({...prevState,
                     typeAlert: TypeAlert.warning,
                     isOpen: true,
-                    text: "Nazwa zajęta"
+                    text: "Name Busy"
                 }));
                 setInvalidField(prev =>( {...prev,username:true}))
                 return
@@ -96,14 +96,14 @@ export const Create = () =>{
             setSnackbarValue(prevState => ({...prevState,
                 typeAlert: TypeAlert.error,
                 isOpen: true,
-                text: `Błąd ${e.toString()}`
+                text: `Error ${e.toString()}`
             }));
             return
         }
         setSnackbarValue(prevState => ({...prevState,
             typeAlert: TypeAlert.error,
             isOpen: true,
-            text: `Wystąpił nieznany błąd`
+            text: `Unknown Error`
         }));
         return
     }
@@ -185,7 +185,7 @@ export const Create = () =>{
                     updateAdmin={(isAdmin => {setUser(prevState => ({...prevState,isAdmin}))})}
                 />
 
-                <Button label={`Zapisz`} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`admin-user__row--save-button-wrap`}/>
+                <Button label={`Create`} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`admin-user__row--save-button-wrap`}/>
             </div>
             </form>
             <Snackbar
