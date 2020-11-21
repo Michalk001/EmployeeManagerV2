@@ -1,29 +1,21 @@
 import React, {FC} from "react";
 
-import "./style.scss"
+import styles from "./style.module.scss"
 
-interface props {
-    typeClass:string
+interface IProps {
+    value:string|number
 }
 
-enum typeCell {
-    wide="list__cell--wide",
-    normal="list__cell--normal",
-    small="list__cell--small"
+
+
+export const CellWide:FC<IProps> = ({value}) =>{
+    return <div className={`${styles["list__cell"]} ${styles["list__cell--wide"]}`}>{value}</div>
 }
 
-const Cell:FC<{typeClass:typeCell,value:string|number}> = ({typeClass,value}) =>{
-    return <div className={`list__cell ${typeClass}`}>{value}</div>
+export const CellNormal:FC<IProps>  = ({value}) =>{
+    return <div className={`${styles["list__cell"]} ${styles["list__cell--normal"]}`}>{value}</div>
 }
 
-export const CellWide:FC<{value:string|number}> = ({value}) =>{
-    return <Cell typeClass={typeCell.wide} value={value} />
-}
-
-export const CellNormal:FC<{value:string|number}> = ({value}) =>{
-    return <Cell typeClass={typeCell.normal} value={value} />
-}
-
-export const CellSmall:FC<{value:string|number}> = ({value}) =>{
-    return <Cell typeClass={typeCell.small} value={value} />
+export const CellSmall:FC<IProps>  = ({value}) =>{
+    return <div className={`${styles["list__cell"]} ${styles["list__cell--small"]}`}>{value}</div>
 }

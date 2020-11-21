@@ -1,4 +1,4 @@
-import React, {createContext, FC, ReactNode, useEffect, useReducer} from "react";
+import React, {createContext, FC, ReactNode, useReducer} from "react";
 import {InitAccountState } from "../components/account/duck/reducers";
 
 import {AppState, IStateContext} from "./types";

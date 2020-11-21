@@ -2,7 +2,7 @@ import React, {ChangeEvent, FC, useEffect, useState} from "react"
 import {ListRow} from "./Row";
 import {Input, TypeInput} from "../InputField";
 import {ListBox} from "./ListBox";
-
+import styles from "./style.module.scss"
 
 interface IProps<T extends IReqPropsGeneric> {
     originValue:T[],
@@ -56,32 +56,32 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
     return(
         <ListBox>
             <ListRow>
-                <div className={"list__label"}>Search by name</div>
-                <div className="list__radio-button--wrap">
-                    <label className={`list__radio-button ${filterTypeCheck.all === search.status ? "list__radio-button--active" :""}`}
+                <div className={`${styles["list__label"]}`}>Search by name</div>
+                <div className={`${styles["list__radio-button--wrap"]}`} >
+                    <label className={`${styles["list__radio-button"]} ${filterTypeCheck.all === search.status ? `${styles["list__radio-button--active"]}` :""}`}
                            htmlFor={`filter-all`}>All</label>
                     <input
                         onChange={updateSearchValue}
-                        className="list__radio-button--radio"
+                        className={`${styles[`list__radio-button--radio`]}`}
                         id="filter-all"
                         name="status"
                         value={filterTypeCheck.all}
                         type="radio"
                     />
-                    <label className={`list__radio-button ${filterTypeCheck.active === search.status ? "list__radio-button--active" :""}`}
+                    <label className={`${styles["list__radio-button"]} ${filterTypeCheck.active === search.status ? `${styles["list__radio-button--active"]}` :""}`}
                            htmlFor={`filter-active`}>Active</label>
                     <input
                         onChange={updateSearchValue}
-                        className="list__radio-button--radio"
+                        className={`${styles[`list__radio-button--radio`]}`}
                         id="filter-active"
                         name="status"
                         value={filterTypeCheck.active}
                         type="radio"
                     />
-                    <label className={`list__radio-button ${filterTypeCheck.inactive === search.status ? "list__radio-button--active" :""}`}
+                    <label className={`${styles["list__radio-button"]} ${filterTypeCheck.inactive === search.status ? `${styles["list__radio-button--active"]}` :""}`}
                            htmlFor={`filter-inactive`}>Inactive</label>
                     <input onChange={updateSearchValue}
-                        className="list__radio-button--radio"
+                        className={`${styles[`list__radio-button--radio`]}`}
                         id="filter-inactive"
                         name="status"
                         value={filterTypeCheck.inactive}

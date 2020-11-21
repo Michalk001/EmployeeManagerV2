@@ -2,7 +2,7 @@ import React, {FC, ReactNode} from "react"
 import {Snackbar as MaterialSnack}  from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import {TypeAlert, ISnackbarMultiAlert, ISnackbar} from "./types";
-import "./style.scss"
+import styles from "./style.module.scss"
 
 interface props {
     children:ReactNode,
@@ -24,7 +24,7 @@ export const Snackbar:FC<ISnackbar> = (props) =>{
     return(
         <MaterialSnack open={isOpen} onClose={onClose}  autoHideDuration={hideDuration}>
             <Alert onClose={onClose} severity={typeAlert}>
-                <div className={`snackbar__alert`}>
+                <div className={`${styles[`snackbar__alert`]}`}>
                     {text}
                 </div>
             </Alert>
@@ -41,7 +41,7 @@ export const SnackbarMultiAlert:FC<ISnackbarMultiAlert> = (props) =>{
         <MaterialSnack open={isOpen} autoHideDuration={hideDuration}  >
             <Alert onClose={onClose} severity={typeAlert}>
                 {alertList.map(alert => (
-                    <div key={alert.text} className={`snackbar__alert`}>
+                    <div key={alert.text} className={`${styles[`snackbar__alert`]}`}>
                         {alert.text}
                     </div>
                ) )}

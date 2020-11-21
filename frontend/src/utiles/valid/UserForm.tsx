@@ -1,7 +1,6 @@
 import {IUserProfile} from "../../components/user/employee/duck/types";
 import {IAlertList} from "../../components/snackbar";
 import {ValidEmail, ValidIsEmpty, ValidPassword} from "./index";
-import React from "react";
 import {IUserNew} from "../../components/admin/user/duck/types";
 import {IInvalidUserForm, typeValidUserForm} from "./types";
 
@@ -32,7 +31,7 @@ export const UserForm = (user:IUserProfile|IUserNew,typeValidForm:typeValidUserF
     }
     if(ValidIsEmpty(user.lastName)){
         isInvalid = true;
-        invalidField.firstName = true
+        invalidField.lastName = true
     }
 
     if(typeValidForm === typeValidUserForm.NEW_USER) {

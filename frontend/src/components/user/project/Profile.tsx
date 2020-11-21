@@ -6,8 +6,6 @@ import {useParams} from "react-router";
 import {BoxWide} from "../../../utiles/box/Wide";
 
 import "./style.scss"
-import {ProfileRedirect} from "../../common";
-import {AppRoute} from "../../../routing/AppRoute.enum";
 import {ListItemRow} from "../common";
 import {getUserOfItemList} from "./duck/operations";
 

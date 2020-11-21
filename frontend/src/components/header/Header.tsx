@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import "./style.scss"
+import styles from "./style.module.scss"
 import { logoutUser, setUserData} from "../account/duck/actions";
 import { Link } from "react-router-dom";
 
@@ -15,29 +15,21 @@ export const Header = () =>{
         dispatch(logoutUser())
     }
 
-    useEffect(()=>{
-        const token = loadTokenFromCookies();
-        if(token){
-            dispatch(setUserData(decodeUserToken(token)))
-        }
-
-    },[])
-
-    return <header className={`header`}>
-        <div className={`header--container`}>
-            <div className={`header__ico--home`}>
-                <Link to={AppRoute.homePage} className={`header__menu-list--link`}>
+    return <header className={`${styles[`header`]}`}>
+        <div className={`${styles[`header--container`]}`}>
+            <div className={`${styles[`header__ico--home`]}`}>
+                <Link to={AppRoute.homePage} className={`${styles[`header__menu-list--link`]}`}>
                     <i className="fas fa-home"/>
                 </Link>
             </div>
 
-                <ul  className={`header__menu-list`}>
+                <ul  className={`${styles[`header__menu-list`]}`}>
                     {state.accountState.userData && <>
-                        <li  className={`header__menu-list--element`}>{`${state.accountState.userData.firstName} ${state.accountState.userData.lastName}`}</li>
-                        <li  className={`header__menu-list--element`} onClick={logout} >Log out</li>
+                        <li  className={`${styles[`header__menu-list--element`]}`}>{`${state.accountState.userData.firstName} ${state.accountState.userData.lastName}`}</li>
+                        <li  className={`${styles[`header__menu-list--element`]}`} onClick={logout} >Log out</li>
                     </>}
                     {!state.accountState.userData && <>
-                        <li  className={`header__menu-list--element`}><Link to={AppRoute.login} className={`header__menu-list--link`}>Log in</Link></li>
+                        <li  className={`${styles[`header__menu-list--element`]}`}><Link to={AppRoute.login} className={`${styles[`header__menu-list--link`]}`}>Log in</Link></li>
                     </>}
                 </ul>
 

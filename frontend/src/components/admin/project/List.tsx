@@ -1,9 +1,8 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {BoxWide} from "../../../utiles/box/Wide";
 import {IProjectList} from "./duck/types";
 import {FetchGet} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json"
-import "./style.scss"
 
 import {
     ListCellNormal,

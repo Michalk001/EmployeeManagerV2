@@ -46,7 +46,7 @@ export const Profile = () =>{
             getDataUser();
         }
         return () =>{isMounted.current = false}
-    },[state.accountState.userData])
+    },[])
 
 
     return(

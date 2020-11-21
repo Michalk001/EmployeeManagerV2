@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, useState} from "react";
 
-import './style.scss'
-import {TypeInput} from "./types";
+import styles from './style.module.scss'
+import {TypeInput} from "./duck/types";
 
 interface Iprops {
 
@@ -31,11 +31,11 @@ interface Iprops {
         return  TypeInput.text
      }
 
-    return <div className={`input__wrap ${classWrap}`}>
+    return <div className={`${styles["input__wrap"]} ${classWrap}`}>
         {labelName &&
             <label
                 htmlFor={id}
-                className={`input__label ${showRequired ? (classInputError ? classInputError : `input__label--required`) : ``}`}
+                className={`${styles["input__label"]} ${showRequired ? (classInputError ? classInputError : `${styles[`input__label--required`]}`) : ``}`}
             >
                 {labelName}
             </label>
@@ -47,12 +47,12 @@ interface Iprops {
             value={value}
             onChange={onChange}
             placeholder={placeholder}
-            className={` ${classInput ? classInput : `input`} ${showRequired ? `input--required` :``} ${ type === TypeInput.password ? 'input--password' : ``}`}
+            className={` ${classInput ? classInput : `${styles[`input`]}`} ${showRequired ? `${styles[`input--required`]}` :``} ${ type === TypeInput.password ? `${styles[`input--password`]}` : ``}`}
         />
         {
             type === TypeInput.password &&
             <i onClick={() => setShowPassword(prev => !prev)}
-            className={`input__ico-eye fas fa-eye ${!showPassword ? `fa-eye` : `fa-eye-slash`}`}/>
+            className={`${styles[`input__ico-eye`]} fas fa-eye ${!showPassword ? `fa-eye` : `fa-eye-slash`}`}/>
         }
     </div>
 }

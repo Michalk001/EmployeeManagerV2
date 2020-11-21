@@ -1,5 +1,4 @@
 import {Item} from "../../common";
-import config from "../../../../utiles/config.json";
 import {IProjectUserProfile} from "./types";
 import {AppRoute} from "../../../../routing/AppRoute.enum";
 

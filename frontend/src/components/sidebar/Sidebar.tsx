@@ -1,15 +1,15 @@
 import React, {FC, useContext, useEffect, useState} from "react";
 import Cookies from 'js-cookie';
-import "./style.scss"
+import styles from "./style.module.scss"
 import { Link } from "react-router-dom";
 import {AppRoute} from "../../routing/AppRoute.enum";
 import {GlobalContext} from "../../context/Provider";
 
 const ListLinkItem :FC<{text:string, path:string}>= ({text, path}) =>{
     return (
-        <li className={`sidebar__menu--item`}>
+        <li className={`${styles[`sidebar__menu--item`]}`}>
             <Link to={path}
-                  className={`sidebar__menu--text sidebar__menu--link`}
+                  className={`${styles[`sidebar__menu--text`]} ${styles[`sidebar__menu--link`]}`}
             >
                 {text}
             </Link>
@@ -19,8 +19,8 @@ const ListLinkItem :FC<{text:string, path:string}>= ({text, path}) =>{
 
 const ListTitleItem:FC<{text:string}> = ({text}) =>{
     return(
-        <li className={`sidebar__menu--item`}>
-            <div className={`sidebar__menu--text sidebar__menu--title `}>{text}</div>
+        <li className={`${styles[`sidebar__menu--item`]}`}>
+            <div className={`${styles[`sidebar__menu--text`]} ${styles[`sidebar__menu--title`]} `}>{text}</div>
         </li>
     )
 }
@@ -44,22 +44,23 @@ export const Sidebar = () =>{
     }, [])
 
     return (
-         <div className={`sidebar--wrap`}>
-            <div className={`sidebar__mask ${hiddenMenu ? ` sidebar__mask--close` : ``}`}/>
-            <div className={`sidebar__arrows ${hiddenMenu ? `sidebar__arrows--close-fix` : ``}`}>
-                <i className={`fas fa-arrow-circle-left sidebar__arrows--style sidebar__arrows--${hiddenMenu ? `close` : `open`}`}
+         <div className={`${styles[`sidebar--wrap`]}`}>
+            <div className={`${styles[`sidebar__mask`]} ${hiddenMenu ? ` ${styles[`sidebar__mask--close`]}` : ``}`}/>
+            <div className={`${styles[`sidebar__arrows`]} ${hiddenMenu ? `${styles[`sidebar__arrows--close-fix`]}` : ``}`}>
+                <i className={`fas fa-arrow-circle-left ${styles[`sidebar__arrows--style`]} 
+                ${hiddenMenu ? `${styles[`sidebar__arrows--close`]}` : `${styles[`sidebar__arrows--open`]}`}`}
                    onClick={() => {
                        changeMenuVisible()
                    }}/>
             </div>
-            <div className={`sidebar sidebar--${hiddenMenu ? `close` : `open`} `}>
-                <ul className={`sidebar__menu `}>
+            <div className={`${styles[`sidebar`]} ${hiddenMenu ? ` ${styles[`sidebar--close`]}` : ` ${styles[`sidebar--open`]}`} `}>
+                <ul className={`${styles[`sidebar__menu`]} `}>
                     <ListTitleItem text={`User Panel`} />
                     <ListLinkItem path={AppRoute.homePage} text={"Home"} />
                     <ListLinkItem path={AppRoute.userProfile} text={"Profile"} />
                 </ul>
                 {state.accountState.userData?.isAdmin &&
-                    <ul className={`sidebar__menu `}>
+                    <ul className={`${styles[`sidebar__menu`]} `}>
                         <ListTitleItem text={`Admin Panel`} />
                         <ListLinkItem path={AppRoute.adminProjectNew} text={"New Project"} />
                         <ListLinkItem path={AppRoute.adminProjectList} text={"list Project"} />

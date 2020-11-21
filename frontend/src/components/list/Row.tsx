@@ -1,32 +1,28 @@
 import React, {FC, ReactNode} from "react"
 import {Link} from "react-router-dom";
+import styles from "./style.module.scss"
 
-enum typeRow {
-    listRow="",
-    titleRow="list__row--title",
-}
+const Row:FC<{ children: ReactNode,typeClass?:string  }> = ({children,typeClass=""}) =>{
 
-const Row:FC<{ children: ReactNode,typeClass:typeRow  }> = ({children,typeClass}) =>{
-
-    return <div className={`list__row ${typeClass}`}>
+    return <div className={`${styles[`list__row`]} ${typeClass}`}>
         {children}
     </div>
 }
 
 export const ListRow:FC<{children:ReactNode}> = ({children}) =>{
-        return <Row typeClass={typeRow.listRow} >
+        return <Row>
             {children}
         </Row>
 }
 
 export const TitleRow:FC<{children:ReactNode}> = ({children}) =>{
-    return <Row typeClass={typeRow.titleRow} >
+    return <Row typeClass={`${styles[`list__row--title`]}`} >
         {children}
     </Row>
 }
 
 export const LinkRow:FC<{children:ReactNode,path:string}> = ({children,path}) =>{
-    return <Link  to={path}  className={`list__row list__row--link`} >
+    return <Link  to={path}  className={`${styles[`list__row`]} ${styles[`list__row--link`]}`} >
         {children}
     </Link>
 }

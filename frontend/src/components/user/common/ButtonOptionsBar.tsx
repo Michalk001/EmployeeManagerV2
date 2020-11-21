@@ -12,9 +12,8 @@ export const ButtonOptionsBar:FC<{items:IButtonBarOptions[], usernameProfile?:st
             return true
         if((showType === ShowType.ADMIN || showType === ShowType.AdminOrUser) && state.accountState.userData?.isAdmin)
             return true
-        if((showType === ShowType.USER || showType === ShowType.AdminOrUser) && state.accountState.userData?.username === usernameProfile)
-            return true
-        return false
+        return (showType === ShowType.USER || showType === ShowType.AdminOrUser) && state.accountState.userData?.username === usernameProfile;
+
     }
 
     useEffect(() =>{

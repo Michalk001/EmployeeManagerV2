@@ -1,5 +1,6 @@
 import React, {FC} from "react";
 import Select, {ValueType} from "react-select";
+import styles from "./style.module.scss"
 
 export interface optionType {
     value: string,
@@ -22,11 +23,11 @@ const InputSelect:FC<Iprops> = (props) =>{
 
     const {options,value,isMulti,onChange,classInput,classWrap="",labelName,id,placeholder} = props;
 
-    return (<div className={`input__wrap ${classWrap}`}>
+    return (<div className={`${styles[`input__wrap`]} ${classWrap}`}>
         {labelName &&
         <label
             htmlFor={id}
-            className={`input__label input__label--normal`}
+            className={`${styles[`input__label`]} ${styles[`input__label--normal`]}`}
         >
             {labelName}
         </label>

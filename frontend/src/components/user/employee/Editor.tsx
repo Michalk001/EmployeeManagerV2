@@ -159,7 +159,7 @@ export const Editor = () =>{
             getDataUser();
         }
         return () =>{isMounted.current = false}
-    },[state.accountState.userData])
+    },[])
 
 
     return(

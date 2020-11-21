@@ -1,6 +1,6 @@
-import React, {FC, ReactNode} from "react"
+import React, {FC} from "react"
 
-import "./style.scss"
+import "./style.module.scss"
 import {Link} from "react-router-dom";
 export interface IOptionLabel {
     onClick: () => void;

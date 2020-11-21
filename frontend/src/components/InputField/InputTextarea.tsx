@@ -1,6 +1,5 @@
 import React, {ChangeEvent, FC} from "react";
-import {TypeInput} from "./types";
-
+import styles from "./style.module.scss"
 
 interface Iprops {
 
@@ -18,11 +17,11 @@ const InputTextarea:FC<Iprops> = (props) =>{
     const {value,onChange,name,id,classTextarea,classWrap="",labelName,placeholder} = props;
 
     return (
-        <div className={`input__wrap ${classWrap}`}>
+        <div className={`${styles[`input__wrap`]} ${classWrap}`}>
             {labelName &&
             <label
                 htmlFor={id}
-                className={`input__label`}
+                className={`${styles[`input__label`]}`}
             >
                 {labelName}
             </label>
@@ -32,7 +31,7 @@ const InputTextarea:FC<Iprops> = (props) =>{
                 name={name}
                 value={value}
                 onChange={onChange}
-                className={` ${classTextarea ? classTextarea : `input input--textarea`}`}
+                className={` ${classTextarea ? classTextarea : `${styles[`input`]} ${styles[`input--textarea`]}`}`}
                 placeholder={placeholder}
             />
         </div>

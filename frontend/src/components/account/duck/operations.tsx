@@ -7,14 +7,14 @@ import Cookies from "js-cookie";
 
 export const fetchLogin = async (username:string,password:string) =>{
 
-    const response = await Fetch(`${config.API_URL}/auth/login`,Method.POST,{user:{username,password}});
-    return response
+    return await Fetch(`${config.API_URL}/auth/login`,Method.POST,{user:{username,password}});
+
 }
 
 
 export const decodeUserToken = (token:string):userData =>{
     const decodedToken:jwtTokenData = jwt_decode(token);
-    const user:userData = {
+    return  {
         lastName:decodedToken.lastName,
         firstName:decodedToken.firstName,
         username:decodedToken.username,
@@ -22,8 +22,6 @@ export const decodeUserToken = (token:string):userData =>{
         token: token,
         isAdmin:decodedToken.isAdmin,
     }
-
-    return user
 }
 
 export const saveTokenToCookies = (token:string) =>{

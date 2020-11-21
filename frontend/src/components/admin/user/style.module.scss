@@ -1,0 +1,27 @@
+.user{
+  &__field-wrap{
+    width: 300px;
+    margin: 10px;
+    position: relative;
+    &--select-admin{
+      width: 150px;
+    }
+  }
+
+  &__row{
+    display: flex;
+    margin: 20px 0;
+    flex-wrap: wrap;
+
+    &--save-button-wrap{
+      width: 100%;
+      justify-content: center;
+      display: flex;
+      margin-top: 30px;
+    }
+  }
+
+
+
+
+}

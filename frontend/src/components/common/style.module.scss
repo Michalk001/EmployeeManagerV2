@@ -1,26 +1,26 @@
-.admin-user{
-  &__field-wrap{
-    width: 300px;
+  .profile-redirect{
+
+  background-color: #2a3038;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 7px;
+  &--with-option{
+    border-radius: 7px 0 0 7px;
+  }
+  transition: color 0.25s;
+  margin: 0 10px;
+  &--link{
+    text-decoration: none;
+    color: #fff;
+  }
+}
+
+.admin-select{
+  &__wrap{
     margin: 10px;
     position: relative;
-    &--select-admin{
       width: 150px;
-    }
   }
-
-  &__row{
-    display: flex;
-    margin: 20px 0;
-    flex-wrap: wrap;
-
-    &--save-button-wrap{
-      width: 100%;
-      justify-content: center;
-      display: flex;
-      margin-top: 30px;
-    }
-  }
-
   &__radio-button{
     cursor: pointer;
     font-size: 18px;
@@ -55,11 +55,9 @@
         color: #31a8ff
       }
     }
-    &--input{
-      position: absolute;
-      visibility: hidden;
-    }
   }
-
-
+  &__input{
+    position: absolute;
+    visibility: hidden;
+  }
 }

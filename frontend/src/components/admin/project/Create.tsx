@@ -6,7 +6,7 @@ import {IProjectNew, IUser} from "./duck/types"
 import {Input, InputSelect, InputTextarea, TypeInput} from "../../InputField";
 import {Button, typeButton, typeButtonAction} from "../../button";
 
-import './style.scss'
+import styles from './style.module.scss'
 import {optionType} from "../../InputField/InputSelect";
 import {ValueType} from "react-select";
 import {Fetch, FetchGet, Method} from "../../../utiles/Fetch";
@@ -128,7 +128,7 @@ export const Create = () =>{
                     name={`name`}
                     labelName={"Name"}
                     type={TypeInput.text}
-                    classWrap={`admin-project__field`}
+                    classWrap={`${styles[`project__field`]}`}
                     showRequired={invalidField.name}
                 />
                 <InputTextarea
@@ -137,7 +137,7 @@ export const Create = () =>{
                     name={`description`}
                     id={`description`}
                     labelName={`Description`}
-                    classWrap={`admin-project__field admin-project__field--description`}
+                    classWrap={`${styles[`project__field`]} ${styles[`project__field--description`]}`}
 
                 />
                 <InputSelect
@@ -147,14 +147,14 @@ export const Create = () =>{
                     onChange={updateSelectValue}
                     id={'employees'}
                     labelName={`Assigned Employees`}
-                    classWrap={`admin-project__field`}
+                    classWrap={`project__field`}
                     placeholder={"No Employees"}
                 />
                 <Button
                     label={"Create"}
                     typeAction={typeButtonAction.submit}
                     typeButton={typeButton.normal}
-                    classWrap={`admin-project__button-save-position`}
+                    classWrap={`project__button-save-position`}
                 />
             </form>
             <Snackbar

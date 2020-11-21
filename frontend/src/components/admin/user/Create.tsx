@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import './style.scss'
+import styles from './style.module.scss'
 import {BoxWide} from "../../../utiles/box/Wide";
 import {Input, TypeInput} from "../../InputField";
 import {IUserNew} from "./duck/types";
 import {Button, typeButton, typeButtonAction} from "../../button";
-import {ISnackbarMultiAlert, Snackbar, SnackbarMultiAlert, TypeAlert, IAlertList, ISnackbar} from "../../snackbar";
+import {ISnackbarMultiAlert, Snackbar, SnackbarMultiAlert, TypeAlert, ISnackbar} from "../../snackbar";
 import {Fetch, Method} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json"
 import {IInvalidUserForm, typeValidUserForm, ValidPhone, ValidUserForm} from "../../../utiles/valid";
@@ -115,7 +115,7 @@ export const Create = () =>{
     return(
         <BoxWide>
             <form onSubmit={handleSaveUser}>
-            <div className={`admin-user__row`}>
+            <div className={`${styles["user__row"]}`}>
                 <Input
                     value={user.firstName}
                     onChange={updateUserValue}
@@ -123,7 +123,7 @@ export const Create = () =>{
                     name={`firstName`}
                     type={TypeInput.text}
                     labelName={`First Name`}
-                    classWrap={`admin-user__field-wrap`}
+                    classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.firstName}
                 />
                 <Input
@@ -133,7 +133,7 @@ export const Create = () =>{
                     name={`lastName`}
                     type={TypeInput.text}
                     labelName={`Last Name`}
-                    classWrap={`admin-user__field-wrap`}
+                    classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.lastName}
                 />
                 <Input
@@ -143,7 +143,7 @@ export const Create = () =>{
                     name={`email`}
                     type={TypeInput.text}
                     labelName={`Email`}
-                    classWrap={`admin-user__field-wrap`}
+                    classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.email}
                 />
                 <Input
@@ -153,13 +153,13 @@ export const Create = () =>{
                     name={`phoneNumber`}
                     type={TypeInput.text}
                     labelName={`Phone Number`}
-                    classWrap={`admin-user__field-wrap`}
+                    classWrap={`${styles["user__field-wrap"]}`}
 
                 />
 
             </div>
 
-            <div className={`admin-user__row`}>
+            <div className={`${styles["user__row"]}`}>
                 <Input
                     value={user.username}
                     onChange={updateUserValue}
@@ -167,7 +167,7 @@ export const Create = () =>{
                     name={`username`}
                     type={TypeInput.text}
                     labelName={`Username`}
-                    classWrap={`admin-user__field-wrap`}
+                    classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.username}
                 />
                 <Input
@@ -177,7 +177,7 @@ export const Create = () =>{
                     name={`password`}
                     type={TypeInput.password}
                     labelName={`Password`}
-                    classWrap={`admin-user__field-wrap`}
+                    classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.password}
                 />
                 <AdminSelect
@@ -185,7 +185,7 @@ export const Create = () =>{
                     updateAdmin={(isAdmin => {setUser(prevState => ({...prevState,isAdmin}))})}
                 />
 
-                <Button label={`Create`} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`admin-user__row--save-button-wrap`}/>
+                <Button label={`Create`} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`${styles["user__row--save-button-wrap"]}`}/>
             </div>
             </form>
             <Snackbar

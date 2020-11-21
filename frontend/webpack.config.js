@@ -9,11 +9,30 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(sa|sc|c)ss$/,
-                use: [
+                test: /\.module\.(sa|sc|c)ss$/,
+                loader: [
                     "style-loader",
-                    "css-loader",
-                    "sass-loader"
+                    {
+                        loader:"css-loader" ,
+                        options: {
+                            modules: true,
+
+                        }
+                    },
+                    {
+                        loader:"sass-loader" ,
+                    }
+                ],
+            },
+            {
+                test: /\.(sa|sc|c)ss$/,
+                exclude: /\.module.(sa|sc|c)ss$/,
+                loader: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                    }
                 ]
             },
             {
@@ -28,8 +47,9 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: '[name].[hash].css',
-            chunkFilename: '[id].[hash].css'
+            filename: '[local]_[name]_[hash].css',
+            chunkFilename: '[local]_[id]_[hash].css',
+
         }),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
