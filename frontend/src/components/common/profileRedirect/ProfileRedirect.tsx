@@ -1,6 +1,6 @@
 import React, {FC} from "react"
 
-import "./style.module.scss"
+import styles from "./style.module.scss"
 import {Link} from "react-router-dom";
 export interface IOptionLabel {
     onClick: () => void;
@@ -17,7 +17,7 @@ interface IProps {
     path:string,
     optionLabel?:IOptionLabel[]
 }
-
+/*
 const optionLabel:FC<{option:IOptionLabel}> = ({option}) =>{
 
     const getIco = (type:typeOption) =>{
@@ -38,13 +38,13 @@ const optionLabel:FC<{option:IOptionLabel}> = ({option}) =>{
 
         </div>
     )
-}
+}*/
 
 export const ProfileRedirect:FC<IProps> = ({value,path,optionLabel}) =>{
 
     return (
-        <div className={`profile-redirect`}>
-            <Link className={`profile-redirect--link`} to={path} >
+        <div className={styles.wrap}>
+            <Link className={styles.link} to={path} >
                 {value}
             </Link>
         </div>

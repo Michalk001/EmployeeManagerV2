@@ -8,12 +8,12 @@ import {Button, typeButton, typeButtonAction} from "../../button";
 
 import {Input, TypeInput} from "../../InputField";
 import {ListItemRow, ShowType} from "../common";
-import {ButtonOptionsBar} from "../common/ButtonOptionsBar";
+import {ButtonOptionsBar} from "../common/ButtonOptionsBar/ButtonOptionsBar";
 import {IButtonBarOptions} from "../common/types";
 import {ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../../snackbar";
 
 
-import "./style.scss"
+import styles from  "./style.module.scss"
 import {typeValidUserForm, ValidPhone, ValidUserForm} from "../../../utiles/valid";
 import {AdminSelect} from "../../common";
 import {Fetch, Method} from "../../../utiles/Fetch";
@@ -169,7 +169,7 @@ export const Editor = () =>{
                 usernameProfile={user.username}
             />
             {user.username !== "" && <>
-                <div className={`user-profile__row`} >
+                <div className={`${styles[`user-profile__row`]}`} >
                     <Input
                         value={user.firstName}
                         onChange={updateUserValue}
@@ -177,7 +177,7 @@ export const Editor = () =>{
                         name={`firstName`}
                         type={TypeInput.text}
                         labelName={`FirstName`}
-                        classWrap={`admin-user__field-wrap`}
+                        classWrap={`${styles[`admin-user__field-wrap`]}`}
                         showRequired={invalidField.firstName}
                     />
                     <Input
@@ -187,7 +187,7 @@ export const Editor = () =>{
                         name={`lastName`}
                         type={TypeInput.text}
                         labelName={`LastName`}
-                        classWrap={`admin-user__field-wrap`}
+                        classWrap={`${styles[`admin-user__field-wrap`]}`}
                         showRequired={invalidField.lastName}
                     />
                     <Input
@@ -197,13 +197,13 @@ export const Editor = () =>{
                         name={`email`}
                         type={TypeInput.text}
                         labelName={`Email`}
-                        classWrap={`admin-user__field-wrap`}
+                        classWrap={`${styles[`admin-user__field-wrap`]}`}
                         showRequired={invalidField.email}
                     />
 
 
                 </div>
-                <div className={`user-profile__row`}>
+                <div className={`${styles[`user-profile__row`]}`}>
                     <Input
                         value={user.phoneNumber ? user.phoneNumber: ""}
                         onChange={(e) => ValidPhone(e.target.value)? updateUserValue(e) : null}
@@ -211,7 +211,7 @@ export const Editor = () =>{
                         name={`phoneNumber`}
                         type={TypeInput.text}
                         labelName={`Phone Number`}
-                        classWrap={`admin-user__field-wrap`}
+                        classWrap={`${styles[`admin-user__field-wrap`]}`}
                     />
                     {state.accountState.userData?.isAdmin && <AdminSelect
                         selectType={user.isAdmin}
@@ -220,7 +220,7 @@ export const Editor = () =>{
                         })}
                     />}
                 </div>
-                <div className={`user-profile__row user-profile__item--top-line`}>
+                <div className={`${styles[`user-profile__row`]} ${styles[`user-profile__item--top-line`]}`}>
                     <Input
                         value={newPassword}
                         onChange={updateUserValue}
@@ -228,14 +228,14 @@ export const Editor = () =>{
                         name={`newPassword`}
                         type={TypeInput.password}
                         labelName={`New Password`}
-                        classWrap={`admin-user__field-wrap`}
+                        classWrap={`${styles[`admin-user__field-wrap`]}`}
                         showRequired={invalidField.newPassword}
                     />
                     <Button
                         label={`Change Password`}
                         typeAction={typeButtonAction.button}
                         typeButton={typeButton.normal}
-                        classWrap={`user-profile__item`}
+                        classWrap={`${styles[`user-profile__item`]}`}
                     />
                 </div>
             </>}

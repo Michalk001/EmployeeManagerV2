@@ -1,2 +1,2 @@
-export {ProfileRedirect} from "./ProfileRedirect"
-export {AdminSelect} from  "./AdminSelect"
+export {ProfileRedirect} from "./profileRedirect/ProfileRedirect"
+export {AdminSelect} from "./adminSelect/AdminSelect"

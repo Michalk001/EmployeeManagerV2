@@ -1,0 +1,19 @@
+.wrap{
+
+  background-color: #2a3038;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 7px;
+  /*&--with-option{
+    border-radius: 7px 0 0 7px;
+  }*/
+  transition-duration: 0.25s;
+  margin: 0 10px;
+  &:hover{
+    background-color: #4e555f;
+  }
+}
+.link{
+  text-decoration: none;
+  color: #fff;
+}

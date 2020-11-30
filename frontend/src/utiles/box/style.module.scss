@@ -1,7 +1,7 @@
 
-.box {
+@mixin box($width) {
   background-color: #fff;
-  width: 400px;
+  width: $width;
   min-height: 60px;
   padding: 20px 30px;
   margin: 10px;
@@ -10,21 +10,9 @@
   box-shadow: -2px 4px 53px -7px rgba(0, 0, 0, 0.56);
   position: relative;
   box-sizing: border-box;
-  &--wide {
-    width: 100%;
-    @media (max-width:768px) {
-      width: 96%;
 
-    }
-  }
+}
 
-  &--medium {
-    width: 600px;
-
-    @media (max-width:768px) {
-      width: 100%;
-
-    }
-  }
-
+.wide{
+  @include box(100%)
 }

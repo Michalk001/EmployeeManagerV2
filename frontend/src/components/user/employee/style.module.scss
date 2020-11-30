@@ -17,25 +17,11 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    &--project-list{
-      margin: 15px 0;
-      padding: 0 10px;
-    }
-    &--button{
-      justify-content: flex-end;
-      gap: 20px;
-      margin-bottom: 25px;
-    }
   }
   &__item{
     margin: 5px 10px;
     &--value{
       margin: 0 5px;
-    }
-    &--title-list{
-      position: relative;
-      padding-top: 5px;
-      margin-top: 10px;
     }
     &--top-line{
       position: relative;

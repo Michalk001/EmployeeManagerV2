@@ -1,6 +1,6 @@
 import React, {FC, ReactNode} from "react";
 
-import "./style.scss"
+import styles from "./style.module.scss"
 
 interface props {
     children:ReactNode
@@ -8,7 +8,7 @@ interface props {
 
 export const BoxWide:FC<props> = ({children}) =>{
     return(
-        <div className={`box box--wide`}>
+        <div className={styles.wide}>
             {children}
         </div>
     )

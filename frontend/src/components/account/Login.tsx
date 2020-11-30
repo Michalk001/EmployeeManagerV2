@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FormEvent, useContext, useState, } from "react";
 
-import "./style.scss"
+import styles from "./style.module.scss"
 import {decodeUserToken, fetchLogin, saveTokenToCookies} from "./duck/operations";
 import {setUserData} from "./duck/actions";
 import {GlobalContext} from "../../context/Provider";
@@ -72,8 +72,8 @@ export const Login = () =>{
 
     }
 
-    return <div className={`account account--login`}>
-        <form  className={`account__container`} onSubmit={handleSubmitForm}>
+    return <div className={`${styles[`account`]} ${styles[`account--login`]}`}>
+        <form  className={`${styles[`account__container`]}`} onSubmit={handleSubmitForm}>
 
             <Input
                 value={loginData.username}
@@ -82,8 +82,8 @@ export const Login = () =>{
                 name={`username`}
                 placeholder={`username`}
                 type={TypeInput.text}
-                classWrap={`account__input-section ${invalidField.username && `account__input--required`}`}
-                classInput={`account__input`}
+                classWrap={`${styles[`account__input-section`]} ${invalidField.username && `${styles[`account__input--required`]}`}`}
+                classInput={`${styles[`account__input`]}`}
 
             />
 
@@ -94,11 +94,11 @@ export const Login = () =>{
                 name={`password`}
                 placeholder={`password`}
                 type={TypeInput.password}
-                classWrap={`account__input-section ${invalidField.password && `account__input--required`}`}
-                classInput={`account__input`}
+                classWrap={`${styles[`account__input-section`]} ${invalidField.username && `${styles[`account__input--required`]}`}`}
+                classInput={`${styles[`account__input`]}`}
 
             />
-            <Button label={"Login"} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`account__button--position`} />
+            <Button label={"Login"} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`${styles[`account__button--position`]}`} />
 
         </form>
         <SnackbarMultiAlert

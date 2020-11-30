@@ -5,12 +5,12 @@ import config from "../../../utiles/config.json";
 import {useParams} from "react-router";
 import {BoxWide} from "../../../utiles/box/Wide";
 
-import "./style.scss"
+import styles from "./style.module.scss"
 import {ListItemRow} from "../common";
 import {getUserOfItemList} from "./duck/operations";
 
 export const Profile = () =>{
-    let isMounted = React.useRef(false);
+    const isMounted = React.useRef(false);
     const {id} = useParams<{id:string}>()
     const [project, setProject] = useState<IProjectProfile|null>(null)
 
@@ -21,7 +21,6 @@ export const Profile = () =>{
     }
 
     useEffect(() =>{
-        console.log(1111)
         isMounted.current = true
         if(isMounted.current) {
             getProject();
@@ -32,13 +31,15 @@ export const Profile = () =>{
     return(
         <BoxWide>
             {project && <>
-                <div className={`project-profile__row`}>
-                    <div className={`project-profile__text project-profile__text--bold project-profile__text--section`}>{project.name}</div>
+                <div className={`${styles[`project-profile__row`]}`}>
+                    <div className={`${styles[`project-profile__text`]} ${styles[`project-profile__text--bold`]} ${styles[`project-profile__text--section`]}`}>
+                        {project.name}
+                    </div>
                 </div>
-                <div className={`project-profile__item project-profile__item--top-line project-profile__item--title-list project-profile__text`}>
+                <div className={`${styles[`project-profile__item`]} ${styles[`project-profile__item--top-line`]} ${styles[`project-profile__item--title-list`]} ${styles[`project-profile__text`]}`}>
                     Opis:
                 </div>
-                <div className={`project-profile__item project-profile__item--description`}>
+                <div className={`${styles[`project-profile__item`]} ${styles[`project-profile__item--description`]}`}>
                     {project.description}
                 </div>
                 <ListItemRow

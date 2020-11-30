@@ -1,4 +1,4 @@
-import {IOptionLabel} from "../../common/ProfileRedirect";
+import {IOptionLabel} from "../../common/profileRedirect/ProfileRedirect";
 import {typeButton} from "../../button";
 import React from "react";
 

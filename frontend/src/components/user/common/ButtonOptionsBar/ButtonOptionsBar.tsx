@@ -1,7 +1,9 @@
 import React, {FC, useContext, useEffect} from "react"
-import {Button, typeButtonAction} from "../../button";
-import {IButtonBarOptions, ShowType} from "./types";
-import {GlobalContext} from "../../../context/Provider";
+import {Button, typeButtonAction} from "../../../button";
+import {IButtonBarOptions, ShowType} from "../types";
+import {GlobalContext} from "../../../../context/Provider";
+
+import styles from "./style.module.scss"
 
 export const ButtonOptionsBar:FC<{items:IButtonBarOptions[], usernameProfile?:string  }> = ({items,usernameProfile}) => {
 
@@ -21,7 +23,7 @@ export const ButtonOptionsBar:FC<{items:IButtonBarOptions[], usernameProfile?:st
     },[state.accountState.userData])
 
     return(
-        <div className={"user-profile__row user-profile__row--button"}>
+        <div className={`${styles[`row`]}`}>
             {items.map(item => canShow(item.show) ?
                 <Button
                     key={item.label}

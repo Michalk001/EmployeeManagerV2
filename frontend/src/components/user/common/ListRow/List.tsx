@@ -1,19 +1,19 @@
 import React, {FC} from "react"
-import {ProfileRedirect} from "../../common";
-import {IProjectList} from "./types";
+import {ProfileRedirect} from "../../../common";
+import {IProjectList} from "../types";
 
-
+import styles from "./style.module.scss"
 
 export const List:FC<IProjectList> = ({ optionLabel,items,label}) =>{
     return(
-        <>
-            <div className={`user-profile__item user-profile__item--top-line user-profile__item--title-list user-profile__text`}>
+        <div className={styles.wrap}>
+            <div className={styles.title}>
                 {label}
                 {items.length === 0 &&
-                <span className={` user-profile__text`}> Brak </span>
+                <span className={styles.empty}> Brak </span>
                 }
             </div>
-            <div className={`user-profile__row user-profile__row--project-list`}>
+            <div className={styles.row}>
                 {items.map(item =>(
                     <ProfileRedirect
                         key={item.id}
@@ -24,6 +24,6 @@ export const List:FC<IProjectList> = ({ optionLabel,items,label}) =>{
                 ))}
 
             </div>
-        </>
+        </div>
     )
 }

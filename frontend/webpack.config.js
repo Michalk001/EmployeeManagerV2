@@ -15,14 +15,17 @@ module.exports = {
                     {
                         loader:"css-loader" ,
                         options: {
-                            modules: true,
+                            modules: {
+                                localIdentName: '[local]___[hash:base64:5]'
+                            },
 
                         }
                     },
                     {
                         loader:"sass-loader" ,
                     }
-                ],
+
+                ]
             },
             {
                 test: /\.(sa|sc|c)ss$/,
@@ -68,4 +71,7 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
     },
+    node: {
+        fs: "empty"
+    }
 };

@@ -1,19 +1,4 @@
-  .profile-redirect{
 
-  background-color: #2a3038;
-  width: fit-content;
-  padding: 5px 10px;
-  border-radius: 7px;
-  &--with-option{
-    border-radius: 7px 0 0 7px;
-  }
-  transition: color 0.25s;
-  margin: 0 10px;
-  &--link{
-    text-decoration: none;
-    color: #fff;
-  }
-}
 
 .admin-select{
   &__wrap{
