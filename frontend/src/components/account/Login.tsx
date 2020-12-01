@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FormEvent, useContext, useState, } from "react";
 
 import styles from "./style.module.scss"
-import {decodeUserToken, fetchLogin, saveTokenToCookies} from "./duck/operations";
+import {decodeUserToken, saveTokenToCookies} from "./duck/operations";
 import {setUserData} from "./duck/actions";
 import {GlobalContext} from "../../context/Provider";
 import {Button, typeButton, typeButtonAction} from "../button";
@@ -9,6 +9,8 @@ import {Input, TypeInput} from "../InputField";
 import { useHistory } from "react-router-dom"
 import {AppRoute} from "../../routing/AppRoute.enum";
 import {ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../snackbar";
+import {Fetch, Method} from "../../utiles/Fetch";
+import config from "../../utiles/config.json";
 
 const defaultInvalidField = {
     username:false,
@@ -45,13 +47,14 @@ export const Login = () =>{
             setInvalidField(prevState => ({...prevState,username: true}))
         }
         if(loginData.password.trim() === ""){
+
             isInvalid= true
             setInvalidField(prevState => ({...prevState,password: true}))
         }
         if(isInvalid)
             return
         try {
-            const response = await fetchLogin(loginData.username,loginData.password);
+            const response = await Fetch(`${config.API_URL}/auth/login`,Method.POST,{user:{username:loginData.username,password:loginData.password}});
             if(response.status === 200) {
                 const jsonRes = await response.json();
                 dispatch(setUserData(decodeUserToken(jsonRes.token)))
@@ -61,6 +64,7 @@ export const Login = () =>{
             }
             if(response.status === 401){
                 setAlertList({...alertList, isOpen: true, alertList: [{text: `Wrong login or password`}]})
+                setInvalidField(prevState => ({password: true,username: true}))
                 return
             }
         }catch (e) {
@@ -73,7 +77,7 @@ export const Login = () =>{
     }
 
     return <div className={`${styles[`account`]} ${styles[`account--login`]}`}>
-        <form  className={`${styles[`account__container`]}`} onSubmit={handleSubmitForm}>
+        <form id={`login-form`}  className={`${styles[`account__container`]}`} onSubmit={handleSubmitForm}>
 
             <Input
                 value={loginData.username}
@@ -94,7 +98,7 @@ export const Login = () =>{
                 name={`password`}
                 placeholder={`password`}
                 type={TypeInput.password}
-                classWrap={`${styles[`account__input-section`]} ${invalidField.username && `${styles[`account__input--required`]}`}`}
+                classWrap={`${styles[`account__input-section`]} ${invalidField.password && `${styles[`account__input--required`]}`}`}
                 classInput={`${styles[`account__input`]}`}
 
             />

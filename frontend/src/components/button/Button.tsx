@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {typeButtonAction,typeButton} from "./index";
 
-import './style.scss'
+import styles from './style.module.scss'
 
 interface IProps {
     label: string,
@@ -14,9 +14,9 @@ interface IProps {
 
 const getClassByType = (type:typeButton) =>{
     if(type === typeButton.remove)
-        return `button--remove`
+        return `${styles[`button--remove`]}`
     if(type === typeButton.update)
-        return 'button--update'
+        return `${styles[`button--update`]}`
     return ''
 }
 
@@ -28,7 +28,7 @@ const Button:FC<IProps> = (props) =>{
             <button
                 type={typeAction}
                 onClick={onClick}
-                className={`button ${classButton}  ${getClassByType(typeButton)}`}
+                className={`${styles[`button`]} ${classButton}  ${getClassByType(typeButton)}`}
             >
                 {label}
             </button>

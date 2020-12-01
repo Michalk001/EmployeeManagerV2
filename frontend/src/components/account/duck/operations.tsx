@@ -5,11 +5,7 @@ import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 
 
-export const fetchLogin = async (username:string,password:string) =>{
 
-    return await Fetch(`${config.API_URL}/auth/login`,Method.POST,{user:{username,password}});
-
-}
 
 
 export const decodeUserToken = (token:string):userData =>{
