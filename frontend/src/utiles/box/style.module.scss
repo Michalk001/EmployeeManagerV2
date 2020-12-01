@@ -10,7 +10,9 @@
   box-shadow: -2px 4px 53px -7px rgba(0, 0, 0, 0.56);
   position: relative;
   box-sizing: border-box;
-
+  @media (max-width: 768px) {
+    margin: 0;
+  }
 }
 
 .wide{
