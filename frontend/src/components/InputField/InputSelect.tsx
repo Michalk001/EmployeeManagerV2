@@ -34,12 +34,13 @@ const InputSelect:FC<Iprops> = (props) =>{
         }
         <Select
             options={options}
+            inputId={id}
             value={value}
             isMulti={isMulti}
             onChange={onChange}
             placeholder={placeholder}
             isSearchable={true}
-            noOptionsMessage={() => "Brak"}
+            noOptionsMessage={() => "None"}
             className={` ${classInput}`}
         />
     </div>)
