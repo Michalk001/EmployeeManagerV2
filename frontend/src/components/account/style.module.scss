@@ -4,8 +4,8 @@
   display: flex;
   justify-content: center;
   &--login{
-    align-items: center;
-    height: 100%;;
+    height: max-content;
+    top: 70px;
   }
 
   &__container{
@@ -75,8 +75,5 @@
       justify-content: center;
       padding: 15px 15px 0 15px;
     }
-  }
-  &__label{
-
   }
 }
