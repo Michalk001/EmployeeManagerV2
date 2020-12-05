@@ -1,16 +1,4 @@
 {
-  "API_URL": "http://localhost:8003",
-  "POLICY": {
-    "PASSWORD": {
-      "LEAST_LENGTH": 8,
-      "LEAST_ONE_NUMBER": true,
-      "DIFFERENT_USERNAME": true,
-      "LEAST_ONE_UPPERCASE": true,
-      "LEAST_ONE_LOWERCASE": true
+  "API_URL": "http://localhost:8003"
 
-    },
-    "ACCOUNT": {
-      "REQUIRED_EMAIL": true
-    }
-  }
 }

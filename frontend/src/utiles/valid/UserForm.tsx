@@ -20,9 +20,7 @@ export const UserForm = (user:IUserProfile|IUserNew,typeValidForm:typeValidUserF
         isInvalid = true;
         invalidField.email = true
         if(validEmail){
-            validEmail.forEach(item =>{
-                alert.push({text:item.toString()});
-            })
+            alert.push({text:validEmail.toString()});
         }
     }
     if(ValidIsEmpty(user.firstName)){
