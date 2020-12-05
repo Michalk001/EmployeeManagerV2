@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react"
 import { useParams } from "react-router";
-import {BoxWide} from "../../../utiles/box/Wide";
+import {BoxWide} from "../../box/Wide";
 import styles from "./style.module.scss"
 import { IUserProfile} from "./duck/types";
 import {GlobalContext} from "../../../context/Provider";

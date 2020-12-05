@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {FetchGet} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json";
 import {IUser} from "./duck/types";
-import {BoxWide} from "../../../utiles/box/Wide";
+import {BoxWide} from "../../box/Wide";
 import {ListBox, ListCellNormal, ListCellSmall, ListCellWide, ListFilter, ListMessage, ListTitleRow} from "../../list";
 import {LinkRow} from "../../list/Row";
 import {AppRoute} from "../../../routing/AppRoute.enum";

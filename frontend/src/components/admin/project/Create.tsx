@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import {BoxWide} from "../../../utiles/box/Wide";
+import {BoxWide} from "../../box/Wide";
 
 
 import {IProjectNew, IUser} from "./duck/types"

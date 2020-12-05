@@ -3,7 +3,7 @@ import {IProjectProfile} from "./duck/types";
 import {FetchGet} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json";
 import {useParams} from "react-router";
-import {BoxWide} from "../../../utiles/box/Wide";
+import {BoxWide} from "../../box/Wide";
 
 import styles from "./style.module.scss"
 import {ListItemRow} from "../common";

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BoxWide} from "../../../utiles/box/Wide";
+import {BoxWide} from "../../box/Wide";
 import {IProjectList} from "./duck/types";
 import {FetchGet} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json"

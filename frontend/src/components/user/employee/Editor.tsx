@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useContext, useEffect, useState} from "react"
 import {useParams} from "react-router";
-import {BoxWide} from "../../../utiles/box/Wide";
+import {BoxWide} from "../../box/Wide";
 import {IUserProfile} from "./duck/types";
 import {GlobalContext} from "../../../context/Provider";
 import {getProjectOfItemList, getUser} from "./duck/operations";
