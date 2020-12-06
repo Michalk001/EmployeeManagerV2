@@ -1,7 +1,6 @@
 import React from "react";
 import { shallow,mount  } from 'enzyme';
 import {Login} from "./Login"
-import {mockFetch} from "../../___mocks___/mockFetch";
 import {act} from "@testing-library/react";
 describe('Test Login Component',() =>{
 

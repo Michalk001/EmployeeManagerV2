@@ -47,6 +47,13 @@ module.exports = {
     },
     resolve: {
         extensions: [ '.tsx', '.ts', '.js' ],
+        modules: [
+            'node_modules',
+            path.resolve(__dirname + '/src')
+        ],
+        alias: {
+            ['~']: path.resolve(__dirname + '/src')
+        }
     },
     plugins: [
         new MiniCssExtractPlugin({

@@ -1,7 +1,7 @@
 {
   "PASSWORD": {
     "LEAST_LENGTH": 8,
-    "LEAST_ONE_NUMBER": true,
+    "LEAST_ONE_NUMBER": false,
     "DIFFERENT_USERNAME": true,
     "LEAST_ONE_UPPERCASE": true,
     "LEAST_ONE_LOWERCASE": true
