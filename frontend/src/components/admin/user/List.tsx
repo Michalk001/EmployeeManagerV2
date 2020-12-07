@@ -6,11 +6,12 @@ import {BoxWide} from "../../box/Wide";
 import {ListBox, ListCellNormal, ListCellSmall, ListCellWide, ListFilter, ListMessage, ListTitleRow} from "../../list";
 import {LinkRow} from "../../list/Row";
 import {AppRoute} from "../../../routing/AppRoute.enum";
+import {getStatus} from "../common/getStatus";
 
  interface IUserList {
      name:string,
      username:string,
-     status:string,
+     isActive:boolean,
      projects:number
 }
 
@@ -25,7 +26,7 @@ export const List = () =>{
         const usersM:IUserList[] = userList.map(user =>{
             return{
                 name: user.firstName + " " + user.lastName,
-                status: user.status,
+                isActive: user.isActive,
                 username: user.username,
                 projects:user.projects
             }
@@ -40,13 +41,7 @@ export const List = () =>{
     const updateFilteredValue = (object:IUserList[]) =>{
         setUsersFiltered(object)
     }
-    const getStatus = (status:string) =>{
-        if(status === "active" )
-            return "Active"
-        if(status === "inactive")
-            return "Inactive"
-        return "Unknown"
-    }
+
 
     return(
         <BoxWide>
@@ -63,7 +58,7 @@ export const List = () =>{
                         <LinkRow key={user.username} path={`${AppRoute.userProfile}/${user.username}`}>
                             <ListCellWide value={user.name}/>
                             <ListCellNormal value={user.projects} />
-                            <ListCellSmall value={getStatus(user.status)} />
+                            <ListCellSmall value={getStatus(user.isActive)} />
                         </LinkRow>
                     ))}
                     {usersFiltered.length === 0 &&

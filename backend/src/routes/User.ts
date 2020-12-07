@@ -6,5 +6,5 @@ const router = Router();
 
 router.get("/", getUsers);
 router.get("/:id",getUser)
-router.put("/:id/",updateUser)
+router.put("/:id",updateUser)
 export default  router

@@ -1,13 +1,15 @@
-import {Column, Entity, ManyToOne} from "typeorm";
+import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Project} from "./Project";
 import {User} from "./User";
 
 @Entity()
 export class ProjectUser {
 
-    @ManyToOne(type => User, user => user.projectUser, { primary: true })
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
+    @ManyToOne(type => User, user => user.projectUser, { primary: true, persistence: false })
     user: User;
-    @ManyToOne(type => Project, project => project.projectUser, { primary: true })
+    @ManyToOne(type => Project, project => project.projectUser, { primary: true, persistence: false })
     project: Project;
     @Column({default: true})
     isActive:boolean

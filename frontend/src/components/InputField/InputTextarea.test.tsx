@@ -1,7 +1,6 @@
 import React, {ChangeEvent} from "react";
 import {shallow,mount} from 'enzyme';
 import InputTextarea from "./InputTextarea";
-import {TypeInput} from "./duck/types";
 
 describe("Inpunt Textarea",() =>{
     const testData = {

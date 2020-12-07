@@ -1,10 +1,9 @@
-import {IOptionLabel} from "../../common/profileRedirect/ProfileRedirect";
+
 import {typeButton} from "../../button";
 import React from "react";
 
 export interface IProjectList {
 
-    optionLabel?:IOptionLabel[],
     items:Item[],
     label:string,
 }

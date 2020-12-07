@@ -34,6 +34,9 @@ export class    User {
 
     @Column({default: true})
     isActive:boolean
-    @OneToMany(() => ProjectUser, projectUser => projectUser.user)
+    @OneToMany(() => ProjectUser, projectUser => projectUser.user,{
+        persistence: false,
+        cascade: ['insert', 'update']
+    })
     projectUser:ProjectUser[];
 }

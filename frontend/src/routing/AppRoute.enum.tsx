@@ -12,6 +12,7 @@ export enum AppRoute {
     projectProfile="/project",
     projectProfileID="/project/:id",
     projectEditor="/edit/project",
-    projectEditorID="/edit/project/:id"
+    projectEditorID="/edit/project/:id",
+    projectUser="/projectUser"
 
 }

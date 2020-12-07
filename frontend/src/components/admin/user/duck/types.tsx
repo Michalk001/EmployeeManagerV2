@@ -13,7 +13,7 @@ export interface IUser {
     firstName:string,
     lastName:string,
     username:string,
-    status:string,
+    isActive:boolean,
     projects:number,
     phoneNumber:string
 }

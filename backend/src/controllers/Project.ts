@@ -1,4 +1,3 @@
-import * as jwt from "jsonwebtoken";
 import { getRepository } from "typeorm";
 import {Request, Response} from "express";
 import {Project} from "../entity/Project";
@@ -10,6 +9,78 @@ export interface IProjectNew {
     description:string,
     users:string[]
 }
+
+export interface IProjectUpdate {
+    name?: string,
+    description?:string
+    isActive?:boolean
+}
+
+export const deleteProject = async (req:Request, res:Response) =>{
+    const id = req.params.id
+    const projectRepository = await getRepository(Project)
+    const project = await projectRepository.findOne({where:{id}, relations:['projectUser','projectUser.user']})
+    if(!project){
+        res.status(404).end()
+        return
+    }
+    project.isActive = false
+    project.isRemove = true
+    project.projectUser.forEach(item =>{
+        item.isActive = false
+        item.isRemove = true
+    })
+    try{
+        await projectRepository.save(project)
+        res.status(200).end()
+        return
+    }
+    catch (e) {
+        res.status(400).end()
+    }
+}
+
+export const updateProject = async (req:Request,res:Response) =>{
+    const id = req.params.id
+
+    const {name, description, isActive} = req.body.project as IProjectUpdate
+    if(name && name.trim() .length=== 0){
+        res.status(400).end()
+        return
+    }
+
+    const projectRepository = await getRepository(Project)
+    const project = await projectRepository.findOne({where:{id}, relations:['projectUser','projectUser.user']})
+    if(!project){
+        res.status(404).end()
+        return
+    }
+    if(name){
+        project.name = name
+    }
+    if(description){
+        project.description = description
+    }
+    if(isActive != undefined){
+        project.isActive = isActive
+        if(!isActive)
+            project.projectUser.forEach(item =>{
+                item.isActive = false
+            })
+    }
+    try{
+        await projectRepository.save(project)
+        res.status(200).end()
+        return
+    }
+    catch (e) {
+        console.log(e)
+        res.status(400).end()
+    }
+
+}
+
+
 
 export const saveProject = async (req:Request, res:Response) =>{
 
@@ -24,29 +95,26 @@ export const saveProject = async (req:Request, res:Response) =>{
     let project= new Project();
     project.description = description;
     project.name = name;
-
-    const projectUser:ProjectUser[] = [];
-
-
+    
     try {
-      const result =  await projectRepository.save(project)
+        await projectRepository.save(project)
         if(users.length !== 0){
             try {
                 const usersTmp = (await Promise.all(users.map(async (user) => {
                     return await userRepository.findOne({where: {username: user}})
                 })))
                     .filter((item): item is User => item !== undefined);
-                usersTmp.forEach(item =>{
-
-                    projectUser.push({
+                await Promise.all(usersTmp.map( async item =>{
+                    await projectUserRepository.save({
                         user: item,
                         project: project,
                         hour: 0,
                         isActive: true,
                         isRemove: false
                     })
-                })
-                await projectUserRepository.save(projectUser)
+
+                }))
+
                 res.status(201).send();
                 return;
             }
@@ -73,8 +141,8 @@ export const getProjects = async (req:Request, res:Response) => {
                 return{
                     name:project.name,
                     id:project.id,
-                    employee: project.projectUser.length,
-                    status: project.isActive
+                    employee: project.projectUser.filter(item => !item.isRemove).length,
+                    isActive: project.isActive
                 }
             });
         res.send(projects)
@@ -90,13 +158,12 @@ export const getProject = async (req:Request, res:Response) =>{
     const id = req.params.id
     const projectRepository = getRepository(Project);
     try{
-        const project = await  projectRepository.findOne({ relations:["projectUser", "projectUser.user"] ,where:{id:id}})
+        const project = await  projectRepository.findOne({ relations:["projectUser", "projectUser.user"] ,where:{id:id,isRemove:false}})
 
         if(!project){
             res.status(404).send();
             return
         }
-        console.log(project)
         const users = project.projectUser
             .filter(item => !item.isRemove)
             .map(item =>{
@@ -104,7 +171,8 @@ export const getProject = async (req:Request, res:Response) =>{
                 firstName: item.user.firstName,
                 lastName: item.user.lastName,
                 username: item.user.username,
-                isActive: item.user.isActive,
+                isActive: item.isActive,
+                projectUserID: item.id
             }
         })
 
@@ -112,7 +180,7 @@ export const getProject = async (req:Request, res:Response) =>{
             users,
             name: project.name,
             description: project.description,
-            isRemove: project.isRemove
+            isActive: project.isActive
 
         }
         res.send(data)
@@ -121,7 +189,5 @@ export const getProject = async (req:Request, res:Response) =>{
         res.status(401).send();
         return
     }
-
-
-
+    
 }

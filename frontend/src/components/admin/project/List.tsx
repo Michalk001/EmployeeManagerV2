@@ -15,6 +15,7 @@ import {
 
 import {AppRoute} from "../../../routing/AppRoute.enum";
 import {LinkRow} from "../../list/Row";
+import {getStatus} from "../common/getStatus";
 
 export const List = () =>{
 
@@ -31,13 +32,7 @@ export const List = () =>{
     const updateFilteredValue = (object:IProjectList[]) =>{
         setProjectsFiltered(object)
     }
-    const getStatus = (status:string) =>{
-        if(status === "active" )
-            return "Active"
-        if(status === "inactive")
-            return "Inactive"
-        return "Unknown"
-    }
+
 
     useEffect(() =>{
         getProjectList();
@@ -57,7 +52,7 @@ export const List = () =>{
                         <LinkRow path={`${AppRoute.projectProfile}/${project.id}`}  key={project.id}>
                              <ListCellWide value={project.name}/>
                              <ListCellNormal value={project.employee} />
-                             <ListCellSmall value={getStatus(project.status)} />
+                             <ListCellSmall value={getStatus(project.isActive)} />
                         </LinkRow>
                    ))}
                     {projectsFiltered.length === 0 &&

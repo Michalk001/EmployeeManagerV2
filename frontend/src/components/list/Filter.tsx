@@ -12,7 +12,7 @@ interface IProps<T extends IReqPropsGeneric> {
 
 interface IReqPropsGeneric {
     name:string
-    status:string
+    isActive:boolean
 }
 
 enum filterTypeCheck {
@@ -38,11 +38,11 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
 
            if (search.status === filterTypeCheck.inactive)
                 list = list.filter(item => {
-                    return item.status === filterTypeCheck.inactive
+                    return !item.isActive
                 })
             else if (search.status === filterTypeCheck.active)
                 list = list.filter(item => {
-                    return item.status === filterTypeCheck.active
+                    return item.isActive
                 })
             list = list.filter(item => item.name.toUpperCase().includes(search.searchByName.toUpperCase()))
         setFilterValue(list)

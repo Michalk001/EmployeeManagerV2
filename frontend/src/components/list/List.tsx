@@ -1,10 +1,10 @@
 import React, {FC} from "react"
-import {ProfileRedirect} from "../../../common";
-import {IProjectList} from "../types";
+import {ProfileRedirect} from "../common";
+import {IProjectList} from "../user/common";
 
 import styles from "./style.module.scss"
 
-export const List:FC<IProjectList> = ({ optionLabel,items,label}) =>{
+export const List:FC<IProjectList> = ({ items,label}) =>{
     return(
         <div className={styles.wrap}>
             <div className={styles.title}>
@@ -19,7 +19,6 @@ export const List:FC<IProjectList> = ({ optionLabel,items,label}) =>{
                         key={item.id}
                         path={`${item.path}/${item.id}`}
                         value={item.label}
-                        optionLabel={optionLabel}
                     />
                 ))}
 

@@ -115,9 +115,7 @@
     &--item {
       width: 100%;
       position: relative;
-      &::marker{
-        font-variant-numeric:none;
-      }
+
       @media (max-width:768px) {
         text-align: center;
       }

@@ -16,6 +16,14 @@ export interface IUser {
 export interface IProjectList {
     name:string,
     employee:number,
-    status:string
+    isActive:boolean,
     id:string
+}
+
+export interface IResultProjectUser {
+    id:string,
+    hour:number,
+    isActive: boolean,
+    isRemove: boolean
+    user:IUser
 }

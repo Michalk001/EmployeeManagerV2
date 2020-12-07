@@ -10,7 +10,9 @@ export function getGlobalObject<T>(): T {
         ? global
         : typeof window !== "undefined"
             ? window
+            // eslint-disable-next-line no-restricted-globals
             : typeof self !== "undefined"
+                // eslint-disable-next-line no-restricted-globals
                 ? self
                 : fallbackGlobalObject) as T;
 }

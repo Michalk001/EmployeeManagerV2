@@ -21,7 +21,10 @@ export class Project {
     @Column({default: true})
     isActive:boolean
 
-    @OneToMany(() => ProjectUser, projectUser => projectUser.project)
+    @OneToMany(() => ProjectUser, projectUser => projectUser.project,{
+        persistence: false,
+        cascade: ['insert', 'update']
+    })
     @JoinTable()
     projectUser:ProjectUser[];
 

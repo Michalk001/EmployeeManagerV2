@@ -8,7 +8,7 @@ import {Button, typeButton, typeButtonAction} from "../../button";
 
 import {Input, TypeInput} from "../../InputField";
 import {ListItemRow, ShowType} from "../common";
-import {ButtonOptionsBar} from "../common/ButtonOptionsBar/ButtonOptionsBar";
+import {ButtonOptionsBar} from "../common";
 import {IButtonBarOptions} from "../common/types";
 import {ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../../snackbar";
 

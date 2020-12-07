@@ -1,12 +1,6 @@
-import config from  "../../../utiles/config.json"
-import {Fetch, Method} from "../../../utiles/Fetch";
 import {jwtTokenData, userData} from "./types";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
-
-
-
-
 
 export const decodeUserToken = (token:string):userData =>{
     const decodedToken:jwtTokenData = jwt_decode(token);

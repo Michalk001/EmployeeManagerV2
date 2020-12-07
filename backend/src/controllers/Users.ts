@@ -10,14 +10,15 @@ export const getUsers = async (req:Request, res:Response) =>{
 
     let usersToSend:any [];
     try {
-        const users = await userRepository.find({relations: ["projectUser"]});
-        usersToSend = users.map(user =>{
+        const users = await userRepository.find({relations: ["projectUser"],where:{isRemove:false}});
+        usersToSend = users
+            .map(user =>{
             return {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 username: user.username,
-                projects: user.projectUser.length,
-                status: user.isRemove ? "inactive" : "active",
+                projects: user.projectUser.filter(item => !item.isRemove).length,
+                isActive: user.isActive
             }
         })
 
@@ -36,7 +37,7 @@ export const getUser = async (req:Request, res:Response) =>{
 
     try{
 
-        const user = await  userRepository.findOne({relations:["projectUser","projectUser.project"],where:{username:id}});
+        const user = await  userRepository.findOne({relations:["projectUser","projectUser.project"],where:{username:id, isRemove:false}});
         if(!user){
             res.status(404).send();
             return
@@ -48,7 +49,8 @@ export const getUser = async (req:Request, res:Response) =>{
                 return{
                     name: item.project.name,
                     id: item.project.id,
-                    isActive:item.isActive
+                    isActive:item.isActive,
+                    projectUserID: item.id
                 }
             })
 
@@ -56,7 +58,7 @@ export const getUser = async (req:Request, res:Response) =>{
             firstName: user.firstName,
             lastName: user.lastName,
             projects: projects,
-            status: user.isRemove ? "inactive" : "active",
+            isActive: user.isActive,
             email: user.email,
             username: user.username,
             phoneNumber: user.phoneNumber,
@@ -73,7 +75,7 @@ export const getUser = async (req:Request, res:Response) =>{
 export const updateUser = async (req:Request, res:Response) =>{
     const id = req.params.id
     const userRepository = getRepository(User);
-    const user = await userRepository.findOne({where:{username:id}})
+    const user = await userRepository.findOne({where:{username:id,isRemove:false}})
     if(!user){
         res.status(404).send();
         return

@@ -1,13 +1,10 @@
-import React, {ChangeEvent} from "react";
-import {mount, shallow} from 'enzyme';
+import React from "react";
+import {mount} from 'enzyme';
 import InputSelect, {optionType} from "./InputSelect";
 
 
 describe("Test Input Select", ()=>{
 
-    const optionTest:optionType[] = [
-        {value:"testValue1",label:"testLabel1"}
-    ]
 
     it("Render", ()=>{
         const mockFn = jest.fn();

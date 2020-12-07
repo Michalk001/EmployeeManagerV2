@@ -11,7 +11,16 @@
       margin-top: 25px;
     }
   }
+  &__row{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 10px 0;
+  }
+}
 
+.addSelect{
+  width: 300px;
 }
 
 

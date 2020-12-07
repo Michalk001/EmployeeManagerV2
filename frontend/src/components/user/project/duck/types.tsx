@@ -17,4 +17,6 @@ export interface IProjectUserProfile {
     lastName:string,
     username:string,
     isActive:boolean
+    id:string
+    projectUserID:string
 }

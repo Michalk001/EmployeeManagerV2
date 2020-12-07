@@ -1,7 +1,6 @@
 import React from "react";
-import { shallow,mount  } from 'enzyme';
+import { shallow  } from 'enzyme';
 import {Login} from "./Login"
-import {act} from "@testing-library/react";
 describe('Test Login Component',() =>{
 
 

@@ -1,9 +1,8 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import styles from "./style.module.scss"
-import { logoutUser, setUserData} from "../account/duck/actions";
+import { logoutUser} from "../account/duck/actions";
 import { Link } from "react-router-dom";
 
-import {decodeUserToken, loadTokenFromCookies} from "../account/duck/operations";
 import {GlobalContext} from "../../context/Provider"
 import {AppRoute} from "../../routing/AppRoute.enum";
 
