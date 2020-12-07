@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useEffect, useState} from "react"
+import React, {ChangeEvent, FC, useCallback, useEffect, useState} from "react"
 import {ListRow} from "./Row";
 import {Input, TypeInput} from "../InputField";
 import {ListBox} from "./ListBox";
@@ -33,7 +33,7 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
         setSearch({...search,[e.target.name]:e.target.value})
     }
 
-    const handleFilter = () =>{
+    const handleFilter = useCallback( () =>{
             let list = [...originValue]
 
            if (search.status === filterTypeCheck.inactive)
@@ -47,11 +47,11 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
             list = list.filter(item => item.name.toUpperCase().includes(search.searchByName.toUpperCase()))
         setFilterValue(list)
 
-    }
+    },[search,originValue])
 
     useEffect(() =>{
         handleFilter();
-    },[search])
+    },[handleFilter])
 
     return(
         <ListBox>

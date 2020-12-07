@@ -16,7 +16,7 @@ import {getStatus} from "../common/getStatus";
 }
 
 export const List = () =>{
-
+    const isMounted = React.useRef(false);
     const [users,setUsers] = useState<IUserList[]>([]);
     const [usersFiltered, setUsersFiltered] = useState<IUserList[]>([]);
 
@@ -35,7 +35,11 @@ export const List = () =>{
         setUsersFiltered(usersM);
     }
     useEffect(() =>{
-        getUserList();
+        isMounted.current = true
+        if(isMounted.current) {
+            getUserList();
+        }
+        return () =>{isMounted.current = false}
     },[])
 
     const updateFilteredValue = (object:IUserList[]) =>{

@@ -64,7 +64,7 @@ export const Login = () =>{
             }
             if(response.status === 401){
                 setAlertList({...alertList, isOpen: true, alertList: [{text: `Wrong login or password`}]})
-                setInvalidField(prevState => ({password: true,username: true}))
+                setInvalidField({password: true,username: true})
                 return
             }
         }catch (e) {

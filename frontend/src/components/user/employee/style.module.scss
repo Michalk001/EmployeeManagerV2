@@ -26,6 +26,7 @@
     }
     &--top-line{
       position: relative;
+      padding-top: 10px;
       &::before{
         content: "";
         background-color: #a7a7a7;

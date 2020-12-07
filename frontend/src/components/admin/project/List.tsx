@@ -18,7 +18,7 @@ import {LinkRow} from "../../list/Row";
 import {getStatus} from "../common/getStatus";
 
 export const List = () =>{
-
+    const isMounted = React.useRef(false);
     const [projects, setProjects] = useState<IProjectList[]>([])
     const [projectsFiltered, setProjectsFiltered] = useState<IProjectList[]>([])
 
@@ -35,7 +35,11 @@ export const List = () =>{
 
 
     useEffect(() =>{
-        getProjectList();
+        isMounted.current = true
+        if(isMounted.current) {
+            getProjectList();
+        }
+        return () =>{isMounted.current = false}
     },[])
     return(
         <BoxWide>

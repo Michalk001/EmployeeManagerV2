@@ -19,11 +19,6 @@ import {ISnackbar, Snackbar, TypeAlert} from "../../snackbar";
 import {getUserOfItemList} from "../../user/project/duck/operations";
 import { useHistory } from "react-router-dom";
 
-interface IUpdateBody {
-    name?:string,
-    description?:string,
-    isActive?:boolean
-}
 
 
 export const Editor = () =>{
@@ -61,7 +56,7 @@ export const Editor = () =>{
     },[getProject])
 
 
-    const getUsersList = async() =>{
+    const getUsersList = useCallback( async() =>{
 
         if(project) {
             const res = await FetchGet(`${config.API_URL}/user/`);
@@ -75,11 +70,15 @@ export const Editor = () =>{
                 }
             }))
         }
+    }, [project])
 
-    }
     useEffect(() =>{
-        getUsersList()
-    },[project])
+        isMounted.current = true
+        if(isMounted.current) {
+            getUsersList()
+        }
+        return () =>{isMounted.current = false}
+    },[getUsersList])
 
 
     const removeEmployee = async (id:string) =>{

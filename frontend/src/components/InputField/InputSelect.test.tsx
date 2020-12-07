@@ -1,6 +1,6 @@
 import React from "react";
 import {mount} from 'enzyme';
-import InputSelect, {optionType} from "./InputSelect";
+import InputSelect from "./InputSelect";
 
 
 describe("Test Input Select", ()=>{

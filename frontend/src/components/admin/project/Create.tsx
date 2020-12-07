@@ -27,7 +27,7 @@ const defaultInvalidField = {
 }
 
 export const Create = () =>{
-
+    const isMounted = React.useRef(false);
     const [userOptionsSelect, setUserOptionsSelect] = useState<optionType[]>([])
     const [projectValue, setProjectValue] = useState<IProjectNew>(defaultProjectValue);
     const [selectUserValue, setSelectUserValue] = useState<optionType[]>([])
@@ -114,7 +114,12 @@ export const Create = () =>{
 
 
     useEffect(() =>{
-         getUser();
+        isMounted.current = true
+        if(isMounted.current) {
+            getUser();
+        }
+        return () =>{isMounted.current = false}
+
 
     },[])
 

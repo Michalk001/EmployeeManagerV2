@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {IProjectProfile} from "./duck/types";
 import {FetchGet} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json";
@@ -19,11 +19,12 @@ export const Profile = () =>{
     const [project, setProject] = useState<IProjectProfile|null>(null)
     const history = useHistory();
 
-    const getProject = async () =>{
+    const getProject = useCallback( async () =>{
         const res = await FetchGet(`${config.API_URL}/project/${id}`);
         const projectTmp:IProjectProfile = await res.json();
+
         setProject(projectTmp)
-    }
+    },[id])
 
     const getButtonsBar = () =>{
         const items:IButtonBarOptions[] = [];
@@ -46,7 +47,7 @@ export const Profile = () =>{
             getProject();
         }
         return () =>{isMounted.current = false}
-    },[])
+    },[getProject])
 
     return(
         <BoxWide>

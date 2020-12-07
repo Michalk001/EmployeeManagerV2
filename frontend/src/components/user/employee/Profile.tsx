@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react"
+import React, {useCallback, useContext, useEffect, useState} from "react"
 import { useParams } from "react-router";
 import {BoxWide} from "../../box/Wide";
 import styles from "./style.module.scss"
@@ -11,21 +11,21 @@ import {ButtonOptionsBar} from "../common";
 import {IButtonBarOptions} from "../common/types";
 import {typeButton} from "../../button";
 import { useHistory } from "react-router-dom";
-import {ListRow} from "../../list";
 
 export const Profile = () =>{
 
-    let isMounted = React.useRef(false);
+    const isMounted = React.useRef(false);
     const history = useHistory();
     const { state } = useContext(GlobalContext)
     const [user,setUser] = useState<IUserProfile|null>(null)
     const {id} = useParams<{id:string}>()
-    const getDataUser = async () =>{
-        if(state.accountState.userData && !user) {
+
+    const getDataUser = useCallback( async () =>{
+        if(state.accountState.userData) {
             const data = await getUser(id ? id : state.accountState.userData.username);
             setUser(data)
         }
-    }
+    },[id,state.accountState.userData])
 
     const getButtonsBar = () =>{
         const items:IButtonBarOptions[] = [];
@@ -47,7 +47,7 @@ export const Profile = () =>{
             getDataUser();
         }
         return () =>{isMounted.current = false}
-    },[])
+    },[getDataUser])
 
 
     return(

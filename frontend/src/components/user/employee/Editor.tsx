@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useContext, useEffect, useState} from "react"
+import React, {ChangeEvent, useCallback, useContext, useEffect, useState} from "react"
 import {useParams} from "react-router";
 import {BoxWide} from "../../box/Wide";
 import {IUserProfile} from "./duck/types";
@@ -7,13 +7,12 @@ import {getProjectOfItemList, getUser} from "./duck/operations";
 import {Button, typeButton, typeButtonAction} from "../../button";
 
 import {Input, TypeInput} from "../../InputField";
-import {ListItemRow, ShowType} from "../common";
-import {ButtonOptionsBar} from "../common";
+import {ButtonOptionsBar, ListItemRow, ShowType} from "../common";
 import {IButtonBarOptions} from "../common/types";
 import {ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../../snackbar";
 
 
-import styles from  "./style.module.scss"
+import styles from "./style.module.scss"
 import {typeValidUserForm, ValidPhone, ValidUserForm} from "../../../utiles/valid";
 import {AdminSelect} from "../../common";
 import {Fetch, Method} from "../../../utiles/Fetch";
@@ -44,7 +43,11 @@ export const Editor = () =>{
     const [invalidField, setInvalidField] = useState(defaultInvalidField)
     const { state } = useContext(GlobalContext)
     const [user,setUser] = useState<IUserProfile>(defaultUser)
-    const [newPassword,setNewPassword] = useState("");
+    const [changePasswordValue,setChangeNewPasswordValue] = useState({
+        oldPassword:"",
+        newPassword:"",
+        repeatNewPassword:""
+    });
 
     const [alertList,setAlertList] = useState<ISnackbarMultiAlert>({
         hideDuration:1000,
@@ -58,13 +61,21 @@ export const Editor = () =>{
 
 
 
-    const getDataUser = async () =>{
+    const getDataUser = useCallback(async () =>{
         if(state.accountState.userData && user.username === "") {
             const data = await getUser(id ? id : state.accountState.userData.username);
 
             setUser(data )
         }
-    }
+    },[])
+
+    useEffect(()=>{
+        isMounted.current = true
+        if(isMounted.current) {
+            getDataUser();
+        }
+        return () =>{isMounted.current = false}
+    },[getDataUser])
 
     const getButtonsBar = () =>{
         const items:IButtonBarOptions[] = [];
@@ -151,16 +162,32 @@ export const Editor = () =>{
         }));
     }
 
+    const handleChangePassword = async () =>{
+        const res = await Fetch(`${config.API_URL}/auth/changePassword/${user.username}`,Method.PUT, {...changePasswordValue})
+        if(res.status === 200){
+            setAlertList(prevState => ({...prevState,
+                typeAlert: TypeAlert.success,
+                isOpen: true,
+                alertList:[{
+                    text: `Change Password`
+                }]
 
+            }));
+        }else{
+            setAlertList(prevState => ({...prevState,
+                typeAlert: TypeAlert.error,
+                isOpen: true,
+                alertList:[{
+                    text: `Error`
+                }]
 
-    useEffect(()=>{
-        isMounted.current = true
-        if(isMounted.current) {
-            getDataUser();
+            }));
         }
-        return () =>{isMounted.current = false}
-    },[])
+    }
 
+    const updateChangePassword = (e:ChangeEvent<HTMLInputElement>) =>{
+        setChangeNewPasswordValue(prevState => ({...prevState,[e.target.name]:e.target.value}))
+    }
 
     return(
         <BoxWide>
@@ -222,20 +249,41 @@ export const Editor = () =>{
                 </div>
                 <div className={`${styles[`user-profile__row`]} ${styles[`user-profile__item--top-line`]}`}>
                     <Input
-                        value={newPassword}
-                        onChange={updateUserValue}
+                        value={changePasswordValue.oldPassword}
+                        onChange={updateChangePassword}
+                        id={`oldPassword`}
+                        name={`oldPassword`}
+                        type={TypeInput.password}
+                        labelName={`Old Password`}
+                        classWrap={`${styles[`admin-user__field-wrap`]}`}
+                    ///    showRequired={invalidField.newPassword}
+                    />
+                    <Input
+                        value={changePasswordValue.newPassword}
+                        onChange={updateChangePassword}
                         id={`newPassword`}
                         name={`newPassword`}
                         type={TypeInput.password}
                         labelName={`New Password`}
                         classWrap={`${styles[`admin-user__field-wrap`]}`}
-                        showRequired={invalidField.newPassword}
+                     ///   showRequired={invalidField.newPassword}
+                    />
+                    <Input
+                        value={changePasswordValue.repeatNewPassword}
+                        onChange={updateChangePassword}
+                        id={`repeatNewPassword`}
+                        name={`repeatNewPassword`}
+                        type={TypeInput.password}
+                        labelName={`Repeat New Password`}
+                        classWrap={`${styles[`admin-user__field-wrap`]}`}
+                       // showRequired={invalidField.newPassword}
                     />
                     <Button
                         label={`Change Password`}
                         typeAction={typeButtonAction.button}
                         typeButton={typeButton.normal}
                         classWrap={`${styles[`user-profile__item`]}`}
+                        onClick={handleChangePassword}
                     />
                 </div>
             </>}
