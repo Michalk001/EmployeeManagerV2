@@ -5,7 +5,7 @@ import {hashPassword} from "../controllers/Authorization";
 export const InitNewDatabase = async () =>{
     const userRepository = getRepository(User);
     try {
-        const users = await userRepository.find({relations: ["projects"]});
+        const users = await userRepository.find();
         if(users.length !== 0)
             return
         if(!configInitUser.users || configInitUser.users.length === 0){

@@ -21,6 +21,9 @@
       padding: 0 10px;
 
     }
+    &--with-button{
+      justify-content: space-between;
+    }
   }
   &__item{
     margin: 5px 10px;

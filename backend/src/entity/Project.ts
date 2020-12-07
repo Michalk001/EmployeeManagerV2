@@ -1,5 +1,6 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToMany} from "typeorm";
 import {User} from "./User";
+import {ProjectUser} from "./ProjectUser";
 
 @Entity()
 export class Project {
@@ -17,8 +18,11 @@ export class Project {
     @Column({default: false})
     isRemove:boolean;
 
-    @ManyToMany(() => User, user => user.projects)
+    @Column({default: true})
+    isActive:boolean
+
+    @OneToMany(() => ProjectUser, projectUser => projectUser.project)
     @JoinTable()
-    users:User[];
+    projectUser:ProjectUser[];
 
 }

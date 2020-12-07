@@ -6,7 +6,7 @@ import { Switch } from 'react-router-dom';
 import { AppRoute } from './AppRoute.enum';
 import {RequireLogin, UserRoute} from "../components/templateView/UserTemplate";
 import {Login} from "../components/account/Login";
-import {CreateProject, ListProject} from "../components/admin/project";
+import {CreateProject, EditorProject, ListProject} from "../components/admin/project";
 import {CreateUser,ListUser} from "../components/admin/user"
 import {UserEditor, UserProfile} from "../components/user/employee";
 import {ProjectProfile} from "../components/user/project";
@@ -22,6 +22,8 @@ export const AppRoutes = () => {
             <RequireLogin Component={ProjectProfile} path={AppRoute.projectProfileID} />
             <RequireLogin Component={UserEditor} path={AppRoute.userEditorID}  />
             <RequireLogin Component={UserEditor} path={AppRoute.userEditor}  />
+            <RequireLogin Component={EditorProject} path={AppRoute.projectEditorID}  />
+
             <RequireLogin Component={UserProfile} path={AppRoute.userProfileID} />
             <RequireLogin Component={UserProfile} path={AppRoute.homePage}  />
 

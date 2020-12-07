@@ -2,8 +2,6 @@
 
 import {Password} from "./Password";
 import {PasswordErrorType} from "./types";
-// eslint-disable-next-line jest/no-mocks-import
-import test from "../../../__mocks__/policy.json"
 
 jest.mock("../policy.json", () => ({
     PASSWORD: {
@@ -52,3 +50,5 @@ describe("Password Valid Test", () =>{
         expect(res).toContain(PasswordErrorType.LEAST_LENGTH)
     })
 })
+
+jest.restoreAllMocks()

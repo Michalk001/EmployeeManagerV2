@@ -14,5 +14,5 @@ export interface IUserProfile {
 export interface IUserProfileProject {
     id:string,
     name:string,
-    isRemove:boolean
+    isActive:boolean
 }

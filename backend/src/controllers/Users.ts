@@ -10,19 +10,19 @@ export const getUsers = async (req:Request, res:Response) =>{
 
     let usersToSend:any [];
     try {
-        const users = await userRepository.find({relations: ["projects"]});
+        const users = await userRepository.find({relations: ["projectUser"]});
         usersToSend = users.map(user =>{
             return {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 username: user.username,
-                projects: user.projects.length,
+                projects: user.projectUser.length,
                 status: user.isRemove ? "inactive" : "active",
             }
         })
 
     } catch (error) {
-        res.status(401).send();
+        res.status(404).send();
         return
     }
     res.send(usersToSend)
@@ -35,19 +35,24 @@ export const getUser = async (req:Request, res:Response) =>{
 
 
     try{
-        const user = await  userRepository.findOne({relations:["projects"],where:{username:id}});
+
+        const user = await  userRepository.findOne({relations:["projectUser","projectUser.project"],where:{username:id}});
         if(!user){
             res.status(404).send();
             return
         }
-        const projects = user.projects.map(item =>{
-            return{
-                name: item.name,
-                id: item.id,
-                isRemove:item.isRemove
-            }
-        })
-        const userToSend ={
+
+        const projects = user.projectUser
+            .filter(item => !item.isRemove)
+            .map(item =>{
+                return{
+                    name: item.project.name,
+                    id: item.project.id,
+                    isActive:item.isActive
+                }
+            })
+
+        const data ={
             firstName: user.firstName,
             lastName: user.lastName,
             projects: projects,
@@ -57,10 +62,10 @@ export const getUser = async (req:Request, res:Response) =>{
             phoneNumber: user.phoneNumber,
             isAdmin: user.isAdmin
         }
-        res.send(userToSend)
+        res.send(data)
         return
     } catch (e) {
-        res.status(401).send();
+        res.status(404).send();
         return
     }
 }

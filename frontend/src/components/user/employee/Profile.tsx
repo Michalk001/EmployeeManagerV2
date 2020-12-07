@@ -71,11 +71,11 @@ export const Profile = () =>{
                 </div>
                 <ListItemRow
                     label={`Aktywne Projekty`}
-                    items={getProjectOfItemList(user.projects.filter(project => !project.isRemove))}
+                    items={getProjectOfItemList(user.projects.filter(project => project.isActive))}
                 />
                 <ListItemRow
                     label={`Nieaktywne Projekty`}
-                    items={getProjectOfItemList(user.projects.filter(project => project.isRemove))}
+                    items={getProjectOfItemList(user.projects.filter(project => !project.isActive))}
                 />
 
             </>}

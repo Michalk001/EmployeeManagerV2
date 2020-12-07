@@ -13,7 +13,8 @@ export const UserForm = (user:IUserProfile|IUserNew,typeValidForm:typeValidUserF
     const invalidField:IInvalidUserForm = {
         firstName:false,
         lastName:false,
-        email:false
+        email:false,
+        password:false
     }
 
     if(validEmail){

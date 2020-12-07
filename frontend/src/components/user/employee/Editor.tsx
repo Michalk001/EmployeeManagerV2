@@ -241,7 +241,7 @@ export const Editor = () =>{
             </>}
             <ListItemRow
                 label={`Aktywne Projekty`}
-                items={getProjectOfItemList(user.projects.filter(project => !project.isRemove))}
+                items={getProjectOfItemList(user.projects.filter(project => project.isActive))}
 
             />
             <SnackbarMultiAlert
