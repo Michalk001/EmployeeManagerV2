@@ -2,8 +2,11 @@ import {PasswordErrorType} from "./types";
 
 import policy from "../policy.json"
 
-export const Password = (password:string,username:string):PasswordErrorType[]|null =>{
+export const Password = (password:string,repeatPassword:string,username:string):PasswordErrorType[]|null =>{
     let errorList:PasswordErrorType[] = [];
+    if(password !== repeatPassword){
+        errorList.push(PasswordErrorType.NOT_SAME_PASSWORD)
+    }
     if(password.toUpperCase() === username.toUpperCase() && policy.PASSWORD.DIFFERENT_USERNAME){
         errorList.push(PasswordErrorType.DIFFERENT_USERNAME)
     }

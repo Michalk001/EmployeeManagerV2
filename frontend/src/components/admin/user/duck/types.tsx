@@ -4,6 +4,7 @@ export interface IUserNew {
     lastName:string,
     username:string,
     password:string,
+    repeatPassword:string
     email:string,
     isAdmin:boolean,
     phoneNumber:string

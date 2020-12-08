@@ -19,36 +19,37 @@ describe("Password Valid Test", () =>{
     const username = "admin1234"
     it("correct password",() =>{
         const password = "Test12345"
-        const res = Password(password,username)
+        const res = Password(password,password,username)
         expect(res).toBeFalsy();
     })
     it("password same username", () =>{
-        const res = Password(username,username)
+        const res = Password(username,username,username)
         expect(res).toContain(PasswordErrorType.DIFFERENT_USERNAME)
     })
     it("password with without uppercase",() =>{
 
         const password = "test12345"
-        const res = Password(password,username)
+        const res = Password(password,password,username)
 
         expect(res).toContain(PasswordErrorType.LEAST_ONE_UPPERCASE)
     })
     it("password with without lowercase",() =>{
         const password = "TEST12345"
-        const res = Password(password,username)
+        const res = Password(password,password,username)
         expect(res).toContain(PasswordErrorType.LEAST_ONE_LOWERCASE)
     })
     it("password with without dig",() =>{
 
         const password = "Testtest"
-        const res = Password(password,username)
+        const res = Password(password,password,username)
         expect(res).toContain(PasswordErrorType.LEAST_ONE_NUMBER)
     })
     it("password short",() =>{
         const password = "test"
-        const res = Password(password,username)
+        const res = Password(password,password,username)
         expect(res).toContain(PasswordErrorType.LEAST_LENGTH)
     })
+
 })
 
 jest.restoreAllMocks()

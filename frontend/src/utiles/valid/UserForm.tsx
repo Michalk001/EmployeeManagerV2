@@ -14,7 +14,8 @@ export const UserForm = (user:IUserProfile|IUserNew,typeValidForm:typeValidUserF
         firstName:false,
         lastName:false,
         email:false,
-        password:false
+        password:false,
+        repeatPassword:false
     }
 
     if(validEmail){
@@ -34,7 +35,7 @@ export const UserForm = (user:IUserProfile|IUserNew,typeValidForm:typeValidUserF
     }
 
     if(typeValidForm === typeValidUserForm.NEW_USER) {
-        const {username,password} = user as IUserNew
+        const {username,password, repeatPassword} = user as IUserNew
         if (ValidIsEmpty(username)) {
             isInvalid = true;
             invalidField.username = true
@@ -42,16 +43,18 @@ export const UserForm = (user:IUserProfile|IUserNew,typeValidForm:typeValidUserF
             invalidField.username = false
         }
 
-        const resValid = ValidPassword(password.trim() , user.username.trim())
+        const resValid = ValidPassword(password.trim(),repeatPassword.trim() , user.username.trim())
         if (resValid) {
             isInvalid = true;
             resValid.forEach(item => {
                 alert.push({text: item.toString()})
             })
             invalidField.password = true
+            invalidField.repeatPassword = true
         }
         else {
             invalidField.password=false
+            invalidField.repeatPassword = false
         }
     }
     return{

@@ -20,7 +20,8 @@ const defaultUser:IUserNew ={
     email:"",
     password:"",
     isAdmin:false,
-    phoneNumber:""
+    phoneNumber:"",
+    repeatPassword:""
 }
 const defaultInvalidField = {
     password:false,
@@ -28,7 +29,8 @@ const defaultInvalidField = {
     lastName:false,
     email:false,
     username:false,
-    phoneNumber: false
+    phoneNumber: false,
+    repeatPassword: false
 
 }
 
@@ -179,6 +181,16 @@ export const Create = () =>{
                     labelName={`Password`}
                     classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.password}
+                />
+                <Input
+                    value={user.repeatPassword}
+                    onChange={updateUserValue}
+                    id={`repeatPassword`}
+                    name={`repeatPassword`}
+                    type={TypeInput.password}
+                    labelName={`Repeat Password`}
+                    classWrap={`${styles["user__field-wrap"]}`}
+                    showRequired={invalidField.repeatPassword}
                 />
                 <AdminSelect
                     selectType={user.isAdmin}

@@ -21,6 +21,7 @@ describe("UserForm valid", () =>{
         const userNew:IUserNew = {
             isAdmin: false,
             password: "Test1234",
+            repeatPassword:"Test1234",
             username: "test111",
             lastName: "Adam",
             firstName: "Hunt",
@@ -36,6 +37,7 @@ describe("UserForm valid", () =>{
         const userNew:IUserNew = {
             isAdmin: false,
             password: "test111",
+            repeatPassword:"test111",
             username: "",
             lastName: "",
             firstName: "",

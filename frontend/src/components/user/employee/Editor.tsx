@@ -9,11 +9,11 @@ import {Button, typeButton, typeButtonAction} from "../../button";
 import {Input, TypeInput} from "../../InputField";
 import {ButtonOptionsBar, ListItemRow, ShowType} from "../common";
 import {IButtonBarOptions} from "../common/types";
-import {ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../../snackbar";
+import {IAlertList, ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../../snackbar";
 
 
 import styles from "./style.module.scss"
-import {typeValidUserForm, ValidPhone, ValidUserForm} from "../../../utiles/valid";
+import {typeValidUserForm, ValidPassword, ValidPhone, ValidUserForm} from "../../../utiles/valid";
 import {AdminSelect} from "../../common";
 import {Fetch, Method} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json";
@@ -22,7 +22,8 @@ const defaultInvalidField = {
     firstName:false,
     lastName:false,
     email:false,
-    newPassword:false
+    newPassword:false,
+    repeatPassword:false
 }
 
 const defaultUser:IUserProfile= {
@@ -164,6 +165,18 @@ export const Editor = () =>{
     }
 
     const handleChangePassword = async () =>{
+        const validPassword = ValidPassword(changePasswordValue.newPassword,changePasswordValue.repeatNewPassword,user.username)
+        if(validPassword ){
+            setAlertList(prevState => ({...prevState,
+                typeAlert: TypeAlert.warning,
+                isOpen: true,
+                alertList: validPassword.map(alert => {return {text: alert}})
+
+            }));
+
+            return
+        }
+
         const res = await Fetch(`${config.API_URL}/auth/changePassword/${user.username}`,Method.PUT, {...changePasswordValue})
         if(res.status === 200){
             setAlertList(prevState => ({...prevState,
@@ -205,7 +218,7 @@ export const Editor = () =>{
                         name={`firstName`}
                         type={TypeInput.text}
                         labelName={`FirstName`}
-                        classWrap={`${styles[`admin-user__field-wrap`]}`}
+
                         showRequired={invalidField.firstName}
                     />
                     <Input
@@ -215,7 +228,6 @@ export const Editor = () =>{
                         name={`lastName`}
                         type={TypeInput.text}
                         labelName={`LastName`}
-                        classWrap={`${styles[`admin-user__field-wrap`]}`}
                         showRequired={invalidField.lastName}
                     />
                     <Input
@@ -225,7 +237,6 @@ export const Editor = () =>{
                         name={`email`}
                         type={TypeInput.text}
                         labelName={`Email`}
-                        classWrap={`${styles[`admin-user__field-wrap`]}`}
                         showRequired={invalidField.email}
                     />
 
@@ -239,7 +250,6 @@ export const Editor = () =>{
                         name={`phoneNumber`}
                         type={TypeInput.text}
                         labelName={`Phone Number`}
-                        classWrap={`${styles[`admin-user__field-wrap`]}`}
                     />
                     {state.accountState.userData?.isAdmin && <AdminSelect
                         selectType={user.isAdmin}
@@ -256,8 +266,7 @@ export const Editor = () =>{
                         name={`oldPassword`}
                         type={TypeInput.password}
                         labelName={`Old Password`}
-                        classWrap={`${styles[`admin-user__field-wrap`]}`}
-                    ///    showRequired={invalidField.newPassword}
+                    //    showRequired={invalidField.newPassword}
                     />
                     <Input
                         value={changePasswordValue.newPassword}
@@ -266,8 +275,7 @@ export const Editor = () =>{
                         name={`newPassword`}
                         type={TypeInput.password}
                         labelName={`New Password`}
-                        classWrap={`${styles[`admin-user__field-wrap`]}`}
-                     ///   showRequired={invalidField.newPassword}
+                        showRequired={invalidField.newPassword}
                     />
                     <Input
                         value={changePasswordValue.repeatNewPassword}
@@ -276,8 +284,7 @@ export const Editor = () =>{
                         name={`repeatNewPassword`}
                         type={TypeInput.password}
                         labelName={`Repeat New Password`}
-                        classWrap={`${styles[`admin-user__field-wrap`]}`}
-                       // showRequired={invalidField.newPassword}
+                        showRequired={invalidField.repeatPassword}
                     />
                     <Button
                         label={`Change Password`}

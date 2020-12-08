@@ -3,7 +3,8 @@ export enum PasswordErrorType{
     DIFFERENT_USERNAME="differentUsername",
     LEAST_ONE_UPPERCASE= "leastOneUppercase",
     LEAST_ONE_LOWERCASE= "leastOneLowercase",
-    LEAST_ONE_NUMBER= "leastOneNumber"
+    LEAST_ONE_NUMBER= "leastOneNumber",
+    NOT_SAME_PASSWORD= "notSamePassword",
 }
 
 export enum EmailValidType{
@@ -16,6 +17,7 @@ export interface IInvalidUserForm {
     email?:boolean,
     username?:boolean
     password?:boolean
+    repeatPassword?:boolean
 }
 
 export enum typeValidUserForm  {

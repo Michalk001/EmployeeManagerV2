@@ -44,7 +44,7 @@ export const Sidebar = () =>{
     }, [])
 
     return (
-         <div className={`${styles[`sidebar--wrap`]}`}>
+         <div >
             <div className={`${styles[`sidebar__mask`]} ${hiddenMenu ? ` ${styles[`sidebar__mask--close`]}` : ``}`}/>
             <div className={`${styles[`sidebar__arrows`]} ${hiddenMenu ? `${styles[`sidebar__arrows--close-fix`]}` : ``}`}>
                 <i className={`fas fa-arrow-circle-left ${styles[`sidebar__arrows--style`]} 
@@ -53,7 +53,7 @@ export const Sidebar = () =>{
                        changeMenuVisible()
                    }}/>
             </div>
-            <div className={`${styles[`sidebar`]} ${hiddenMenu ? ` ${styles[`sidebar--close`]}` : ` ${styles[`sidebar--open`]}`} `}>
+            <div className={`${styles[`sidebar`]} ${hiddenMenu ? ` ${styles[`sidebar--close`]}` :"" } `}>
                 <ul className={`${styles[`sidebar__menu`]} `}>
                     <ListTitleItem text={`User Panel`} />
                     <ListLinkItem path={AppRoute.homePage} text={"Home"} />
