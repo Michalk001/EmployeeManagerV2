@@ -12,6 +12,7 @@ module.exports = {
                 test: /\.module\.(sa|sc|c)ss$/,
                 loader: [
                     "style-loader",
+                    'css-modules-typescript-loader',
                     {
                         loader:"css-loader" ,
                         options: {
@@ -30,9 +31,11 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 exclude: /\.module.(sa|sc|c)ss$/,
+
                 loader: [
                     'style-loader',
                     'css-loader',
+                    'css-modules-typescript-loader',
                     {
                         loader: 'sass-loader',
                     }
@@ -46,13 +49,13 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js' ],
+        extensions: [ '.tsx', '.ts', '.js','.scss','.css' ],
         modules: [
             'node_modules',
             path.resolve(__dirname + '/src')
         ],
         alias: {
-            '~': path.resolve(__dirname + '/src')
+           [ '~']: path.resolve(__dirname + '/src')
         }
     },
     plugins: [

@@ -105,6 +105,7 @@ export const Editor = () =>{
             setUser(prevState => ({...prevState,[e.target.name]:e.target.value}))
     }
 
+
     const handleUpdateUser = async () =>{
         setInvalidField(defaultInvalidField);
         setAlertList({...alertList, isOpen: false, alertList: []})
