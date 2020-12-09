@@ -9,7 +9,7 @@ import {Button, typeButton, typeButtonAction} from "../../button";
 import {Input, TypeInput} from "../../InputField";
 import {ButtonOptionsBar, ListItemRow, ShowType} from "../common";
 import {IButtonBarOptions} from "../common/types";
-import {IAlertList, ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../../snackbar";
+import {ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../../snackbar";
 
 
 import styles from "./style.module.scss"
@@ -62,7 +62,7 @@ export const Editor = () =>{
             const data = await getUser(id ? id : state.accountState.userData.username);
             setUser(data )
         }
-    },[])
+    },[id,state.accountState.userData])
 
     useEffect(()=>{
         isMounted.current = true

@@ -27,7 +27,6 @@ export const Header = () =>{
         const lang = Cookies.get('lang')
         if (lang) {
             setLang(lang)
-            selectLang(lang)
         }
         else {
             setLang("en")

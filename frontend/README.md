@@ -8,7 +8,7 @@
  
  ## Usage
  
- - Default addres for `http://localhost:8000/`
+ - Default address for `http://localhost:8000/`
  
  
  ## Configuration
@@ -16,7 +16,7 @@
 
  Path to `config.json`: `src/utiles/config.json`
  
- config.json allows to set password and account policy to valid on frontend
+ config.json allows setting password and account policy to valid on frontend
  
  Example config.json
  

@@ -2,7 +2,7 @@ import React, {ChangeEvent} from "react";
 import {shallow,mount} from 'enzyme';
 import InputTextarea from "./InputTextarea";
 
-describe("Inpunt Textarea",() =>{
+describe("Input Textarea",() =>{
     const testData = {
         id: "testID",
         labelName:"TestLabel"
