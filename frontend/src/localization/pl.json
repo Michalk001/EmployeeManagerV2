@@ -1,7 +1,84 @@
 {
   "common": {
     "logOut": "Wyloguj",
-    "logIn": "Zaloguj"
+    "logIn": "Zaloguj",
+    "error": "Błąd",
+    "unknownError": "Nieznany Ełąd",
+    "username": "login",
+    "password": "hasło",
+    "login": "Zaloguj",
+    "active": "Aktywny",
+    "inactive": "Nieaktywny",
+    "all": "Wszystkie",
+    "updated": "Zaktualizowano",
+    "archived": "Zarchiwizowano",
+    "restored": "Przywrócono",
+    "deleted": "Usunieto",
+    "succeed": "Sukces",
+    "status": "Status",
+    "requiredField": "Wymagane Pole",
+    "notFound": "Nie Znaleziono",
+    "lack": "Brak",
+    "yes": "tak",
+    "no": "nie",
+    "admin": "administratorz",
+    "search": "Szukaj",
+    "searchByName": "Szukaj po imieniu"
+  },
+  "sidebar": {
+    "userPanel": "Panel Użytkownika",
+    "home": "Home",
+    "profile": "Profil",
+    "adminPanel": "Panel Admina",
+    "newProject": "Nowy Projekt",
+    "projectList": "Lista Projektów",
+    "newUser": "Nowy Użytkownik",
+    "userList": "Lista Uzytkowników"
+  },
+  "login": {
+    "wrongPassOrUser": "Zły login lub hasło"
+  },
+  "project": {
+    "createdProject": "Stworzono Projekt",
+    "name": "Nazwa",
+    "description": "Opis",
+    "assignedEmployees": "Przydzieleni Pracownicy",
+    "removedEmployee": "Usunięto Pacownika",
+    "activeEmployee": "Aktywni Pracownicy",
+    "inactiveEmployee": "Nieaktywni Pracownicy",
+    "employees": "Pracownicy",
+    "notFoundProjects": "Nie Znaleziono Projektów",
+    "noEmployees": "Brak Pracowników"
+  },
+  "user": {
+    "createdUser": "Stowrzono uzytkownika",
+    "busyName": "Zajęty Nazwa,",
+    "firstName": "Imie",
+    "lastName": "Nazwisko",
+    "email": "Email",
+    "phoneNumber": "Numer Telefonu",
+    "username": "Login",
+    "password": "Hasło",
+    "repeatPassword": "Powtórz Hasło",
+    "oldPassword": "Stare Hasło",
+    "name": "Nazwa",
+    "projects": "Projekty",
+    "notFoundProjects": "Nie Znaleziono Projektów",
+    "changedPassword": "Zmieniono Hasło,",
+    "changePassword": "Zmień Hasło",
+    "activeProjects": "Aktywne Projekty",
+    "inactiveProjects": "Nieaktywne Projekty"
+
+  },
+
+  "button": {
+    "create": "Stwórz",
+    "add": "Dodaj",
+    "update": "Zaktualizuj",
+    "archive": "Zarchiwizuj",
+    "restore": "Przywróć",
+    "edit": "Edytuj",
+    "delete": "Usuń"
 
   }
 }
