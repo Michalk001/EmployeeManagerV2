@@ -7,6 +7,7 @@ import {ListBox, ListCellNormal, ListCellSmall, ListCellWide, ListFilter, ListMe
 import {LinkRow} from "../../list/Row";
 import {AppRoute} from "../../../routing/AppRoute.enum";
 import {getStatus} from "../common/getStatus";
+import {useTranslation} from "react-i18next";
 
  interface IUserList {
      name:string,
@@ -16,6 +17,8 @@ import {getStatus} from "../common/getStatus";
 }
 
 export const List = () =>{
+
+    const {t} = useTranslation('common');
     const isMounted = React.useRef(false);
     const [users,setUsers] = useState<IUserList[]>([]);
     const [usersFiltered, setUsersFiltered] = useState<IUserList[]>([]);
@@ -53,20 +56,20 @@ export const List = () =>{
             <ListFilter originValue={users} setFilterValue={updateFilteredValue}/>
             <ListBox>
                 <ListTitleRow>
-                    <ListCellWide value={`Name`}/>
-                    <ListCellNormal value={`Projects`} />
-                    <ListCellSmall value={`Status`} />
+                    <ListCellWide value={t('user.name').toString()}/>
+                    <ListCellNormal value={t('user.projects').toString()} />
+                    <ListCellSmall value={t('common.status').toString()} />
                 </ListTitleRow>
                 <ListBox>
                     {usersFiltered.map(user =>(
                         <LinkRow key={user.username} path={`${AppRoute.userProfile}/${user.username}`}>
                             <ListCellWide value={user.name}/>
                             <ListCellNormal value={user.projects} />
-                            <ListCellSmall value={getStatus(user.isActive)} />
+                            <ListCellSmall value={t(`common.${getStatus(user.isActive)}`).toString()} />
                         </LinkRow>
                     ))}
                     {usersFiltered.length === 0 &&
-                    <ListMessage value={`No Found Employees`} />
+                    <ListMessage value={t('user.notFoundProjects')} />
                     }
                 </ListBox>
 

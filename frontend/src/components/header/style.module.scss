@@ -10,55 +10,81 @@
   width: 100%;
   z-index: 6;
 
-  &--container{
-    width: 1260px;
-    display: flex;
-    justify-content: space-between;
-    @media (max-width:1400px) {
-      width: 900px;
-    }
-    @media (max-width:1024px) {
-      width: 600px;
-    }
-    @media (max-width:768px) {
-      width: 100%;
-      padding: 0 30px;
-    }
+}
+
+
+.list {
+  display: flex;
+  align-items: center;
+  padding-inline-start: 0;
+  > li{
+    list-style: none;
   }
-  &__ico{
-    &--home{
-      font-size: 28px;
-      display: flex;
-      align-items: center;
-      color: white;
-      transition-duration: 0.25s;
-      &:hover{
-        color: #31a8ff;
-      }
-    }
+}
+
+.item{
+  list-style: none;
+  padding: 0 10px;
+  font-size: 18px;
+  color: white;
+  transition-duration: 0.25s;
+  &:hover{
+    cursor: pointer;
+    color: #31a8ff;
   }
-  &__menu-list{
+}
+
+.link{
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+.home{
+    font-size: 28px;
     display: flex;
     align-items: center;
-    padding-inline-start: 0;
-
-    &--element{
-      list-style: none;
-      padding: 0 10px;
-      font-size: 18px;
-      color: white;
-      transition-duration: 0.25s;
-      &:hover{
-        cursor: pointer;
-        color: #31a8ff;
-      }
-
+    color: white;
+    transition-duration: 0.25s;
+    &:hover{
+      color: #31a8ff;
     }
-    &--link{
-      text-decoration: none;
-      color: white;
-      cursor: pointer;
-    }
+}
+
+
+@mixin lang($path){
+
+  height: 30px;
+  width: 40px;
+  margin: 0 10px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  cursor: pointer;
+  background-image: url($path);
+}
+
+.flagPL{
+  @include lang("/public/ico/flag-pl.svg")
+}
+.flagEN{
+ @include lang("/public/ico/flag-en.svg")
+}
+
+
+.container {
+  width: 1260px;
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 1400px) {
+    width: 900px;
   }
-
+  @media (max-width: 1024px) {
+    width: 600px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 30px;
+  }
 }

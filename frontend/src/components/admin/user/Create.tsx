@@ -9,6 +9,7 @@ import {Fetch, Method} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json"
 import {IInvalidUserForm, typeValidUserForm, ValidPhone, ValidUserForm} from "../../../utiles/valid";
 import {AdminSelect} from "../../common";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -37,6 +38,7 @@ const defaultInvalidField = {
 
 export const Create = () =>{
 
+    const {t} = useTranslation('common');
     const [invalidField, setInvalidField] = useState<IInvalidUserForm>(defaultInvalidField)
     const [user, setUser] = useState(defaultUser);
     const [snackbarValue, setSnackbarValue] = useState<ISnackbar>({
@@ -79,7 +81,7 @@ export const Create = () =>{
                 setSnackbarValue(prevState => ({...prevState,
                     typeAlert: TypeAlert.success,
                     isOpen: true,
-                    text: "Create User"
+                    text: t('user.createdUser')
                 }));
                 setUser(defaultUser);
                 return
@@ -88,7 +90,7 @@ export const Create = () =>{
                 setSnackbarValue(prevState => ({...prevState,
                     typeAlert: TypeAlert.warning,
                     isOpen: true,
-                    text: "Name Busy"
+                    text: t('user.busyName')
                 }));
                 setInvalidField(prev =>( {...prev,username:true}))
                 return
@@ -98,14 +100,14 @@ export const Create = () =>{
             setSnackbarValue(prevState => ({...prevState,
                 typeAlert: TypeAlert.error,
                 isOpen: true,
-                text: `Error ${e.toString()}`
+                text: `${t('common.error')} ${e.toString()}`
             }));
             return
         }
         setSnackbarValue(prevState => ({...prevState,
             typeAlert: TypeAlert.error,
             isOpen: true,
-            text: `Unknown Error`
+            text: t('common.unknownError')
         }));
         return
     }
@@ -124,7 +126,7 @@ export const Create = () =>{
                     id={`firstName`}
                     name={`firstName`}
                     type={TypeInput.text}
-                    labelName={`First Name`}
+                    labelName={t('user.firstName')}
                     classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.firstName}
                 />
@@ -134,7 +136,7 @@ export const Create = () =>{
                     id={`lastName`}
                     name={`lastName`}
                     type={TypeInput.text}
-                    labelName={`Last Name`}
+                    labelName={t('user.lastName')}
                     classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.lastName}
                 />
@@ -144,7 +146,7 @@ export const Create = () =>{
                     id={`email`}
                     name={`email`}
                     type={TypeInput.text}
-                    labelName={`Email`}
+                    labelName={t('user.email')}
                     classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.email}
                 />
@@ -154,7 +156,7 @@ export const Create = () =>{
                     id={`phoneNumber`}
                     name={`phoneNumber`}
                     type={TypeInput.text}
-                    labelName={`Phone Number`}
+                    labelName={t('user.phoneNumber')}
                     classWrap={`${styles["user__field-wrap"]}`}
 
                 />
@@ -168,7 +170,7 @@ export const Create = () =>{
                     id={`username`}
                     name={`username`}
                     type={TypeInput.text}
-                    labelName={`Username`}
+                    labelName={t('user.username')}
                     classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.username}
                 />
@@ -178,7 +180,7 @@ export const Create = () =>{
                     id={`password`}
                     name={`password`}
                     type={TypeInput.password}
-                    labelName={`Password`}
+                    labelName={t('user.password')}
                     classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.password}
                 />
@@ -188,7 +190,7 @@ export const Create = () =>{
                     id={`repeatPassword`}
                     name={`repeatPassword`}
                     type={TypeInput.password}
-                    labelName={`Repeat Password`}
+                    labelName={t('user.repeatPassword')}
                     classWrap={`${styles["user__field-wrap"]}`}
                     showRequired={invalidField.repeatPassword}
                 />
@@ -197,7 +199,7 @@ export const Create = () =>{
                     updateAdmin={(isAdmin => {setUser(prevState => ({...prevState,isAdmin}))})}
                 />
 
-                <Button label={`Create`} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`${styles["user__row--save-button-wrap"]}`}/>
+                <Button label={t('button.create')} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`${styles["user__row--save-button-wrap"]}`}/>
             </div>
             </form>
             <Snackbar

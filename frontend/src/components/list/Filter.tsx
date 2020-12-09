@@ -3,6 +3,7 @@ import {ListRow} from "./Row";
 import {Input, TypeInput} from "../InputField";
 import {ListBox} from "./ListBox";
 import styles from "./style.module.scss"
+import {useTranslation} from "react-i18next";
 
 interface IProps<T extends IReqPropsGeneric> {
     originValue:T[],
@@ -22,7 +23,7 @@ enum filterTypeCheck {
 }
 
 export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}) =>{
-
+    const {t} = useTranslation('common');
     const [search, setSearch] = useState({
         searchByName:"",
         status:filterTypeCheck.all
@@ -56,10 +57,10 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
     return(
         <ListBox>
             <ListRow>
-                <div className={`${styles["list__label"]}`}>Search by name</div>
+                <div className={`${styles["list__label"]}`}>{t('common.searchByName')}</div>
                 <div className={`${styles["list__radio-button--wrap"]}`} >
                     <label className={`${styles["list__radio-button"]} ${filterTypeCheck.all === search.status ? `${styles["list__radio-button--active"]}` :""}`}
-                           htmlFor={`filter-all`}>All</label>
+                           htmlFor={`filter-all`}>{t('common.all')}</label>
                     <input
                         onChange={updateSearchValue}
                         className={`${styles[`list__radio-button--radio`]}`}
@@ -69,7 +70,7 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
                         type="radio"
                     />
                     <label className={`${styles["list__radio-button"]} ${filterTypeCheck.active === search.status ? `${styles["list__radio-button--active"]}` :""}`}
-                           htmlFor={`filter-active`}>Active</label>
+                           htmlFor={`filter-active`}> {t('common.active')}</label>
                     <input
                         onChange={updateSearchValue}
                         className={`${styles[`list__radio-button--radio`]}`}
@@ -79,7 +80,7 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
                         type="radio"
                     />
                     <label className={`${styles["list__radio-button"]} ${filterTypeCheck.inactive === search.status ? `${styles["list__radio-button--active"]}` :""}`}
-                           htmlFor={`filter-inactive`}>Inactive</label>
+                           htmlFor={`filter-inactive`}>{t('common.inactive')}</label>
                     <input onChange={updateSearchValue}
                         className={`${styles[`list__radio-button--radio`]}`}
                         id="filter-inactive"
@@ -96,7 +97,7 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
                 id={"searchByName"}
                 name={"searchByName"}
                 type={TypeInput.text}
-                placeholder={`Search...`}
+                placeholder={`${t('common.search')}...`}
             />
         </ListBox>
     )

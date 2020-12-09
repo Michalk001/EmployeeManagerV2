@@ -11,6 +11,7 @@ import {AppRoute} from "../../routing/AppRoute.enum";
 import {ISnackbarMultiAlert, SnackbarMultiAlert, TypeAlert} from "../snackbar";
 import {Fetch, Method} from "../../utiles/Fetch";
 import config from "../../utiles/config.json";
+import {useTranslation} from "react-i18next";
 
 const defaultInvalidField = {
     username:false,
@@ -20,7 +21,7 @@ const defaultInvalidField = {
 export const Login = () =>{
 
     const { dispatch } = useContext(GlobalContext)
-
+    const {t} = useTranslation('common');
     const [loginData, setLoginData] = useState({username:"",password:""})
     const history = useHistory();
     const [invalidField, setInvalidField] = useState(defaultInvalidField)
@@ -63,14 +64,14 @@ export const Login = () =>{
                 return
             }
             if(response.status === 401){
-                setAlertList({...alertList, isOpen: true, alertList: [{text: `Wrong login or password`}]})
+                setAlertList({...alertList, isOpen: true, alertList: [{text: t('login.wrongPassOrUser')}]})
                 setInvalidField({password: true,username: true})
                 return
             }
         }catch (e) {
-            setAlertList({...alertList, isOpen: true, alertList: [{text: `Error ${e}`}]})
+            setAlertList({...alertList, isOpen: true, alertList: [{text: `${ t('common.error')} ${e}`}]})
         }
-        setAlertList({...alertList, isOpen: true, alertList: [{text: `Unknown Error`}]})
+        setAlertList({...alertList, isOpen: true, alertList: [{text: t('common.unknownError')}]})
 
 
 
@@ -84,7 +85,7 @@ export const Login = () =>{
                 onChange={handleUpdateLoginData}
                 id={`username`}
                 name={`username`}
-                placeholder={`username`}
+                placeholder={t('common.username')}
                 type={TypeInput.text}
                 classWrap={`${styles[`account__input-section`]} ${invalidField.username && `${styles[`account__input--required`]}`}`}
                 classInput={`${styles[`account__input`]}`}
@@ -96,13 +97,13 @@ export const Login = () =>{
                 onChange={handleUpdateLoginData}
                 id={`password`}
                 name={`password`}
-                placeholder={`password`}
+                placeholder={t('common.password')}
                 type={TypeInput.password}
                 classWrap={`${styles[`account__input-section`]} ${invalidField.password && `${styles[`account__input--required`]}`}`}
                 classInput={`${styles[`account__input`]}`}
 
             />
-            <Button label={"Login"} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`${styles[`account__button--position`]}`} />
+            <Button label={t('common.login')} typeAction={typeButtonAction.submit} typeButton={typeButton.normal} classWrap={`${styles[`account__button--position`]}`} />
 
         </form>
         <SnackbarMultiAlert

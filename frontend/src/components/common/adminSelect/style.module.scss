@@ -9,6 +9,7 @@
   &__radio-button{
     cursor: pointer;
     font-size: 18px;
+    text-transform: uppercase;
     &--title{
       position: absolute;
       top: -13px;
@@ -16,6 +17,7 @@
       background-color: #fff;
       padding: 0 5px;
       font-size: 16px;
+      text-transform: capitalize;
     }
     &--wrap {
       display: inline-flex;

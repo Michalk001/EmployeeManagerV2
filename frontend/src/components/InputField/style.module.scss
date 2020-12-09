@@ -37,6 +37,7 @@
     padding: 0 5px;
     font-size: 16px;
     transition-duration: 0.5s;
+    text-transform: capitalize;
     &--required{
       background: linear-gradient( transparent 0, #ff9a9a 50%);
     }

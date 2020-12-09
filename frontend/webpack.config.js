@@ -14,7 +14,7 @@ module.exports = {
                     "style-loader",
                     'css-modules-typescript-loader',
                     {
-                        loader:"css-loader" ,
+                        loader:"css-loader?url=false" ,
                         options: {
                             modules: {
                                 localIdentName: '[local]___[hash:base64:5]'
@@ -29,12 +29,16 @@ module.exports = {
                 ]
             },
             {
+                test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+                loader: 'url-loader?limit=100000'
+            },
+            {
                 test: /\.(sa|sc|c)ss$/,
                 exclude: /\.module.(sa|sc|c)ss$/,
 
                 loader: [
                     'style-loader',
-                    'css-loader',
+                    'css-loader?url=false',
                     'css-modules-typescript-loader',
                     {
                         loader: 'sass-loader',

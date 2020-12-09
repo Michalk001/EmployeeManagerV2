@@ -11,9 +11,11 @@ import {ButtonOptionsBar} from "../common";
 import {IButtonBarOptions} from "../common/types";
 import {typeButton} from "../../button";
 import { useHistory } from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 export const Profile = () =>{
 
+    const {t} = useTranslation('common');
     const isMounted = React.useRef(false);
     const history = useHistory();
     const { state } = useContext(GlobalContext)
@@ -32,7 +34,7 @@ export const Profile = () =>{
         items.push({
             type : typeButton.normal,
             show : ShowType.AdminOrUser,
-            label: "Edytuj",
+            label: t('button.edit'),
             onClick: () => {
                 const path = `${AppRoute.userEditor}/${user?.username}`
                 history.push(path);
@@ -60,23 +62,23 @@ export const Profile = () =>{
                 <div className={`${styles[`user-profile__text`]}  ${styles[`user-profile__text--bold`]} ${styles[`user-profile__text--section`]}`}>{`${user.firstName} ${user.lastName}`}</div>
                 <div className={`${styles[`user-profile__row`]} `}>
                     <div className={`${styles[`user-profile__item`]}`}>
-                        <span className={`${styles[`user-profile__text`]} ${styles[`user-profile__text--bold`]}`}>Email: </span>
+                        <span className={`${styles[`user-profile__text`]} ${styles[`user-profile__text--bold`]}`}>{t('user.email')}: </span>
                         <a href={`mailto:${user.email}}`} className={`${styles[`user-profile__item--value`]} ${styles[`user-profile__text`]}`}>{user.email}</a>
                     </div>
                     <div className={`${styles[`user-profile__item`]}`}>
-                        <span className={`${styles[`user-profile__text`]} ${styles[`user-profile__text--bold`]}`}>Telefon: </span>
+                        <span className={`${styles[`user-profile__text`]} ${styles[`user-profile__text--bold`]}`}>{t('user.phoneNumber')}: </span>
                         {user.phoneNumber &&<a href={`tel:${user.phoneNumber}`} className={`${styles[`user-profile__item--value`]} ${styles[`user-profile__text`]}`}>{user.phoneNumber}</a>}
-                        {!user.phoneNumber &&<span className={`${styles[`user-profile__item--value`]} ${styles[`user-profile__text`]}`}>Brak</span>}
+                        {!user.phoneNumber &&<span className={`${styles[`user-profile__item--value`]} ${styles[`user-profile__text`]}`}>{t('common.lack')}</span>}
                     </div>
 
                 </div>
 
                 <ListItemRow
-                    label={`Aktywne Projekty`}
+                    label={t('user.activeProjects')}
                     items={getProjectOfItemList(user.projects.filter(project => project.isActive))}
                 />
                 <ListItemRow
-                    label={`Nieaktywne Projekty`}
+                    label={t('user.inactiveProjects')}
                     items={getProjectOfItemList(user.projects.filter(project => !project.isActive))}
                 />
 

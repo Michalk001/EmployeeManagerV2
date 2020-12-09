@@ -12,8 +12,10 @@ import { typeButton} from "../../button";
 import {IButtonBarOptions} from "../common/types";
 import {AppRoute} from "../../../routing/AppRoute.enum";
 import {useHistory} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 export const Profile = () =>{
+    const {t} = useTranslation('common');
     const isMounted = React.useRef(false);
     const {id} = useParams<{id:string}>()
     const [project, setProject] = useState<IProjectProfile|null>(null)
@@ -31,7 +33,7 @@ export const Profile = () =>{
         items.push({
             type : typeButton.normal,
             show : ShowType.ADMIN,
-            label: "Edytuj",
+            label: t('button.edit'),
             onClick: () => {
                 const path = `${AppRoute.projectEditor}/${id}`
                 history.push(path);
@@ -61,18 +63,18 @@ export const Profile = () =>{
                     />
                 </div>
                 <div className={`${styles[`project-profile__item`]} ${styles[`project-profile__item--top-line`]} ${styles[`project-profile__item--title-list`]} ${styles[`project-profile__text`]}`}>
-                    Opis:
+                    {t('project.description')}:
                 </div>
                 <div className={`${styles[`project-profile__item`]} ${styles[`project-profile__item--description`]}`}>
                     {project.description}
                 </div>
                 <ListItemRow
                     items={getUserOfItemList(project.users.filter(user => user.isActive))}
-                    label={`Aktywni Pracownicy`}
+                    label={t('project.activeEmployee')}
                 />
                 <ListItemRow
                     items={getUserOfItemList(project.users.filter(user => !user.isActive))}
-                    label={`Nieaktywni Pracownicy`}
+                    label={t('project.inactiveEmployee')}
                 />
             </>}
         </BoxWide>

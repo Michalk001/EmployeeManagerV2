@@ -17,6 +17,7 @@ import {typeValidUserForm, ValidPassword, ValidPhone, ValidUserForm} from "../..
 import {AdminSelect} from "../../common";
 import {Fetch, Method} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json";
+import {useTranslation} from "react-i18next";
 
 const defaultInvalidField = {
     firstName:false,
@@ -38,7 +39,7 @@ const defaultUser:IUserProfile= {
 }
 
 export const Editor = () =>{
-
+    const {t} = useTranslation('common');
     const {id} = useParams<{id:string}>()
     const isMounted = React.useRef(false);
     const [invalidField, setInvalidField] = useState(defaultInvalidField)
@@ -83,19 +84,19 @@ export const Editor = () =>{
         items.push({
             type : typeButton.update,
             show : ShowType.AdminOrUser,
-            label: "Zaktualizuj",
+            label: t('button.update'),
             onClick: handleUpdateUser,
         })
         items.push({
             type : typeButton.normal,
             show : ShowType.ADMIN,
-            label: "Zarchiwizuj",
+            label: t('button.archive'),
             onClick: () => {},
         })
         items.push({
             type : typeButton.remove,
             show : ShowType.ADMIN,
-            label: "Usuń",
+            label: t('button.delete'),
             onClick: () => {},
         })
         return items
@@ -113,7 +114,7 @@ export const Editor = () =>{
         const {isInvalid,alerts} = ValidUserForm(user,typeValidUserForm.EDIT_USER)
 
         if(isInvalid){
-            alerts.push({text:`requireField`})
+            alerts.push({text:t('common.requiredField')})
             if(alerts.length > 0)
             setAlertList({...alertList, isOpen: true, alertList: alerts})
             return
@@ -125,7 +126,7 @@ export const Editor = () =>{
                     typeAlert: TypeAlert.success,
                     isOpen: true,
                     alertList:[{
-                        text: "Zaktualizowano"
+                        text: t('common.updated')
                        }]
                 }));
                 return
@@ -135,7 +136,7 @@ export const Editor = () =>{
                     typeAlert: TypeAlert.warning,
                     isOpen: true,
                     alertList:[{
-                        text: "Nie znaleziono"
+                        text: t('common.notFound')
                     }]
 
                 }));
@@ -148,7 +149,7 @@ export const Editor = () =>{
                 typeAlert: TypeAlert.error,
                 isOpen: true,
                 alertList:[{
-                    text: `Błąd: ${e.toString()}`
+                    text: `${t('common.error')}: ${e.toString()}`
                 }]
             }));
             return
@@ -158,7 +159,7 @@ export const Editor = () =>{
             typeAlert: TypeAlert.error,
             isOpen: true,
             alertList:[{
-                text: `Wystąpił nieznany błąd`
+                text: t('common.unknownError')
             }]
 
         }));
@@ -183,7 +184,7 @@ export const Editor = () =>{
                 typeAlert: TypeAlert.success,
                 isOpen: true,
                 alertList:[{
-                    text: `Change Password`
+                    text: t('user.changedPassword')
                 }]
 
             }));
@@ -192,7 +193,7 @@ export const Editor = () =>{
                 typeAlert: TypeAlert.error,
                 isOpen: true,
                 alertList:[{
-                    text: `Error`
+                    text: t('common.error')
                 }]
 
             }));
@@ -217,7 +218,7 @@ export const Editor = () =>{
                         id={`firstName`}
                         name={`firstName`}
                         type={TypeInput.text}
-                        labelName={`FirstName`}
+                        labelName={t('user.firstName')}
 
                         showRequired={invalidField.firstName}
                     />
@@ -227,7 +228,7 @@ export const Editor = () =>{
                         id={`lastName`}
                         name={`lastName`}
                         type={TypeInput.text}
-                        labelName={`LastName`}
+                        labelName={t('user.lastName')}
                         showRequired={invalidField.lastName}
                     />
                     <Input
@@ -236,7 +237,7 @@ export const Editor = () =>{
                         id={`email`}
                         name={`email`}
                         type={TypeInput.text}
-                        labelName={`Email`}
+                        labelName={t('user.email')}
                         showRequired={invalidField.email}
                     />
 
@@ -249,7 +250,7 @@ export const Editor = () =>{
                         id={`phoneNumber`}
                         name={`phoneNumber`}
                         type={TypeInput.text}
-                        labelName={`Phone Number`}
+                        labelName={t('user.phoneNumber')}
                     />
                     {state.accountState.userData?.isAdmin && <AdminSelect
                         selectType={user.isAdmin}
@@ -265,8 +266,8 @@ export const Editor = () =>{
                         id={`oldPassword`}
                         name={`oldPassword`}
                         type={TypeInput.password}
-                        labelName={`Old Password`}
-                    //    showRequired={invalidField.newPassword}
+                        labelName={t('user.oldPassword')}
+                        showRequired={invalidField.newPassword}
                     />
                     <Input
                         value={changePasswordValue.newPassword}
@@ -274,7 +275,7 @@ export const Editor = () =>{
                         id={`newPassword`}
                         name={`newPassword`}
                         type={TypeInput.password}
-                        labelName={`New Password`}
+                        labelName={t('user.newPassword')}
                         showRequired={invalidField.newPassword}
                     />
                     <Input
@@ -283,11 +284,11 @@ export const Editor = () =>{
                         id={`repeatNewPassword`}
                         name={`repeatNewPassword`}
                         type={TypeInput.password}
-                        labelName={`Repeat New Password`}
+                        labelName={t('user.repeatPassword')}
                         showRequired={invalidField.repeatPassword}
                     />
                     <Button
-                        label={`Change Password`}
+                        label={t('user.changePassword')}
                         typeAction={typeButtonAction.button}
                         typeButton={typeButton.normal}
                         classWrap={`${styles[`user-profile__item`]}`}
@@ -296,7 +297,7 @@ export const Editor = () =>{
                 </div>
             </>}
             <ListItemRow
-                label={`Aktywne Projekty`}
+                label={t('user.activeProjects')}
                 items={getProjectOfItemList(user.projects.filter(project => project.isActive))}
 
             />

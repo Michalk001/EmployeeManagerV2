@@ -4,6 +4,7 @@ import styles from "./style.module.scss"
 import { Link } from "react-router-dom";
 import {AppRoute} from "../../routing/AppRoute.enum";
 import {GlobalContext} from "../../context/Provider";
+import {useTranslation} from "react-i18next";
 
 const ListLinkItem :FC<{text:string, path:string}>= ({text, path}) =>{
     return (
@@ -29,7 +30,7 @@ export const Sidebar = () =>{
 
     const [hiddenMenu, setHiddenMenu] = useState(true);
     const { state } = useContext(GlobalContext)
-
+    const {t} = useTranslation('common');
     const changeMenuVisible = () => {
         Cookies.set('hiddenMenu', String(!hiddenMenu), {expires: 365})
         setHiddenMenu(prevState => !prevState)
@@ -55,17 +56,17 @@ export const Sidebar = () =>{
             </div>
             <div className={`${styles[`sidebar`]} ${hiddenMenu ? ` ${styles[`sidebar--close`]}` :"" } `}>
                 <ul className={`${styles[`sidebar__menu`]} `}>
-                    <ListTitleItem text={`User Panel`} />
-                    <ListLinkItem path={AppRoute.homePage} text={"Home"} />
-                    <ListLinkItem path={AppRoute.userProfile} text={"Profile"} />
+                    <ListTitleItem text={t('sidebar.userPanel')} />
+                    <ListLinkItem path={AppRoute.homePage} text={t('sidebar.home')} />
+                    <ListLinkItem path={AppRoute.userProfile} text={t('sidebar.profile')} />
                 </ul>
                 {state.accountState.userData?.isAdmin &&
                     <ul className={`${styles[`sidebar__menu`]} `}>
-                        <ListTitleItem text={`Admin Panel`} />
-                        <ListLinkItem path={AppRoute.adminProjectNew} text={"New Project"} />
-                        <ListLinkItem path={AppRoute.adminProjectList} text={"list Project"} />
-                        <ListLinkItem path={AppRoute.adminUserNew} text={"New User"} />
-                        <ListLinkItem path={AppRoute.adminUserList} text={"List User"} />
+                        <ListTitleItem text={t('sidebar.adminPanel')} />
+                        <ListLinkItem path={AppRoute.adminProjectNew} text={t('sidebar.newProject')} />
+                        <ListLinkItem path={AppRoute.adminProjectList} text={t('sidebar.projectList')}/>
+                        <ListLinkItem path={AppRoute.adminUserNew} text={t('sidebar.newUser')} />
+                        <ListLinkItem path={AppRoute.adminUserList} text={t('sidebar.userList')} />
                     </ul>
                 }
             </div>

@@ -18,12 +18,14 @@ import {ValueType} from "react-select";
 import {ISnackbar, Snackbar, TypeAlert} from "../../snackbar";
 import {getUserOfItemList} from "../../user/project/duck/operations";
 import { useHistory } from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 
 
 export const Editor = () =>{
     const isMounted = React.useRef(false);
     const {id} = useParams<{id:string}>()
+    const {t} = useTranslation('common');
     const [project, setProject] = useState<IProjectEditor|null>(null)
     const [selectUser, setSelectUser] = useState<optionType[]>([])
     const [addUser, setAddUser] = useState<optionType|null>(null)
@@ -108,14 +110,14 @@ export const Editor = () =>{
                 ...prevState,
                 typeAlert:TypeAlert.success,
                 isOpen:true,
-                text:"Remove Employee"
+                text: t('project.removedEmployee')
             }))
         }else{
             setSnackbarValue(prevState =>({
                 ...prevState,
                 typeAlert:TypeAlert.error,
                 isOpen:true,
-                text:"Error"
+                text: t('common.error')
             }))
         }
     }
@@ -162,14 +164,14 @@ export const Editor = () =>{
                     ...prevState,
                     typeAlert: TypeAlert.success,
                     isOpen: true,
-                    text: "Update"
+                    text:  t('common.updated')
                 }))
             } else {
                 setSnackbarValue(prevState => ({
                     ...prevState,
                     typeAlert: TypeAlert.error,
                     isOpen: true,
-                    text: "Error"
+                    text: t('common.error')
                 }))
             }
         }
@@ -189,7 +191,7 @@ export const Editor = () =>{
                     ...prevState,
                     typeAlert: TypeAlert.success,
                     isOpen: true,
-                    text: isActive ? `Restore` : `Archive`
+                    text: isActive ?  t('common.restored')  :  t('common.archived')
                 }))
 
             }else {
@@ -197,7 +199,7 @@ export const Editor = () =>{
                     ...prevState,
                     typeAlert: TypeAlert.error,
                     isOpen: true,
-                    text: "Error"
+                    text:  t('common.error')
                 }))
             }
 
@@ -214,7 +216,7 @@ export const Editor = () =>{
                 ...prevState,
                 typeAlert: TypeAlert.error,
                 isOpen: true,
-                text: "Error"
+                text: t('common.error')
             }))
         }
     }
@@ -227,19 +229,19 @@ export const Editor = () =>{
             items.push({
                 type : typeButton.update,
                 show : ShowType.ADMIN,
-                label: "Update",
+                label: t('common.updated'),
                 onClick: handleUpdate
             })
         items.push({
             type : project.isActive ? typeButton.normal : typeButton.update,
             show : ShowType.ADMIN,
-            label: project.isActive ? "Archive" : "Restore",
+            label: project.isActive ? t('common.restored')  :  t('common.archived'),
             onClick: handleArchive
         })
         items.push({
             type : typeButton.remove,
             show : ShowType.ADMIN,
-            label: "Delete",
+            label: t('common.deleted'),
             onClick: handleDelete,
         })
         return items
@@ -275,7 +277,7 @@ export const Editor = () =>{
                 ...prevState,
                 typeAlert:TypeAlert.success,
                 isOpen:true,
-                text:"Success"
+                text: t('common.succeed')
             }))
         }
         else{
@@ -283,7 +285,7 @@ export const Editor = () =>{
                 ...prevState,
                 typeAlert:TypeAlert.error,
                 isOpen:true,
-                text:"Error"
+                text:t('common.error')
             }))
         }
     }
@@ -298,7 +300,7 @@ export const Editor = () =>{
                 onChange={updateValue}
                 id={`name`}
                 name={`name`}
-                labelName={"Name"}
+                labelName={t('project.name')}
                 type={TypeInput.text}
                 classWrap={`${styles[`project__field`]}`}
               //  showRequired={invalidField.name}
@@ -308,7 +310,7 @@ export const Editor = () =>{
                 onChange={updateValue}
                 name={`description`}
                 id={`description`}
-                labelName={`Description`}
+                labelName={t('project.description')}
                 classWrap={`${styles[`project__field`]} ${styles[`project__field--description`]}`}
 
             />
@@ -321,22 +323,22 @@ export const Editor = () =>{
                     isMulti={false}
                     classWrap={styles.addSelect}
                 />
-                <Button label={"Add"} typeAction={typeButtonAction.button} typeButton={typeButton.normal} onClick={handleSaveUserToProject} />
+                <Button label={t('button.add')}typeAction={typeButtonAction.button} typeButton={typeButton.normal} onClick={handleSaveUserToProject} />
             </div>
             {project.isActive && <>
                 <ProfileActionList
-                    label={"Active Employee"}
+                    label={t('project.activeEmployee')}
                     items={getUserProfileList(project.users.filter(user => user.isActive))}
                 />
                 <ProfileActionList
-                label={"Inactive Employee"}
+                label={t('project.inactiveEmployee')}
                 items={getUserProfileList(project.users.filter(user => !user.isActive))}
                 />
             </>}
             {!project.isActive && <>
             <ListItemRow
                 items={getUserOfItemList(project.users)}
-                label={`Nieaktywni Pracownicy`}
+                label={t('project.inactiveEmployee')}
             />
             </>}
             <Snackbar

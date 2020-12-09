@@ -13,6 +13,7 @@ import {Fetch, FetchGet, Method} from "../../../utiles/Fetch";
 import config from '../../../utiles/config.json'
 import {ISnackbar, Snackbar, TypeAlert} from "../../snackbar";
 import {ValidIsEmpty} from "../../../utiles/valid";
+import {useTranslation} from "react-i18next";
 
 
 const defaultProjectValue: IProjectNew = {
@@ -32,7 +33,7 @@ export const Create = () =>{
     const [projectValue, setProjectValue] = useState<IProjectNew>(defaultProjectValue);
     const [selectUserValue, setSelectUserValue] = useState<optionType[]>([])
     const [invalidField, setInvalidField] = useState(defaultInvalidField)
-
+    const {t} = useTranslation('common');
     const [snackbarValue, setSnackbarValue] = useState<ISnackbar>({
         text:"",
         isOpen:false,
@@ -86,7 +87,7 @@ export const Create = () =>{
                     ...prevState,
                     typeAlert: TypeAlert.success,
                     isOpen: true,
-                    text: "Create Project"
+                    text: t('project.createdProject')
                 }));
                 setProjectValue(defaultProjectValue);
                 return
@@ -107,7 +108,7 @@ export const Create = () =>{
             ...prevState,
             typeAlert: TypeAlert.error,
             isOpen: true,
-            text: `Unknown Error`
+            text: t('common.unknownError')
         }));
 
     }
@@ -131,7 +132,7 @@ export const Create = () =>{
                     onChange={updateValue}
                     id={`name`}
                     name={`name`}
-                    labelName={"Name"}
+                    labelName={t('project.name')}
                     type={TypeInput.text}
                     classWrap={`${styles[`project__field`]}`}
                     showRequired={invalidField.name}
@@ -141,7 +142,7 @@ export const Create = () =>{
                     onChange={updateValue}
                     name={`description`}
                     id={`description`}
-                    labelName={`Description`}
+                    labelName={t('project.description')}
                     classWrap={`${styles[`project__field`]} ${styles[`project__field--description`]}`}
 
                 />
@@ -151,12 +152,12 @@ export const Create = () =>{
                     value={selectUserValue}
                     onChange={updateSelectValue}
                     id={'employees'}
-                    labelName={`Assigned Employees`}
+                    labelName={t('project.assignedEmployees')}
                     classWrap={`project__field`}
-                    placeholder={"No Employees"}
+                    placeholder={t('project.noEmployees')}
                 />
                 <Button
-                    label={"Create"}
+                    label={t('button.create')}
                     typeAction={typeButtonAction.submit}
                     typeButton={typeButton.normal}
                     classWrap={`project__button-save-position`}

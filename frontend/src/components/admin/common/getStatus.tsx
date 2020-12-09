@@ -1,7 +1,7 @@
 
 export const getStatus = (status:boolean) =>{
     if(status)
-        return "Active"
+        return "active"
     else
-        return "Inactive"
+        return "inactive"
 }

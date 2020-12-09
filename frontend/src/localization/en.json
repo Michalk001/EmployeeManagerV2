@@ -1,0 +1,84 @@
+{
+  "common": {
+    "logOut": "Log Out",
+    "logIn": "Log In",
+    "error": "Error",
+    "unknownError": "Unknown Error",
+    "username": "username",
+    "password": "password",
+    "login": "Login",
+    "active": "Active",
+    "inactive": "Inactive",
+    "all": "All",
+    "updated": "Updated",
+    "archived": "Archived",
+    "restored": "Restored",
+    "deleted": "Deleted",
+    "succeed": "Succeed",
+    "status": "Status",
+    "requiredField": "Required Field",
+    "notFound": "Not Found",
+    "lack": "Lack",
+    "yes": "yes",
+    "no": "no",
+    "admin": "admin",
+    "search": "Search",
+    "searchByName": "Search by name"
+  },
+  "sidebar": {
+    "userPanel": "User Panel",
+    "home": "Home",
+    "profile": "Profile",
+    "adminPanel": "Admin Panel",
+    "newProject": "New Project",
+    "projectList": "Project List",
+    "newUser": "New User",
+    "userList": "User List"
+  },
+  "login": {
+      "wrongPassOrUser": "Wrong login or password"
+  },
+  "project": {
+    "createdProject": "Created Project",
+    "name": "Name",
+    "description": "Description",
+    "assignedEmployees": "Assigned Employees",
+    "removedEmployee": "Removed Employee",
+    "activeEmployee": "Active Employee",
+    "inactiveEmployee": "Inactive Employee",
+    "employees": "Employees",
+    "notFoundProjects": "No Found Projects",
+    "noEmployees": "No Employees"
+  },
+  "user": {
+    "createdUser": "Created User",
+    "busyName": "Busy Name,",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "username": "Username",
+    "password": "Password",
+    "repeatPassword": "Repeat Password",
+    "oldPassword": "Old Password",
+    "name": "Name",
+    "projects": "Projects",
+    "notFoundProjects": "No Found Projects",
+    "changedPassword": "Changed Password,",
+    "changePassword": "Change Password",
+    "activeProjects": "Active Projects",
+    "inactiveProjects": "Inactive Projects"
+
+  },
+
+  "button": {
+    "create": "Create",
+    "add": "Add",
+    "update": "Update",
+    "archive": "Archive",
+    "restore": "Restore",
+    "edit": "Edit",
+    "delete": "Delete"
+
+  }
+}
