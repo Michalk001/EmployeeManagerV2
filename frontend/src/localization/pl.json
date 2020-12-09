@@ -21,9 +21,9 @@
     "lack": "Brak",
     "yes": "tak",
     "no": "nie",
-    "admin": "administratorz",
+    "admin": "administrator",
     "search": "Szukaj",
-    "searchByName": "Szukaj po imieniu"
+    "searchByName": "Szukaj po nazwie"
   },
   "sidebar": {
     "userPanel": "Panel Użytkownika",
@@ -33,7 +33,7 @@
     "newProject": "Nowy Projekt",
     "projectList": "Lista Projektów",
     "newUser": "Nowy Użytkownik",
-    "userList": "Lista Uzytkowników"
+    "userList": "Lista Użytkowników"
   },
   "login": {
     "wrongPassOrUser": "Zły login lub hasło"
@@ -51,14 +51,15 @@
     "noEmployees": "Brak Pracowników"
   },
   "user": {
-    "createdUser": "Stowrzono uzytkownika",
-    "busyName": "Zajęty Nazwa,",
+    "createdUser": "Stworzono użytkownika",
+    "busyName": "Login Zajęty,",
     "firstName": "Imie",
     "lastName": "Nazwisko",
     "email": "Email",
     "phoneNumber": "Numer Telefonu",
     "username": "Login",
     "password": "Hasło",
+    "newPassword": "Nowe Hasło",
     "repeatPassword": "Powtórz Hasło",
     "oldPassword": "Stare Hasło",
     "name": "Nazwa",

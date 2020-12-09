@@ -2,7 +2,33 @@ import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import { getRepository } from "typeorm";
 import {User} from "../entity/User";
-import config from "../config/AppConfig.json"
+
+
+
+export const deleteUser = async (req:Request, res:Response) =>{
+    const id = req.params.id
+    const userRepository = await getRepository(User)
+    const user = await userRepository.findOne({where:{username:id}, relations:['projectUser','projectUser.project']})
+    if(!user){
+        res.status(404).end()
+        return
+    }
+    user.isActive = false
+    user.isRemove = true
+    user.projectUser.forEach(item =>{
+        item.isActive = false
+        item.isRemove = true
+    })
+    try{
+        await userRepository.save(user)
+        res.status(200).end()
+        return
+    }
+    catch (e) {
+        res.status(400).end()
+    }
+}
+
 
 export const getUsers = async (req:Request, res:Response) =>{
 
@@ -75,7 +101,7 @@ export const getUser = async (req:Request, res:Response) =>{
 export const updateUser = async (req:Request, res:Response) =>{
     const id = req.params.id
     const userRepository = getRepository(User);
-    const user = await userRepository.findOne({where:{username:id,isRemove:false}})
+    const user = await userRepository.findOne({where:{username:id,isRemove:false}, relations:['projectUser','projectUser.project']})
     if(!user){
         res.status(404).send();
         return
@@ -84,7 +110,7 @@ export const updateUser = async (req:Request, res:Response) =>{
     let decodeToken:null|any = null
     if(token)
         decodeToken = jwt.decode(token);
-    const {phoneNumber,firstName,lastName,isAdmin,email,password} = req.body.user;
+    const {phoneNumber,firstName,lastName,isAdmin,email,password,isActive} = req.body.user;
     if(firstName){
         user.firstName = firstName
     }
@@ -105,6 +131,15 @@ export const updateUser = async (req:Request, res:Response) =>{
             user.isAdmin = isAdmin
         }
     }
+    if(isActive != undefined){
+        user.isActive = isActive
+        if(!isActive){
+            user.projectUser.forEach(item =>{
+                item.isActive = false
+            })
+        }
+    }
+
     try{
         await userRepository.save(user)
         res.status(204).send();

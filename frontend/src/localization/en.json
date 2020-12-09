@@ -59,6 +59,7 @@
     "phoneNumber": "Phone Number",
     "username": "Username",
     "password": "Password",
+    "newPassword": "New Password",
     "repeatPassword": "Repeat Password",
     "oldPassword": "Old Password",
     "name": "Name",

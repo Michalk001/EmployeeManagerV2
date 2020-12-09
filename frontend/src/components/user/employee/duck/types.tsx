@@ -2,7 +2,7 @@ export interface IUserProfile {
     firstName:string,
     lastName:string,
     username:string,
-    status:string,
+    isActive:boolean,
     email:string,
     isAdmin:boolean
     projects:IUserProfileProject[],

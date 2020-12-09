@@ -18,6 +18,7 @@ import {AdminSelect} from "../../common";
 import {Fetch, Method} from "../../../utiles/Fetch";
 import config from "../../../utiles/config.json";
 import {useTranslation} from "react-i18next";
+import {useHistory} from "react-router-dom";
 
 const defaultInvalidField = {
     firstName:false,
@@ -27,16 +28,7 @@ const defaultInvalidField = {
     repeatPassword:false
 }
 
-const defaultUser:IUserProfile= {
-    projects:[],
-    email:"",
-    firstName:"",
-    lastName:"",
-    status:"",
-    username:"",
-    phoneNumber:null,
-    isAdmin:false,
-}
+
 
 export const Editor = () =>{
     const {t} = useTranslation('common');
@@ -44,7 +36,8 @@ export const Editor = () =>{
     const isMounted = React.useRef(false);
     const [invalidField, setInvalidField] = useState(defaultInvalidField)
     const { state } = useContext(GlobalContext)
-    const [user,setUser] = useState<IUserProfile>(defaultUser)
+    const [user,setUser] = useState<IUserProfile|null>(null)
+    const history = useHistory();
     const [changePasswordValue,setChangeNewPasswordValue] = useState({
         oldPassword:"",
         newPassword:"",
@@ -64,9 +57,9 @@ export const Editor = () =>{
 
 
     const getDataUser = useCallback(async () =>{
-        if(state.accountState.userData && user.username === "") {
-            const data = await getUser(id ? id : state.accountState.userData.username);
 
+        if(state.accountState.userData) {
+            const data = await getUser(id ? id : state.accountState.userData.username);
             setUser(data )
         }
     },[])
@@ -81,6 +74,8 @@ export const Editor = () =>{
 
     const getButtonsBar = () =>{
         const items:IButtonBarOptions[] = [];
+        if(!user)
+            return items
         items.push({
             type : typeButton.update,
             show : ShowType.AdminOrUser,
@@ -90,25 +85,27 @@ export const Editor = () =>{
         items.push({
             type : typeButton.normal,
             show : ShowType.ADMIN,
-            label: t('button.archive'),
-            onClick: () => {},
+            label: user.isActive ? t('button.archive') : t('button.restore') ,
+            onClick: handleArchive,
         })
         items.push({
             type : typeButton.remove,
             show : ShowType.ADMIN,
             label: t('button.delete'),
-            onClick: () => {},
+            onClick: handleDelete,
         })
         return items
     }
 
     const updateUserValue = (e:ChangeEvent<HTMLInputElement>) =>{
         if(user)
-            setUser(prevState => ({...prevState,[e.target.name]:e.target.value}))
+            setUser(prevState => (prevState ? {...prevState,[e.target.name]:e.target.value} : prevState))
     }
 
 
     const handleUpdateUser = async () =>{
+        if(!user)
+            return
         setInvalidField(defaultInvalidField);
         setAlertList({...alertList, isOpen: false, alertList: []})
         const {isInvalid,alerts} = ValidUserForm(user,typeValidUserForm.EDIT_USER)
@@ -166,6 +163,8 @@ export const Editor = () =>{
     }
 
     const handleChangePassword = async () =>{
+        if(!user)
+            return
         const validPassword = ValidPassword(changePasswordValue.newPassword,changePasswordValue.repeatNewPassword,user.username)
         if(validPassword ){
             setAlertList(prevState => ({...prevState,
@@ -204,12 +203,60 @@ export const Editor = () =>{
         setChangeNewPasswordValue(prevState => ({...prevState,[e.target.name]:e.target.value}))
     }
 
-    return(
+
+
+    const handleArchive = async () =>{
+        if(!user)
+            return
+        const isActive = !(user.isActive)
+        const res = await Fetch(`${config.API_URL}/user/${id}`, Method.PUT, {user: {isActive}})
+        console.log(res.status)
+        if (res.status === 204) {
+            setUser(prevState => (prevState ? {...prevState, isActive: isActive} : prevState))
+            setAlertList(prevState => ({...prevState,
+                typeAlert: TypeAlert.success,
+                isOpen: true,
+                alertList:[{
+                text: isActive ?  t('common.restored')  :  t('common.archived')
+            }]}));
+
+        }
+        else {
+
+            setAlertList(prevState => ({...prevState,
+                typeAlert: TypeAlert.error,
+                isOpen: true,
+                alertList:[{
+                    text: t('common.error')
+                }]}));
+        }
+    }
+
+    const handleDelete = async () => {
+        const res = await Fetch(`${config.API_URL}/user/${id}`,Method.DELETE, {})
+        if(res.status === 200){
+            history.push("/")
+        }
+        else{
+            setAlertList(prevState => ({...prevState,
+                typeAlert: TypeAlert.error,
+                isOpen: true,
+                alertList:[{
+                    text: t('common.error')
+                }]}));
+        }
+    }
+
+
+    if(user)
+        return(
+
         <BoxWide>
             <ButtonOptionsBar
                 items={getButtonsBar()}
                 usernameProfile={user.username}
             />
+            {console.log(user)}
             {user.username !== "" && <>
                 <div className={`${styles[`user-profile__row`]}`} >
                     <Input
@@ -255,7 +302,7 @@ export const Editor = () =>{
                     {state.accountState.userData?.isAdmin && <AdminSelect
                         selectType={user.isAdmin}
                         updateAdmin={(isAdmin => {
-                            setUser(prevState => ({...prevState, isAdmin}))
+                            setUser(prevState => prevState ? ({...prevState, isAdmin}) : prevState)
                         })}
                     />}
                 </div>
@@ -306,5 +353,6 @@ export const Editor = () =>{
             />
         </BoxWide>
     )
-
+    else
+        return (<></>)
 }
