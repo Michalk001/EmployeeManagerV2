@@ -9,7 +9,8 @@ interface IProps {
     typeButton: typeButton,
     onClick?: (e:  React.MouseEvent<HTMLButtonElement>) => void,
     classButton?: string,
-    classWrap?: string
+    classWrap?: string,
+    id?: string
 }
 
 const getClassByType = (type:typeButton) =>{
@@ -22,10 +23,11 @@ const getClassByType = (type:typeButton) =>{
 
 const Button:FC<IProps> = (props) =>{
 
-    const {label,typeAction,typeButton,onClick,classButton="",classWrap=""} = props;
+    const {id,label,typeAction,typeButton,onClick,classButton="",classWrap=""} = props;
     return(
         <div className={`${classWrap}`}>
             <button
+                id={id}
                 type={typeAction}
                 onClick={onClick}
                 className={`${styles[`button`]} ${classButton}  ${getClassByType(typeButton)}`}

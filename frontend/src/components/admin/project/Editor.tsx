@@ -17,9 +17,10 @@ import {optionType} from "../../InputField/InputSelect";
 import {ValueType} from "react-select";
 import {ISnackbar, Snackbar, TypeAlert} from "../../snackbar";
 import {getUserOfItemList} from "../../user/project/duck/operations";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-
+import {ConfirmAlert} from "../../common/confirmAlert/ConfirmAlert";
+import {IConfirmAlert} from "../../common/confirmAlert/types";
 
 
 export const Editor = () =>{
@@ -30,6 +31,14 @@ export const Editor = () =>{
     const [selectUser, setSelectUser] = useState<optionType[]>([])
     const [addUser, setAddUser] = useState<optionType|null>(null)
     const history = useHistory();
+
+    const [confirmAlert, setConfirmAlert] = useState<IConfirmAlert>({
+        isOpen: false,
+        content: "",
+        buttons:[]
+
+    })
+
     const [snackbarValue, setSnackbarValue] = useState<ISnackbar>({
         text:"",
         isOpen:false,
@@ -64,7 +73,6 @@ export const Editor = () =>{
             const res = await FetchGet(`${config.API_URL}/user/`);
             const users: IUser[] = await res.json()
             const userSelect = users.filter(({username: id1}) => !project.users.some(({username:id2}) => id1 === id2) )
-            console.log(userSelect)
             setSelectUser(userSelect.map((user): optionType => {
                 return {
                     value: user.username,
@@ -206,7 +214,31 @@ export const Editor = () =>{
         }
     }
 
-    const handleDelete = async () =>{
+    const handleDelete =  () =>{
+        setConfirmAlert({
+            isOpen: true,
+            buttons: [
+                {
+                    typeButton:typeButton.normal,
+                    label: "Tak",
+                    onClick: () => {confirmDelete()},
+                    id: "ConfirmButtonYes"
+                },
+                {
+                    typeButton:typeButton.normal,
+                    label: "Nie",
+                    onClick: () => {setConfirmAlert(({isOpen:false,content:"",buttons:[]}))},
+                    id: "ConfirmButtonNo"
+                }
+            ],
+            content: "Czy usunąć"
+        })
+    }
+
+
+    const confirmDelete = async () =>{
+
+
         const res = await Fetch(`${config.API_URL}/project/${id}`,Method.DELETE, {})
         if(res.status === 200){
             history.push("/")
@@ -219,7 +251,9 @@ export const Editor = () =>{
                 text: t('common.error')
             }))
         }
+        setConfirmAlert(({isOpen:false,content:"",buttons:[]}));
     }
+
 
     const getButtonsBar = () =>{
         const items:IButtonBarOptions[] = [];
@@ -229,19 +263,19 @@ export const Editor = () =>{
             items.push({
                 type : typeButton.update,
                 show : ShowType.ADMIN,
-                label: t('common.updated'),
+                label: t('button.update'),
                 onClick: handleUpdate
             })
         items.push({
             type : project.isActive ? typeButton.normal : typeButton.update,
             show : ShowType.ADMIN,
-            label: project.isActive ? t('common.restored')  :  t('common.archived'),
+            label: project.isActive ? t('button.restore')  :  t('button.archive'),
             onClick: handleArchive
         })
         items.push({
             type : typeButton.remove,
             show : ShowType.ADMIN,
-            label: t('common.deleted'),
+            label: t('button.delete'),
             onClick: handleDelete,
         })
         return items
@@ -291,6 +325,7 @@ export const Editor = () =>{
     }
     if(project)
     return(
+        <>
         <BoxWide>
             <ButtonOptionsBar
                 items={getButtonsBar()}
@@ -345,7 +380,8 @@ export const Editor = () =>{
                 {...snackbarValue}
             />
         </BoxWide>
-
+        <ConfirmAlert {...confirmAlert}/>
+        </>
     )
     else
         return (<></>)
