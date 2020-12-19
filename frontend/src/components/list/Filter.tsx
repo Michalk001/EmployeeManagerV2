@@ -34,7 +34,7 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
         setSearch({...search,[e.target.name]:e.target.value})
     }
 
-    const handleFilter = useCallback( () =>{
+    const handleFilter = () =>{
             let list = [...originValue]
 
            if (search.status === filterTypeCheck.inactive)
@@ -48,11 +48,9 @@ export const Search:FC<IProps<IReqPropsGeneric>> = ({originValue,setFilterValue}
             list = list.filter(item => item.name.toUpperCase().includes(search.searchByName.toUpperCase()))
         setFilterValue(list)
 
-    },[search,originValue])
+    }
 
-    useEffect(() =>{
-        handleFilter();
-    },[handleFilter])
+    useEffect(handleFilter,[search])
 
     return(
         <ListBox>

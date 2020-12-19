@@ -8,7 +8,7 @@ import {RequireLogin, UserRoute} from "../components/templateView/UserTemplate";
 import {Login} from "../components/account/Login";
 import {CreateProject, EditorProject, ListProject} from "../components/admin/project";
 import {CreateUser,ListUser} from "../components/admin/user"
-import {UserEditor, UserProfile} from "../components/user/employee";
+import {UserEditor, UserProfile, UserProjectList} from "../components/user/employee";
 import {ProjectProfile} from "../components/user/project";
 
 export const AppRoutes = () => {
@@ -22,6 +22,7 @@ export const AppRoutes = () => {
             <RequireLogin Component={ProjectProfile} path={AppRoute.projectProfileID} />
             <RequireLogin Component={UserEditor} path={AppRoute.userEditorID}  />
             <RequireLogin Component={UserEditor} path={AppRoute.userEditor}  />
+            <RequireLogin Component={UserProjectList} path={AppRoute.userProjectList}  />
             <RequireLogin Component={EditorProject} path={AppRoute.projectEditorID}  />
 
             <RequireLogin Component={UserProfile} path={AppRoute.userProfileID} />

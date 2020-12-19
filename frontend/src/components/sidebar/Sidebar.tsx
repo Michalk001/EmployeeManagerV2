@@ -59,6 +59,7 @@ export const Sidebar = () =>{
                     <ListTitleItem text={t('sidebar.userPanel')} />
                     <ListLinkItem path={AppRoute.homePage} text={t('sidebar.home')} />
                     <ListLinkItem path={AppRoute.userProfile} text={t('sidebar.profile')} />
+                    <ListLinkItem path={AppRoute.userProjectList} text={t('sidebar.projectList')} />
                 </ul>
                 {state.accountState.userData?.isAdmin &&
                     <ul className={`${styles[`sidebar__menu`]} `}>

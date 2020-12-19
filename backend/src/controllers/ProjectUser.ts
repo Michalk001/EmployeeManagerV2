@@ -1,7 +1,6 @@
 import { getRepository } from "typeorm";
 import {Request, Response} from "express";
 import {ProjectUser} from "../entity/ProjectUser";
-import {IProjectNew} from "./Project";
 import {User} from "../entity/User";
 import {Project} from "../entity/Project";
 
