@@ -3,6 +3,7 @@ import React, {FC} from "react";
 import styles from "./style.module.scss"
 import {IProfileAction} from "../admin/common/types";
 import {ProfileBoxAction} from "../admin/common/ProfileBoxAction";
+import {useTranslation} from "react-i18next";
 
 interface IProps {
     items: IProfileAction[]
@@ -10,12 +11,13 @@ interface IProps {
 }
 
 export const ProfileActionList:FC<IProps> = ({ items,label}) =>{
+    const {t} = useTranslation('common');
     return(
         <div className={styles.wrap}>
             <div className={styles.title}>
                 {label}
                 {items.length === 0 &&
-                <div className={styles.empty}> None </div>
+                <div className={styles.empty}> {t('common.lack')} </div>
                 }
             </div>
             <div className={styles.row}>

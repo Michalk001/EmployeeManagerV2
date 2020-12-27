@@ -5,7 +5,7 @@ import {User} from "../entity/User";
 import {Project} from "../entity/Project";
 
 interface IUpdate {
-    addHour?: number,
+    newHours?: number,
     isActive?: boolean,
 }
 
@@ -72,6 +72,7 @@ export const removeProjectUser = async (req:Request, res:Response) =>{
 export const updateProjectUser = async  (req:Request, res:Response) =>{
 
     const id = req.params.id
+
     const projectUserRepository = getRepository(ProjectUser)
     const projectUser = await projectUserRepository.findOne({where:{id}, relations:['user','project']})
 
@@ -79,12 +80,13 @@ export const updateProjectUser = async  (req:Request, res:Response) =>{
         res.status(404).end()
         return
     }
-    const { addHour,isActive } = req.body as IUpdate;
+
+    const { newHours,isActive } = req.body as IUpdate;
+    console.log(newHours)
     if(isActive != undefined)
         projectUser.isActive = isActive
-    if(addHour != undefined)
-        projectUser.hour += addHour
-
+    if(newHours != undefined)
+        projectUser.hour +=  + +newHours
     await projectUserRepository.save(projectUser)
     res.status(204).end()
 

@@ -92,7 +92,7 @@ export const Editor = () =>{
 
 
     const removeEmployee = async (id:string) =>{
-        const res = await Fetch(`${config.API_URL}${AppRoute.projectUser}/${id}`,Method.PUT, {
+        const res = await Fetch(`${config.API_URL}/projectUser/${id}`,Method.PUT, {
             isActive:false
         })
         if(res.status === 204){
@@ -108,7 +108,7 @@ export const Editor = () =>{
     }
 
     const deleteEmployee = async (id:string) =>{
-        const res = await Fetch(`${config.API_URL}${AppRoute.projectUser}/${id}`,Method.DELETE,{})
+        const res = await Fetch(`${config.API_URL}/projectUser/${id}`,Method.DELETE,{})
         if(res.status === 204){
             if(project) {
                 const projectUser = project.users.filter(user => user.projectUserID !== id)
@@ -130,7 +130,7 @@ export const Editor = () =>{
         }
     }
     const restoreEmployee = async (id:string) =>{
-        const res = await Fetch(`${config.API_URL}${AppRoute.projectUser}/${id}`,Method.PUT, {
+        const res = await Fetch(`${config.API_URL}/projectUser/${id}`,Method.PUT, {
             isActive:true
         })
         if(res.status === 204){
@@ -269,7 +269,7 @@ export const Editor = () =>{
         items.push({
             type : project.isActive ? typeButton.normal : typeButton.update,
             show : ShowType.ADMIN,
-            label: project.isActive ? t('button.restore')  :  t('button.archive'),
+            label: project.isActive ? t('button.archive')  :  t('button.restore'),
             onClick: handleArchive
         })
         items.push({
@@ -288,7 +288,7 @@ export const Editor = () =>{
     const handleSaveUserToProject = async() =>{
         if(!addUser)
             return
-        const res = await Fetch(`${config.API_URL}${AppRoute.projectUser}`,Method.POST, {
+        const res = await Fetch(`${config.API_URL}/projectUser`,Method.POST, {
             userID: addUser.value,
             projectID: id
         })

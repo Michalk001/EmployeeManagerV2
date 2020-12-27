@@ -9,7 +9,6 @@
   z-index: 7;
   overflow-y: scroll;
   bottom: 0;
-
   top: 0;
   padding-top: 45px;
   box-sizing: border-box;
@@ -20,6 +19,7 @@
 
   @media (max-width:768px) {
     width: 100%;
+    padding-top: 0;
   }
 
   &--close & {

@@ -19,4 +19,5 @@ export interface IProjectUserProfile {
     isActive:boolean
     id:string
     projectUserID:string
+    hours?:number
 }

@@ -28,7 +28,7 @@ interface Iprops {
             return showPassword ?  TypeInput.text : TypeInput.password
         }
 
-        return  TypeInput.text
+        return type
      }
 
     return <div className={`${styles["input__wrap"]} ${classWrap}`}>

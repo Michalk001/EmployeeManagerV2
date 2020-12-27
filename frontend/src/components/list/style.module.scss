@@ -15,6 +15,8 @@
     justify-content: space-between;
     padding: 5px 10px;
     position: relative;
+    flex-wrap: wrap;
+    
     &--title{
       padding: 10px 10px ;
     }
@@ -31,9 +33,18 @@
     font-size: 18px;
     &--wide{
       width: 300px;
+      @media (max-width: 767px) {
+        width: 200px;
+      }
+      @media (max-width: 424px) {
+        width: 100px;
+      }
     }
     &--normal{
       width: 200px;
+      @media (max-width: 767px) {
+        width: 100px;
+      }
     }
     &--small{
       width: 100px;
@@ -42,7 +53,11 @@
   &__radio-button{
     cursor: pointer;
     font-size: 19px;
+    padding: 2px 0;
+    @media (max-width: 463px) {
+      font-size: 22px;
 
+    }
     &--active{
       color: #31a8ff;
     }
@@ -57,6 +72,12 @@
       padding: 13px 20px;
       transition-duration: 0.5s;
       outline: none;
+      @media (max-width: 463px) {
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
     }
     &--radio{
       position: absolute;

@@ -172,7 +172,8 @@ export const getProject = async (req:Request, res:Response) =>{
                 lastName: item.user.lastName,
                 username: item.user.username,
                 isActive: item.isActive,
-                projectUserID: item.id
+                projectUserID: item.id,
+                hours : item.hour
             }
         })
 
@@ -180,8 +181,7 @@ export const getProject = async (req:Request, res:Response) =>{
             users,
             name: project.name,
             description: project.description,
-            isActive: project.isActive
-
+            isActive: project.isActive,
         }
         res.send(data)
         return

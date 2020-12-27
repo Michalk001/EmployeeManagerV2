@@ -3,6 +3,8 @@
 interface CssExports {
   'project-profile__item': string;
   'project-profile__item--description': string;
+  'project-profile__item--hours': string;
+  'project-profile__item--hours-input': string;
   'project-profile__item--title-list': string;
   'project-profile__item--top-line': string;
   'project-profile__item--value': string;

@@ -48,7 +48,10 @@
     "inactiveEmployee": "Nieaktywni Pracownicy",
     "employees": "Pracownicy",
     "notFoundProjects": "Nie Znaleziono Projektów",
-    "noEmployees": "Brak Pracowników"
+    "noEmployees": "Brak Pracowników",
+    "workHours": "Godziny Pracy",
+    "addWorkHours": "Dodaj Godziny",
+    "removeWorkHours": "Usuń Godziny"
   },
   "user": {
     "createdUser": "Stworzono użytkownika",

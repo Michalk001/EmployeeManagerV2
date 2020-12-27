@@ -27,6 +27,7 @@
   }
   &__item{
     margin: 5px 10px;
+
     &--description{
       box-shadow: -1px 3px 20px -8px rgba(0, 0, 0, 0.56);
       -webkit-box-shadow: -1px 3px 20px -8px rgba(0, 0, 0, 0.56);
@@ -41,6 +42,13 @@
       padding-top: 5px;
       margin-top: 10px;
 
+    }
+    &--hours{
+      display: flex;
+      column-gap: 15px;
+    }
+    &--hours-input{
+      width: 150px;
     }
     &--top-line{
       position: relative;

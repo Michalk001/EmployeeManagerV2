@@ -13,7 +13,7 @@
   font-size: 18px;
   border: 1px solid #cccccc;
   border-radius: 5px;
-  padding: 13px 10px;
+  padding: 10px 10px;
   transition-duration: 0.5s;
   outline: none;
   @include webkit-autofill(#fff);
@@ -50,7 +50,7 @@
   }
   &__wrap{
     position: relative;
-    margin: 10px;
+  //  margin: 10px;
   }
   &__ico-eye{
     position: absolute;

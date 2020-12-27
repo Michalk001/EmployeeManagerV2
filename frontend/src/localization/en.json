@@ -48,7 +48,10 @@
     "inactiveEmployee": "Inactive Employee",
     "employees": "Employees",
     "notFoundProjects": "No Found Projects",
-    "noEmployees": "No Employees"
+    "noEmployees": "No Employees",
+    "workHours": "Work Hours",
+    "addWorkHours": "Add Hours",
+    "removeWorkHours": "Remove Hours"
   },
   "user": {
     "createdUser": "Created User",

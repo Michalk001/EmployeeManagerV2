@@ -1,5 +1,6 @@
 export enum TypeInput{
     text="text",
-    password="password"
+    password="password",
+    number="number"
 }
 
