@@ -160,7 +160,7 @@ export const Create = () =>{
                     label={t('button.create')}
                     typeAction={typeButtonAction.submit}
                     typeButton={typeButton.normal}
-                    classWrap={`project__button-save-position`}
+                    classWrap={`${styles[`project__button-save-position`]}`}
                 />
             </form>
             <Snackbar

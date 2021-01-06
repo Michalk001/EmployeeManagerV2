@@ -338,7 +338,6 @@ export const Editor = () =>{
                 labelName={t('project.name')}
                 type={TypeInput.text}
                 classWrap={`${styles[`project__field`]}`}
-              //  showRequired={invalidField.name}
             />
             <InputTextarea
                 value={project.description}
@@ -358,7 +357,7 @@ export const Editor = () =>{
                     isMulti={false}
                     classWrap={styles.addSelect}
                 />
-                <Button label={t('button.add')}typeAction={typeButtonAction.button} typeButton={typeButton.normal} onClick={handleSaveUserToProject} />
+                <Button label={t('button.add')} typeAction={typeButtonAction.button} typeButton={typeButton.normal} onClick={handleSaveUserToProject} />
             </div>
             {project.isActive && <>
                 <ProfileActionList

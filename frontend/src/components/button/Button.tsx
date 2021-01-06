@@ -14,11 +14,15 @@ interface IProps {
 }
 
 const getClassByType = (type:typeButton) =>{
-    if(type === typeButton.remove)
-        return `${styles[`button--remove`]}`
-    if(type === typeButton.update)
-        return `${styles[`button--update`]}`
-    return ''
+    switch (type) {
+      case typeButton.remove: {
+          return `${styles[`button--remove`]}`
+      }
+      case typeButton.update: {
+            return `${styles[`button--update`]}`
+        }
+    }
+
 }
 
 const Button:FC<IProps> = (props) =>{
