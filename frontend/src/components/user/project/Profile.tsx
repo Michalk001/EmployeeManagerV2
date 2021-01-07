@@ -36,7 +36,7 @@ export const Profile = () =>{
         setCurrentUserData(currentUser)
         setProject(projectTmp)
 
-    },[id])
+    },[id,state.accountState.userData?.username])
 
     const updateNewHours = (e:ChangeEvent<HTMLInputElement>) =>{
         if(e.target){
@@ -135,13 +135,13 @@ export const Profile = () =>{
                             label={t('project.addWorkHours')}
                             typeAction={typeButtonAction.button}
                             typeButton={typeButton.normal}
-                            onClick={(e) => handleNewHours(true)}
+                            onClick={() => handleNewHours(true)}
                         />
                         <Button
                             label={t('project.removeWorkHours')}
                             typeAction={typeButtonAction.button}
                             typeButton={typeButton.normal}
-                            onClick={(e) => handleNewHours(false)}
+                            onClick={() => handleNewHours(false)}
                         />
                     </div>
                 </> }
